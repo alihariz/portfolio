@@ -3,8 +3,10 @@ import { ProjectCard } from '../features/ProjectCard';
 import { ProjectFilter } from '../features/ProjectFilter';
 import { ProjectModal } from '../features/ProjectModal';
 import { useFilter } from '../../hooks/useFilter';
-import projectsData from '../../data/projects.json';
-import type { Project } from '../../types/project.types';
+import projectsDataRaw from '../../data/projects.json';
+import type { Project, ProjectsData } from '../../types/project.types';
+
+const projectsData = projectsDataRaw as ProjectsData;
 
 export const Projects: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);

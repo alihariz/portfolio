@@ -1,6 +1,9 @@
 import React from 'react';
 import { SkillCategory } from '../features/SkillCategory';
-import skillsData from '../../data/skills.json';
+import skillsDataRaw from '../../data/skills.json';
+import type { SkillsData } from '../../types/skill.types';
+
+const skillsData = skillsDataRaw as SkillsData;
 
 export const Skills: React.FC = () => {
   return (

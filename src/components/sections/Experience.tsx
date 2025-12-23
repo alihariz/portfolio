@@ -1,5 +1,4 @@
 import React from 'react';
-import { TimelineItem } from '../features/TimelineItem';
 import { Card } from '../ui/Card';
 import experienceData from '../../data/experience.json';
 
