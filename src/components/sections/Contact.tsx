@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi';
+import emailjs from '@emailjs/browser';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import profileData from '../../data/profile.json';
@@ -28,13 +29,25 @@ export const Contact: React.FC = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    // TODO: Integrate with EmailJS
-    // For now, simulate submission
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Send email using EmailJS
+      await emailjs.send(
+        'service_8t64rbo',
+        'template_manwzwt',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          time: new Date().toLocaleString(),
+        },
+        'nEOkHice5uDGS8jTV'
+      );
+
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
+      console.error('Email send failed:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
