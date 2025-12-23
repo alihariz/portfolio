@@ -1,0 +1,304 @@
+{
+  "skillCategories": [
+    {
+      "id": "cat-1",
+      "category": "Programming Languages",
+      "icon": "code",
+      "skills": [
+        {
+          "name": "JavaScript",
+          "level": "Advanced",
+          "percentage": 90,
+          "yearsOfExperience": 3
+        },
+        {
+          "name": "Python",
+          "level": "Advanced",
+          "percentage": 90,
+          "yearsOfExperience": 3
+        },
+        {
+          "name": "HTML5",
+          "level": "Advanced",
+          "percentage": 95,
+          "yearsOfExperience": 3
+        },
+        {
+          "name": "CSS3",
+          "level": "Advanced",
+          "percentage": 90,
+          "yearsOfExperience": 3
+        },
+        {
+          "name": "TypeScript",
+          "level": "Intermediate",
+          "percentage": 70,
+          "yearsOfExperience": 1
+        },
+        {
+          "name": "Java",
+          "level": "Intermediate",
+          "percentage": 70,
+          "yearsOfExperience": 2
+        },
+        {
+          "name": "C++",
+          "level": "Intermediate",
+          "percentage": 65,
+          "yearsOfExperience": 2
+        },
+        {
+          "name": "C#",
+          "level": "Beginner",
+          "percentage": 40,
+          "yearsOfExperience": 1
+        },
+        {
+          "name": "Dart",
+          "level": "Beginner",
+          "percentage": 35,
+          "yearsOfExperience": 0.5
+        }
+      ]
+    },
+    {
+      "id": "cat-2",
+      "category": "Web Development",
+      "icon": "globe",
+      "skills": [
+        {
+          "name": "Vue.js",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "React",
+          "level": "Intermediate",
+          "percentage": 70
+        },
+        {
+          "name": "PHP Slim Framework",
+          "level": "Intermediate",
+          "percentage": 75
+        },
+        {
+          "name": "Spring Framework",
+          "level": "Intermediate",
+          "percentage": 65
+        },
+        {
+          "name": "Tailwind CSS",
+          "level": "Advanced",
+          "percentage": 80
+        },
+        {
+          "name": "ASP.NET MVC",
+          "level": "Beginner",
+          "percentage": 50
+        }
+      ]
+    },
+    {
+      "id": "cat-3",
+      "category": "Machine Learning & AI",
+      "icon": "brain",
+      "skills": [
+        {
+          "name": "DistilBERT",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "BART",
+          "level": "Advanced",
+          "percentage": 80
+        },
+        {
+          "name": "SpaCy NER",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "Hugging Face Transformers",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "scikit-learn",
+          "level": "Intermediate",
+          "percentage": 75
+        },
+        {
+          "name": "NLP",
+          "level": "Advanced",
+          "percentage": 85
+        }
+      ]
+    },
+    {
+      "id": "cat-4",
+      "category": "Google Ecosystem",
+      "icon": "cloud",
+      "skills": [
+        {
+          "name": "Google Apps Script",
+          "level": "Advanced",
+          "percentage": 90
+        },
+        {
+          "name": "Google Workspace APIs",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "Google Sheets API",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "Google OAuth",
+          "level": "Advanced",
+          "percentage": 80
+        },
+        {
+          "name": "Google Colab",
+          "level": "Advanced",
+          "percentage": 85
+        }
+      ]
+    },
+    {
+      "id": "cat-5",
+      "category": "Database & Backend",
+      "icon": "database",
+      "skills": [
+        {
+          "name": "MySQL",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "SQL Server",
+          "level": "Intermediate",
+          "percentage": 70
+        },
+        {
+          "name": "Hibernate ORM",
+          "level": "Intermediate",
+          "percentage": 65
+        },
+        {
+          "name": "RESTful APIs",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "JWT Authentication",
+          "level": "Advanced",
+          "percentage": 80
+        }
+      ]
+    },
+    {
+      "id": "cat-6",
+      "category": "DevOps & Tools",
+      "icon": "tools",
+      "skills": [
+        {
+          "name": "Git/GitHub",
+          "level": "Advanced",
+          "percentage": 90
+        },
+        {
+          "name": "DigitalOcean",
+          "level": "Intermediate",
+          "percentage": 75
+        },
+        {
+          "name": "Netlify",
+          "level": "Intermediate",
+          "percentage": 75
+        },
+        {
+          "name": "Apache",
+          "level": "Intermediate",
+          "percentage": 70
+        },
+        {
+          "name": "VS Code",
+          "level": "Advanced",
+          "percentage": 95
+        },
+        {
+          "name": "JIRA",
+          "level": "Intermediate",
+          "percentage": 70
+        }
+      ]
+    },
+    {
+      "id": "cat-7",
+      "category": "Design & Documentation",
+      "icon": "design",
+      "skills": [
+        {
+          "name": "UI/UX Design",
+          "level": "Intermediate",
+          "percentage": 75
+        },
+        {
+          "name": "Canva",
+          "level": "Expert",
+          "percentage": 95
+        },
+        {
+          "name": "Enterprise Architect",
+          "level": "Intermediate",
+          "percentage": 65
+        },
+        {
+          "name": "Technical Writing",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "Microsoft Office Suite",
+          "level": "Expert",
+          "percentage": 95
+        }
+      ]
+    },
+    {
+      "id": "cat-8",
+      "category": "Development Practices",
+      "icon": "practices",
+      "skills": [
+        {
+          "name": "Full-Stack Development",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "System Migration",
+          "level": "Advanced",
+          "percentage": 85
+        },
+        {
+          "name": "Agile Methodology",
+          "level": "Intermediate",
+          "percentage": 75
+        },
+        {
+          "name": "Code Review",
+          "level": "Intermediate",
+          "percentage": 70
+        },
+        {
+          "name": "Testing (ISTQB CTFL)",
+          "level": "Intermediate",
+          "percentage": 75
+        }
+      ]
+    }
+  ]
+}

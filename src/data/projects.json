@@ -1,0 +1,365 @@
+{
+  "projects": [
+    {
+      "id": "proj-1",
+      "title": "Finance Letter Generator System Migration",
+      "subtitle": "MAHB Industrial Training",
+      "category": "Full-Stack Development",
+      "type": "Enterprise",
+      "status": "Completed",
+      "featured": true,
+      "startDate": "2025-09",
+      "endDate": "2025-11",
+      "shortDescription": "Migrated legacy VB.NET finance letter generator to modern Google Apps Script platform",
+      "description": "Led the complete migration of a legacy VB.NET finance letter generator system to a modern Google Apps Script platform, serving the Finance Department operations. Developed a full-stack solution with responsive web interface and backend API, implementing Google OAuth authentication and role-based access control.",
+      "technologies": [
+        "Google Apps Script",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "Google Sheets API",
+        "Google OAuth",
+        "VB.NET"
+      ],
+      "achievements": [
+        "Achieved 95% visual similarity with legacy system through pixel-perfect HTML-to-PDF template optimization",
+        "Implemented base64 image embedding and session management",
+        "Created 5000+ word technical documentation and 65+ page setup guide",
+        "Deployed role-based access control (Admin/Viewer)"
+      ],
+      "responsibilities": [
+        "Legacy system analysis and migration planning",
+        "Full-stack development (frontend + backend + API)",
+        "Authentication and authorization implementation",
+        "Technical documentation and user guides"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "Full-Stack",
+        "System Migration",
+        "Google Apps Script",
+        "Enterprise",
+        "OAuth"
+      ]
+    },
+    {
+      "id": "proj-2",
+      "title": "Customer Feedback AI Classification System",
+      "subtitle": "MAHB Industrial Training",
+      "category": "Machine Learning",
+      "type": "Enterprise",
+      "status": "Completed",
+      "featured": true,
+      "startDate": "2025-10",
+      "endDate": "2025-12",
+      "shortDescription": "Hybrid AI classifier for multilingual customer feedback categorization",
+      "description": "Developed a sophisticated hybrid AI classification system combining DistilBERT, similarity-based methods, and keyword matching for customer feedback categorization across 268 categories with multilingual support (English, Chinese, Japanese, Arabic).",
+      "technologies": [
+        "Python",
+        "DistilBERT",
+        "BART",
+        "SpaCy",
+        "Hugging Face Transformers",
+        "scikit-learn",
+        "Google Colab",
+        "NLP"
+      ],
+      "achievements": [
+        "Achieved 67x confidence improvement (0.87% → 58.03%) addressing severe class imbalance",
+        "Built multilingual entity extraction system using SpaCy NER for 4+ languages",
+        "Implemented BART-based complaint summarization with 40.4% compression rate",
+        "Created integrated 3-step pipeline: classification → summarization → entity extraction"
+      ],
+      "responsibilities": [
+        "ML model development and optimization",
+        "Multilingual NLP implementation",
+        "Pipeline architecture design",
+        "Validation and quality assurance"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "Machine Learning",
+        "NLP",
+        "Python",
+        "DistilBERT",
+        "BART",
+        "Multilingual",
+        "Classification"
+      ]
+    },
+    {
+      "id": "proj-3",
+      "title": "Hardware Asset Migration Project",
+      "subtitle": "MAHB Industrial Training",
+      "category": "Data Engineering",
+      "type": "Enterprise",
+      "status": "Completed",
+      "featured": false,
+      "startDate": "2025-11",
+      "endDate": "2025-12",
+      "shortDescription": "Migrated 20,923 company hardware assets to production system",
+      "description": "Successfully migrated 20,923 company hardware assets from Google Sheets to production helpdesk system with comprehensive data cleaning and validation procedures.",
+      "technologies": [
+        "Python",
+        "Google Sheets",
+        "CSV Processing",
+        "Data Validation"
+      ],
+      "achievements": [
+        "Performed extensive data cleaning and CSV formatting",
+        "Troubleshot complex serialization and import issues",
+        "Implemented data verification procedures ensuring 100% accuracy post-migration"
+      ],
+      "responsibilities": [
+        "Data extraction and transformation",
+        "Data cleaning and validation",
+        "Production deployment troubleshooting"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "Data Migration",
+        "Python",
+        "Data Cleaning",
+        "ETL"
+      ]
+    },
+    {
+      "id": "proj-4",
+      "title": "Eraman Survey & Audit System Documentation",
+      "subtitle": "MAHB Industrial Training",
+      "category": "Technical Documentation",
+      "type": "Enterprise",
+      "status": "Completed",
+      "featured": false,
+      "startDate": "2025-11",
+      "endDate": "2025-12",
+      "shortDescription": "Comprehensive documentation for legacy ASP.NET MVC application",
+      "description": "Created comprehensive software documentation for legacy ASP.NET MVC 5 application, analyzing complex database schema and system architecture.",
+      "technologies": [
+        "ASP.NET MVC 5",
+        "SQL Server",
+        "Technical Writing"
+      ],
+      "achievements": [
+        "Analyzed 6,841-line database schema and 18 controllers",
+        "Documented system architecture, security mechanisms, and API specifications",
+        "Provided UI/UX consulting for internal projects"
+      ],
+      "responsibilities": [
+        "Legacy code analysis",
+        "Technical documentation writing",
+        "UI/UX consulting"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "Documentation",
+        "ASP.NET",
+        "SQL Server",
+        "Legacy Systems"
+      ]
+    },
+    {
+      "id": "proj-5",
+      "title": "Finance Manager Web Application",
+      "subtitle": "Academic Project",
+      "category": "Full-Stack Development",
+      "type": "Academic",
+      "status": "Completed",
+      "featured": true,
+      "startDate": "2024-09",
+      "endDate": "2024-12",
+      "shortDescription": "Responsive personal finance web app with full DevOps workflow",
+      "description": "Built a responsive personal finance web application using Vue.js frontend and PHP Slim Framework backend, with complete ownership of the DevOps workflow including deployment on DigitalOcean and Netlify.",
+      "technologies": [
+        "Vue.js",
+        "PHP Slim",
+        "MySQL",
+        "Chart.js",
+        "DigitalOcean",
+        "Netlify",
+        "Apache",
+        "Certbot",
+        "DuckDNS",
+        "Git"
+      ],
+      "achievements": [
+        "Implemented JWT-based authentication",
+        "Built real-time transaction management",
+        "Created interactive analytics dashboards using Chart.js",
+        "Configured secure HTTPS setup using DuckDNS + Certbot",
+        "Authored detailed fullstack deployment guide"
+      ],
+      "responsibilities": [
+        "Full-stack development",
+        "DevOps and deployment",
+        "Server configuration",
+        "Documentation"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "Vue.js",
+        "PHP",
+        "Full-Stack",
+        "DevOps",
+        "MySQL",
+        "Chart.js"
+      ]
+    },
+    {
+      "id": "proj-6",
+      "title": "HARDA - Hazard Assessment Road Detection Application",
+      "subtitle": "Final Year Project (In-Progress)",
+      "category": "Machine Learning",
+      "type": "Academic",
+      "status": "In Progress",
+      "featured": true,
+      "startDate": "2025-09",
+      "endDate": "2026-06",
+      "shortDescription": "Image recognition system for road hazard detection and mapping",
+      "description": "Currently developing a system for final year project that uses image recognition models to identify and classify different types of road hazards from user-submitted images, with geo-location tracking on a map.",
+      "technologies": [
+        "Image Recognition",
+        "Machine Learning",
+        "Computer Vision",
+        "Geolocation API"
+      ],
+      "achievements": [
+        "Completed proposal stage",
+        "Designed system architecture"
+      ],
+      "responsibilities": [
+        "ML model development",
+        "Image classification",
+        "Geographic mapping integration"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "Machine Learning",
+        "Computer Vision",
+        "Image Recognition",
+        "FYP",
+        "In Progress"
+      ]
+    },
+    {
+      "id": "proj-7",
+      "title": "Dengue Surveillance App",
+      "subtitle": "Academic Project - Project Lead",
+      "category": "Full-Stack Development",
+      "type": "Academic",
+      "status": "Completed",
+      "featured": false,
+      "startDate": "2024-02",
+      "endDate": "2024-05",
+      "shortDescription": "System to report and analyze dengue cases by severity",
+      "description": "Led a team of 4 developers to create a system for reporting and analyzing dengue cases in the area, with classification according to severity. Used JIRA for project management and GitHub for version control.",
+      "technologies": [
+        "JIRA",
+        "GitHub",
+        "Agile"
+      ],
+      "achievements": [
+        "Led team of 4 developers",
+        "Delivered project on time",
+        "Implemented severity classification"
+      ],
+      "responsibilities": [
+        "Project leadership",
+        "Team coordination",
+        "Development"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "Team Lead",
+        "Agile",
+        "JIRA",
+        "Healthcare"
+      ]
+    },
+    {
+      "id": "proj-8",
+      "title": "Low Carbon Management System",
+      "subtitle": "Academic Project - Developer",
+      "category": "Full-Stack Development",
+      "type": "Academic",
+      "status": "Completed",
+      "featured": false,
+      "startDate": "2023-09",
+      "endDate": "2023-12",
+      "shortDescription": "Carbon footprint tracking system for organizations",
+      "description": "Developed a system to manage carbon footprint within organizations by tracking carbon emissions produced. Built using Spring framework and connected to phpMyAdmin database using Hibernate ORM.",
+      "technologies": [
+        "Spring Framework",
+        "Hibernate ORM",
+        "phpMyAdmin",
+        "Java"
+      ],
+      "achievements": [
+        "Implemented carbon tracking functionality",
+        "Database integration with Hibernate ORM"
+      ],
+      "responsibilities": [
+        "Backend development",
+        "Database design",
+        "ORM implementation"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "Spring",
+        "Java",
+        "Hibernate",
+        "Database"
+      ]
+    },
+    {
+      "id": "proj-9",
+      "title": "UTM Bus Tracking System",
+      "subtitle": "Academic Project - Software Designer",
+      "category": "Software Design",
+      "type": "Academic",
+      "status": "Completed",
+      "featured": false,
+      "startDate": "2023-02",
+      "endDate": "2023-05",
+      "shortDescription": "System architecture design for campus bus tracking",
+      "description": "Designed the architecture for a system to track buses within the UTM campus using Enterprise Architect to construct various diagrams needed to construct the system.",
+      "technologies": [
+        "Enterprise Architect",
+        "UML",
+        "System Design"
+      ],
+      "achievements": [
+        "Created comprehensive system architecture",
+        "Designed UML diagrams"
+      ],
+      "responsibilities": [
+        "System architecture design",
+        "UML diagram creation",
+        "Documentation"
+      ],
+      "links": {},
+      "images": [],
+      "tags": [
+        "System Design",
+        "UML",
+        "Enterprise Architect"
+      ]
+    }
+  ],
+  "categories": [
+    "All",
+    "Full-Stack Development",
+    "Machine Learning",
+    "Data Engineering",
+    "Software Design",
+    "Technical Documentation"
+  ]
+}

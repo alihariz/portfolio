@@ -1,0 +1,60 @@
+{
+  "education": [
+    {
+      "id": "edu-1",
+      "institution": "Universiti Teknologi Malaysia",
+      "degree": "Bachelor of Computer Science (Software Engineering) with Honours",
+      "location": "Johor Bahru, Malaysia",
+      "startDate": "2022-10",
+      "endDate": "2026-07",
+      "current": true,
+      "gpa": "3.43",
+      "maxGpa": "4.00",
+      "highlights": [
+        "Software Engineering specialization",
+        "Full-stack development focus",
+        "Machine learning projects"
+      ],
+      "relevantCourses": [
+        "Software Engineering",
+        "Data Structures & Algorithms",
+        "Database Systems",
+        "Web Development",
+        "Machine Learning"
+      ]
+    },
+    {
+      "id": "edu-2",
+      "institution": "Kolej Mara Kuala Nerang",
+      "degree": "Foundation of Engineering & Technology",
+      "location": "Kedah, Malaysia",
+      "startDate": "2021-07",
+      "endDate": "2022-07",
+      "current": false,
+      "gpa": "4.00",
+      "maxGpa": "4.00",
+      "highlights": [
+        "Perfect GPA",
+        "MUET Band 4.0"
+      ],
+      "certifications": [
+        "MUET Band 4.0 (Professional English Proficiency)"
+      ]
+    },
+    {
+      "id": "edu-3",
+      "institution": "Maktab Rendah Sains MARA (MRSM)",
+      "degree": "Secondary Education",
+      "location": "Malaysia",
+      "startDate": "2016-01",
+      "endDate": "2021-03",
+      "current": false,
+      "achievements": "SPM Grade: 1A+, 6A, 2B",
+      "certifications": [
+        "Sijil Pelajaran Malaysia (SPM)",
+        "Cambridge International General Certificate of Secondary Education (IGCSE)",
+        "Cambridge Lower Secondary Checkpoint"
+      ]
+    }
+  ]
+}

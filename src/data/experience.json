@@ -1,0 +1,62 @@
+{
+  "experience": [
+    {
+      "id": "exp-1",
+      "company": "Malaysia Airports Holdings Berhad (MAHB)",
+      "position": "Industrial Training - IT Division",
+      "department": "Data & Delivery Department (Digital Development Operations)",
+      "location": "Sepang, Malaysia",
+      "startDate": "2025-09",
+      "endDate": "2026-02",
+      "current": true,
+      "type": "Internship",
+      "accomplishments": [
+        {
+          "title": "Finance Letter Generator Migration",
+          "description": "Led migration of legacy finance letter generator from VB.NET to Google Apps Script, serving Finance Department operations",
+          "impact": "Modernized legacy system for improved maintainability and achieved 95% visual similarity with legacy system",
+          "technologies": ["Google Apps Script", "VB.NET", "JavaScript", "HTML5", "CSS3", "Google OAuth"]
+        },
+        {
+          "title": "AI Classification System Development",
+          "description": "Developed hybrid AI classification system for customer feedback categorization across 268 categories with multilingual support (English, Chinese, Japanese, Arabic)",
+          "impact": "67x confidence improvement (0.87% → 58.03%) addressing severe class imbalance",
+          "technologies": ["Python", "DistilBERT", "BART", "SpaCy", "NLP", "Hugging Face Transformers"]
+        },
+        {
+          "title": "Hardware Asset Migration",
+          "description": "Successfully migrated 20,923 hardware assets to production helpdesk system with comprehensive data cleaning and validation",
+          "impact": "100% accuracy post-migration with extensive data cleaning and CSV formatting",
+          "technologies": ["Python", "Google Sheets", "CSV Processing", "Data Validation"]
+        },
+        {
+          "title": "Technical Documentation",
+          "description": "Created technical documentation for legacy ASP.NET MVC systems and provided UI/UX consulting for internal projects",
+          "impact": "Improved system maintainability and knowledge transfer for legacy applications",
+          "technologies": ["ASP.NET MVC 5", "Technical Writing", "SQL Server"]
+        },
+        {
+          "title": "Cross-functional Collaboration",
+          "description": "Collaborated with cross-functional teams including Finance, IT Operations, and senior management",
+          "impact": "Enhanced team communication and project delivery across departments",
+          "technologies": []
+        },
+        {
+          "title": "Corporate Event Photography",
+          "description": "Served as official photographer for SAP S/4HANA Appreciation Day corporate event",
+          "impact": "Professional event coverage and documentation",
+          "technologies": []
+        }
+      ],
+      "skills": [
+        "Google Apps Script",
+        "Python",
+        "Machine Learning",
+        "System Migration",
+        "Data Analytics",
+        "Technical Documentation",
+        "UI/UX Consulting"
+      ]
+    }
+  ]
+}

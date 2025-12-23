@@ -1,0 +1,64 @@
+{
+  "certificates": [
+    {
+      "id": "cert-1",
+      "name": "ISTQB Certified Tester Foundation Level (CTFL) v4.0",
+      "issuer": "International Software Testing Qualifications Board",
+      "issueDate": "2025-12",
+      "expiryDate": null,
+      "credentialId": "",
+      "credentialUrl": "",
+      "score": "80%",
+      "description": "International Software Testing Qualification covering testing fundamentals, SDLC testing, static testing, test design techniques, and test management.",
+      "skills": [
+        "Software Testing",
+        "SDLC",
+        "Test Design",
+        "Test Management",
+        "Static Testing"
+      ],
+      "featured": true
+    },
+    {
+      "id": "cert-2",
+      "name": "MUET (Malaysian University English Test) - Band 4.0",
+      "issuer": "Malaysian Examinations Council",
+      "issueDate": "2022-03",
+      "expiryDate": null,
+      "credentialId": "",
+      "credentialUrl": "",
+      "score": "Band 4.0",
+      "description": "Professional English proficiency certification demonstrating competent English language skills.",
+      "skills": [
+        "English Proficiency",
+        "Communication",
+        "Professional Writing"
+      ],
+      "featured": false
+    },
+    {
+      "id": "cert-3",
+      "name": "Cambridge International General Certificate of Secondary Education (IGCSE)",
+      "issuer": "Cambridge Assessment International Education",
+      "issueDate": "2021-03",
+      "expiryDate": null,
+      "credentialId": "",
+      "credentialUrl": "",
+      "description": "International secondary education qualification from Cambridge.",
+      "skills": [],
+      "featured": false
+    },
+    {
+      "id": "cert-4",
+      "name": "Cambridge Lower Secondary Checkpoint",
+      "issuer": "Cambridge Assessment International Education",
+      "issueDate": "2019-03",
+      "expiryDate": null,
+      "credentialId": "",
+      "credentialUrl": "",
+      "description": "Cambridge lower secondary achievement certification.",
+      "skills": [],
+      "featured": false
+    }
+  ]
+}

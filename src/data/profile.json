@@ -1,0 +1,27 @@
+{
+  "personal": {
+    "name": "Ali Hariz Bin Anuari",
+    "title": "Software Engineering Student",
+    "subtitle": "Full-Stack Developer | Machine Learning Enthusiast",
+    "email": "thisalihariz08@gmail.com",
+    "alternateEmail": "alihariz@graduate.utm.my",
+    "phone": "+6011-39020840",
+    "location": "Johor, Malaysia",
+    "profileImage": "/assets/images/profile.jpg",
+    "summary": "Final-year Computer Science (Software Engineering) student at Universiti Teknologi Malaysia with hands-on industrial experience at Malaysia Airports Holdings Berhad. Skilled in full-stack development, system migration, machine learning, and data analytics. Proven ability to deliver complex projects including legacy system modernization (VB.NET to Google Apps Script), AI model development for customer feedback classification, and enterprise application development. Experienced in Google Workspace ecosystem, Python ML frameworks, and modern web technologies. ISTQB CTFL v4.0 certified. Seeking opportunities to apply technical expertise in innovative, tech-driven environments.",
+    "availableForWork": true,
+    "graduationDate": "2026-07"
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/ali-hariz-anuari-46549a246/",
+    "github": "https://github.com/alihariz",
+    "email": "thisalihariz08@gmail.com",
+    "resume": "/assets/resume/RESUME_ALI HARIZ.pdf"
+  },
+  "reference": {
+    "name": "Prof Wan Mohd Nasir Wan Kadir",
+    "title": "Academic Advisor",
+    "phone": "+6019-7712410",
+    "email": "wnasir@utm.my"
+  }
+}

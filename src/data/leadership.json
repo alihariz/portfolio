@@ -1,0 +1,128 @@
+{
+  "leadership": [
+    {
+      "id": "lead-1",
+      "title": "Event Crew",
+      "organization": "Glow Night Run",
+      "role": "Event Crew Member",
+      "startDate": "2024-03",
+      "endDate": "2024-03",
+      "current": false,
+      "description": "Actively contributed as a crew member for the Glow Night Run, communicated with external parties and setting up the station for the event.",
+      "responsibilities": [
+        "External stakeholder communication",
+        "Event station setup and management",
+        "Team coordination"
+      ],
+      "achievements": [
+        "Successfully coordinated with external parties",
+        "Ensured smooth event execution"
+      ],
+      "skills": [
+        "Event Management",
+        "Communication",
+        "Teamwork"
+      ]
+    },
+    {
+      "id": "lead-2",
+      "title": "Head of Mastery and Demonstration Department",
+      "organization": "Persatuan Seni Silat Cekak UTM",
+      "role": "Department Head",
+      "startDate": "2023-09",
+      "endDate": "2024-06",
+      "current": false,
+      "description": "Led the Mastery and Demonstration Department, training members according to Seni Silat Cekak Pusaka Hanafi syllabus and organizing martial arts demonstrations within the campus.",
+      "responsibilities": [
+        "Training program coordination",
+        "Demonstration organization and execution",
+        "Department leadership and management"
+      ],
+      "achievements": [
+        "Completed the silat lessons",
+        "Successfully demonstrated martial arts display within the campus",
+        "Managed department activities and training"
+      ],
+      "skills": [
+        "Leadership",
+        "Training & Development",
+        "Performance Management",
+        "Martial Arts"
+      ]
+    },
+    {
+      "id": "lead-3",
+      "title": "Programming Clinic Mentor",
+      "organization": "Universiti Teknologi Malaysia",
+      "role": "Mentor",
+      "startDate": "2023-09",
+      "endDate": "2025-06",
+      "current": false,
+      "description": "Joined the programming clinic annually as a mentor, teaching fresh years about coding concepts and increasing their programming skills.",
+      "responsibilities": [
+        "Teaching programming fundamentals",
+        "One-on-one mentoring sessions",
+        "Code review and guidance"
+      ],
+      "achievements": [
+        "Mentored multiple cohorts of students",
+        "Improved students' programming skills",
+        "Contributed to academic community"
+      ],
+      "skills": [
+        "Mentoring",
+        "Teaching",
+        "Programming",
+        "Communication"
+      ]
+    },
+    {
+      "id": "lead-4",
+      "title": "Academic Visit to Vietnam",
+      "organization": "UTM International Programs",
+      "role": "Participant",
+      "startDate": "2024-06",
+      "endDate": "2024-06",
+      "current": false,
+      "description": "Participated in academic visit to Ho Chi Minh City University of Technology (HCMUT) and VNG Corporation, attending lectures on AI and Cybersecurity.",
+      "responsibilities": [
+        "Academic exchange participation",
+        "Industry visit engagement",
+        "Knowledge sharing"
+      ],
+      "achievements": [
+        "Attended lectures on Artificial Intelligence and Cybersecurity at HCMUT",
+        "Industrial visit to VNG Corporation",
+        "International academic exposure"
+      ],
+      "skills": [
+        "Cross-cultural Communication",
+        "Industry Awareness",
+        "Academic Exchange"
+      ]
+    },
+    {
+      "id": "lead-5",
+      "title": "UTMKL PPG Visit",
+      "organization": "UTM Academic Programs",
+      "role": "Participant",
+      "startDate": "2024-11",
+      "endDate": "2024-11",
+      "current": false,
+      "description": "Attended seminar from PPG IT Council at UTMKL on PPG active involvement in Artificial Intelligence and Machine Learning with their own chatbot ChatPPG.",
+      "responsibilities": [
+        "Seminar participation",
+        "Learning about AI/ML industry applications"
+      ],
+      "achievements": [
+        "Gained insights into industry AI/ML practices",
+        "Learned about ChatPPG development"
+      ],
+      "skills": [
+        "Industry Knowledge",
+        "AI/ML Awareness",
+        "Continuous Learning"
+      ]
+    }
+  ]
+}
