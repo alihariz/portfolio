@@ -13,27 +13,43 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
     return new Date(dateString).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
   };
 
+  // Handle escape key to close modal
+  React.useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
+
   return (
     <div
       className="fixed inset-0 z-50 overflow-y-auto bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
     >
       <div
-        className="bg-background-light dark:bg-background-dark rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-background-light dark:bg-background-dark rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark"
         onClick={(e) => e.stopPropagation()}
+        tabIndex={-1}
       >
         {/* Header */}
         <div className="sticky top-0 bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark p-6 flex items-start justify-between">
           <div className="flex-1">
-            <h2 className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
+            <h2 id="modal-title" className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
               {project.title}
             </h2>
             <p className="text-text-secondary-light dark:text-text-secondary-dark">{project.subtitle}</p>
           </div>
           <button
             onClick={onClose}
-            className="ml-4 p-2 rounded-lg hover:bg-background-light dark:hover:bg-background-dark transition-colors"
-            aria-label="Close"
+            className="ml-4 p-2 rounded-lg hover:bg-background-light dark:hover:bg-background-dark transition-colors focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+            aria-label="Close project details modal"
           >
             <FiX className="h-6 w-6 text-text-primary-light dark:text-text-primary-dark" />
           </button>
@@ -116,7 +132,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                     href={project.links.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-light dark:bg-primary-dark text-white hover:opacity-90 transition-opacity"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-light dark:bg-primary-dark text-white hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+                    aria-label={`View live demo of ${project.title}`}
                   >
                     <FiExternalLink className="h-4 w-4" />
                     Live Demo
@@ -127,7 +144,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                     href={project.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:hover:bg-surface-dark transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark hover:bg-surface-light dark:hover:bg-surface-dark transition-colors focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+                    aria-label={`View source code of ${project.title} on GitHub`}
                   >
                     <FiGithub className="h-4 w-4" />
                     View Source

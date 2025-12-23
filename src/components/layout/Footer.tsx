@@ -50,8 +50,8 @@ export const Footer: React.FC = () => {
                   href={profileData.social.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-background-light dark:bg-background-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all"
-                  aria-label="GitHub"
+                  className="p-2 rounded-lg bg-background-light dark:bg-background-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+                  aria-label="Visit GitHub profile"
                 >
                   <FiGithub className="h-5 w-5" />
                 </a>
@@ -61,16 +61,16 @@ export const Footer: React.FC = () => {
                   href={profileData.social.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-background-light dark:bg-background-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all"
-                  aria-label="LinkedIn"
+                  className="p-2 rounded-lg bg-background-light dark:bg-background-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+                  aria-label="Visit LinkedIn profile"
                 >
                   <FiLinkedin className="h-5 w-5" />
                 </a>
               )}
               <a
                 href={`mailto:${profileData.personal.email}`}
-                className="p-2 rounded-lg bg-background-light dark:bg-background-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all"
-                aria-label="Email"
+                className="p-2 rounded-lg bg-background-light dark:bg-background-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+                aria-label="Send email"
               >
                 <FiMail className="h-5 w-5" />
               </a>

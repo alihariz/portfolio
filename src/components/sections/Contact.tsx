@@ -195,11 +195,14 @@ export const Contact: React.FC = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full"
+                className="w-full transform hover:scale-105 shadow-lg hover:shadow-xl"
                 variant="primary"
               >
                 {isSubmitting ? (
-                  'Sending...'
+                  <>
+                    <span className="inline-block animate-spin mr-2">⏳</span>
+                    Sending...
+                  </>
                 ) : (
                   <>
                     <FiSend className="inline mr-2" />

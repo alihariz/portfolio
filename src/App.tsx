@@ -16,13 +16,13 @@ function App() {
     <ThemeProvider>
       <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
         <Header />
-        <main>
+        <main id="main-content" role="main">
           <Hero />
           <About />
-          <Education />
-          <Experience />
           <Projects />
           <Skills />
+          <Experience />
+          <Education />
           <Certificates />
           <Leadership />
           <Contact />

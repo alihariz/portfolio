@@ -35,15 +35,15 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
             placeholder="Search projects by name, description, or technology..."
           />
         </div>
-        <Button onClick={onReset} variant="outline" className="sm:w-auto">
+        <Button onClick={onReset} variant="outline" className="sm:w-auto" aria-label="Reset all filters">
           <FiRefreshCw className="inline mr-2" />
           Reset
         </Button>
       </div>
 
       {/* Category Filters */}
-      <div>
-        <h3 className="text-sm font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
+      <div role="group" aria-labelledby="category-filter-label">
+        <h3 id="category-filter-label" className="text-sm font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
           Category
         </h3>
         <div className="flex flex-wrap gap-2">
@@ -53,11 +53,13 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
               <button
                 key={category}
                 onClick={() => onCategoryChange(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2 ${
                   isSelected
                     ? 'bg-primary-light dark:bg-primary-dark text-white'
                     : 'bg-surface-light dark:bg-surface-dark text-text-primary-light dark:text-text-primary-dark border border-border-light dark:border-border-dark hover:border-primary-light dark:hover:border-primary-dark'
                 }`}
+                aria-pressed={isSelected}
+                aria-label={`Filter by ${category} category`}
               >
                 {category}
               </button>

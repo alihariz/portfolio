@@ -21,11 +21,11 @@ export const Projects: React.FC = () => {
   };
 
   return (
-    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8" aria-labelledby="projects-heading">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
+          <h2 id="projects-heading" className="text-3xl md:text-4xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
             Projects
           </h2>
           <div className="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto rounded-full mb-4" />

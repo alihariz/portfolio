@@ -14,7 +14,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8">
+    <section id="hero" className="min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8" aria-labelledby="hero-title">
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center animate-fade-in">
           {/* Greeting */}
@@ -23,7 +23,7 @@ export const Hero: React.FC = () => {
           </p>
 
           {/* Name */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
+          <h1 id="hero-title" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
             {personal.name}
           </h1>
 
@@ -47,7 +47,7 @@ export const Hero: React.FC = () => {
               href={social.resume}
               download
               variant="primary"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               <FiDownload className="inline mr-2" />
               Download Resume
@@ -55,10 +55,10 @@ export const Hero: React.FC = () => {
             <Button
               onClick={handleContactClick}
               variant="outline"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto transform hover:scale-105"
             >
               <FiMail className="inline mr-2" />
-              Contact Me
+              Get In Touch
             </Button>
           </div>
 
@@ -69,8 +69,8 @@ export const Hero: React.FC = () => {
                 href={social.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-surface-light dark:bg-surface-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all transform hover:scale-110"
-                aria-label="GitHub"
+                className="p-3 rounded-full bg-surface-light dark:bg-surface-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+                aria-label="Visit GitHub profile"
               >
                 <FiGithub className="h-6 w-6" />
               </a>
@@ -80,23 +80,23 @@ export const Hero: React.FC = () => {
                 href={social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-full bg-surface-light dark:bg-surface-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all transform hover:scale-110"
-                aria-label="LinkedIn"
+                className="p-3 rounded-full bg-surface-light dark:bg-surface-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+                aria-label="Visit LinkedIn profile"
               >
                 <FiLinkedin className="h-6 w-6" />
               </a>
             )}
             <a
               href={`mailto:${personal.email}`}
-              className="p-3 rounded-full bg-surface-light dark:bg-surface-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all transform hover:scale-110"
-              aria-label="Email"
+              className="p-3 rounded-full bg-surface-light dark:bg-surface-dark hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 text-text-primary-light dark:text-text-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+              aria-label="Send email"
             >
               <FiMail className="h-6 w-6" />
             </a>
           </div>
 
           {/* Scroll Indicator */}
-          <div className="mt-16 animate-bounce">
+          <div className="mt-16 animate-bounce" aria-hidden="true">
             <svg
               className="mx-auto h-6 w-6 text-text-secondary-light dark:text-text-secondary-dark"
               fill="none"

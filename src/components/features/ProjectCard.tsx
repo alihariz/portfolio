@@ -27,7 +27,45 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
 
   return (
     <Card hover className={project.featured ? 'border-primary-light dark:border-primary-dark' : ''}>
-      <div onClick={onClick} className="cursor-pointer">
+      <article
+        onClick={onClick}
+        className="cursor-pointer focus-within:ring-2 focus-within:ring-primary-light dark:focus-within:ring-primary-dark rounded-lg outline-none"
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick?.();
+          }
+        }}
+        aria-label={`View details for ${project.title}`}
+      >
+        {/* Project Image */}
+        {project.images && project.images.length > 0 ? (
+          <div className="mb-4 -mx-6 -mt-6 overflow-hidden rounded-t-lg">
+            <img
+              src={project.images[0]}
+              alt={project.title}
+              className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+          </div>
+        ) : (
+          <div className="mb-4 -mx-6 -mt-6 h-48 bg-gradient-to-br from-primary-light/20 to-secondary-light/20 dark:from-primary-dark/20 dark:to-secondary-dark/20 flex items-center justify-center rounded-t-lg">
+            <div className="text-center px-6">
+              <div className="text-4xl mb-2">
+                {project.category === 'Machine Learning' ? '🤖' :
+                 project.category === 'Full-Stack Development' ? '💻' :
+                 project.category === 'Data Engineering' ? '📊' :
+                 project.category === 'Software Design' ? '🎨' : '📁'}
+              </div>
+              <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark font-medium">
+                {project.category}
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="mb-4">
           {project.featured && (
@@ -78,10 +116,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
         </div>
 
         {/* View Details */}
-        <button className="w-full mt-4 py-2 text-sm font-medium text-primary-light dark:text-primary-dark hover:underline">
-          View Details →
+        <button
+          className="w-full mt-4 py-3 px-4 rounded-lg bg-primary-light/10 dark:bg-primary-dark/10 text-primary-light dark:text-primary-dark font-semibold hover:bg-primary-light/20 dark:hover:bg-primary-dark/20 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+          aria-label={`View full details for ${project.title}`}
+        >
+          View Details
+          <span className="text-lg" aria-hidden="true">→</span>
         </button>
-      </div>
+      </article>
     </Card>
   );
 };
