@@ -31,14 +31,14 @@ export const Hero: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-text-secondary-light dark:text-text-secondary-dark mb-2">
             {personal.title}
           </h2>
-          <p className="text-xl sm:text-2xl text-text-secondary-light dark:text-text-secondary-dark mb-8">
+          <p className="text-xl sm:text-2xl text-text-secondary-light dark:text-text-secondary-dark mb-4">
             {personal.subtitle}
           </p>
 
-          {/* Short Summary */}
+          {/* Value Proposition */}
           <p className="max-w-3xl mx-auto text-lg text-text-secondary-light dark:text-text-secondary-dark mb-12 leading-relaxed">
-            Final-year Computer Science student at UTM with industrial experience at MAHB.
-            Specialized in full-stack development, machine learning, and system migration.
+            Building production-ready web applications with React, Vue.js, and Spring Boot •
+            Solving real-world problems with machine learning and NLP
           </p>
 
           {/* CTA Buttons */}

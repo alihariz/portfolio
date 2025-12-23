@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiCalendar, FiTag } from 'react-icons/fi';
+import { FiCalendar, FiTag, FiExternalLink, FiGithub } from 'react-icons/fi';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
 import type { Project } from '../../types/project.types';
@@ -115,12 +115,40 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
           </div>
         </div>
 
-        {/* View Details */}
+        {/* Action Buttons */}
+        <div className="flex gap-3 mt-4">
+          {(project.links.demo || project.links.live) && (
+            <a
+              href={project.links.demo || project.links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex-1 py-3 px-4 rounded-lg bg-primary-light dark:bg-primary-dark text-white font-semibold hover:opacity-90 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+              aria-label={`View live demo of ${project.title}`}
+            >
+              <FiExternalLink className="h-4 w-4" />
+              Live Demo
+            </a>
+          )}
+          {project.links.github && (
+            <a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className={`${(project.links.demo || project.links.live) ? 'flex-1' : 'w-full'} py-3 px-4 rounded-lg border-2 border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark font-semibold hover:border-primary-light dark:hover:border-primary-dark hover:bg-primary-light/5 dark:hover:bg-primary-dark/5 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2`}
+              aria-label={`View source code of ${project.title} on GitHub`}
+            >
+              <FiGithub className="h-4 w-4" />
+              GitHub
+            </a>
+          )}
+        </div>
         <button
-          className="w-full mt-4 py-3 px-4 rounded-lg bg-primary-light/10 dark:bg-primary-dark/10 text-primary-light dark:text-primary-dark font-semibold hover:bg-primary-light/20 dark:hover:bg-primary-dark/20 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+          className="w-full mt-3 py-2 px-4 rounded-lg text-primary-light dark:text-primary-dark font-medium hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
           aria-label={`View full details for ${project.title}`}
         >
-          View Details
+          View Full Details
           <span className="text-lg" aria-hidden="true">→</span>
         </button>
       </article>
