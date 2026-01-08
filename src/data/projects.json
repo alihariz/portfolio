@@ -433,6 +433,62 @@
         "Booking System",
         "Role-Based Access"
       ]
+    },
+    {
+      "id": "proj-11",
+      "title": "Breathe Easy: Respiratory System Explorer",
+      "subtitle": "Interactive Educational Web Application",
+      "category": "Full-Stack Development",
+      "type": "Personal",
+      "status": "Completed",
+      "featured": false,
+      "startDate": "2025-01",
+      "endDate": "2025-01",
+      "shortDescription": "Interactive educational website for learning about the human respiratory system with animations, quizzes, and 3D models",
+      "description": "Developed an interactive educational web application designed to teach biology students about the human respiratory system. The website features interactive anatomy diagrams, breathing animations and simulations, knowledge quizzes, embedded 3D models, and comprehensive disease information—all built with modern vanilla JavaScript using ES6 modules.",
+      "problem": "Biology students often struggle to visualize and understand the complex mechanics of the respiratory system through static textbook diagrams. There was a need for an engaging, interactive learning tool that could make respiratory anatomy and physiology more accessible.",
+      "solution": "Built a comprehensive educational platform with multiple interactive features: clickable anatomy diagrams that display detailed information about each respiratory organ, animated breathing simulations showing the inhalation/exhalation process, embedded 3D Sketchfab models for spatial understanding, and gamified quizzes to test knowledge retention.",
+      "myRole": "Full-stack developer responsible for the entire application architecture. Designed the modular JavaScript structure with separate classes for navigation, anatomy diagrams, breathing animations, and quiz functionality. Implemented responsive CSS with custom properties and created smooth animations for enhanced user engagement.",
+      "outcome": "Created a fully functional educational resource that provides an immersive learning experience. The modular codebase makes it easy to extend with additional content, and the responsive design ensures accessibility across all devices.",
+      "technologies": [
+        "HTML5",
+        "CSS3",
+        "JavaScript (ES6+)",
+        "jQuery",
+        "Sketchfab API",
+        "Font Awesome",
+        "Responsive Design"
+      ],
+      "achievements": [
+        "Built modular JavaScript architecture with 6+ reusable class modules (Navigation, AnatomyDiagram, BreathingAnimation, BreathingSimulation, Quiz, Utils)",
+        "Implemented interactive image map with clickable anatomy regions displaying detailed organ information",
+        "Created dynamic breathing simulation with real-time oxygen level tracking and animated visuals",
+        "Developed comprehensive quiz system with randomized questions, scoring, and answer review functionality",
+        "Integrated 3D Sketchfab models for immersive anatomical exploration",
+        "Designed responsive layout with CSS custom properties and smooth scroll navigation"
+      ],
+      "responsibilities": [
+        "Full-stack development (HTML/CSS/JavaScript)",
+        "Modular JavaScript architecture design using ES6 classes and modules",
+        "Interactive UI/UX implementation with animations and transitions",
+        "Educational content structuring and presentation",
+        "Cross-browser compatibility and responsive design"
+      ],
+      "links": {
+        "demo": "https://g2physio.github.io/",
+        "github": "https://github.com/G2Physio/G2Physio.github.io"
+      },
+      "images": [],
+      "tags": [
+        "Web Development",
+        "JavaScript",
+        "ES6 Modules",
+        "Interactive",
+        "Educational",
+        "Animation",
+        "Responsive Design",
+        "Biology"
+      ]
     }
   ],
   "categories": [
