@@ -35,7 +35,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
     >
       <article
         onClick={onClick}
-        className="cursor-pointer focus-within:ring-2 focus-within:ring-primary-light dark:focus-within:ring-primary-dark rounded-lg outline-none"
+        className="cursor-pointer focus-within:ring-2 focus-within:ring-primary-light dark:focus-within:ring-primary-dark rounded-lg outline-none group"
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
@@ -74,12 +74,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
 
         {/* Header */}
         <div className="mb-4">
-          {project.featured && (
-            <Badge variant="primary" className="mb-2">
-              Featured
-            </Badge>
-          )}
-          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 hover:text-primary-light dark:hover:text-primary-dark transition-colors">
+          <div className="flex items-center gap-2 mb-2">
+            {project.featured && (
+              <Badge variant="primary">
+                ⭐ Featured
+              </Badge>
+            )}
+            <Badge className="text-xs">{project.type}</Badge>
+          </div>
+          <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 group-hover:text-primary-light dark:group-hover:text-primary-dark transition-colors">
             {project.title}
           </h3>
           <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-2">
@@ -88,9 +91,18 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
         </div>
 
         {/* Description */}
-        <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-4 leading-relaxed line-clamp-3">
+        <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3 leading-relaxed line-clamp-2">
           {project.shortDescription}
         </p>
+
+        {/* Quick Preview - Show one key achievement */}
+        {project.achievements && project.achievements.length > 0 && (
+          <div className="mb-4 p-3 bg-primary-light/5 dark:bg-primary-dark/5 rounded-md border-l-2 border-primary-light dark:border-primary-dark">
+            <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
+              <span className="font-semibold text-primary-light dark:text-primary-dark">Key highlight:</span> {project.achievements[0]}
+            </p>
+          </div>
+        )}
 
         {/* Meta Info */}
         <div className="flex items-center justify-between mb-4 text-sm">
@@ -153,11 +165,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
           )}
         </div>
         <button
-          className="w-full mt-3 py-2 px-4 rounded-lg text-primary-light dark:text-primary-dark font-medium hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+          className="w-full mt-3 py-2.5 px-4 rounded-lg text-primary-light dark:text-primary-dark font-semibold hover:bg-primary-light/10 dark:hover:bg-primary-dark/10 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2 border border-primary-light/20 dark:border-primary-dark/20 hover:border-primary-light/50 dark:hover:border-primary-dark/50"
           aria-label={`View full details for ${project.title}`}
         >
-          View Full Details
-          <span className="text-lg" aria-hidden="true">→</span>
+          <span>View Case Study</span>
+          <span className="text-lg transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
         </button>
       </article>
     </Card>
