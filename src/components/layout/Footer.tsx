@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
           {/* About */}
           <div>
             <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-4">
-              Ali Hariz Bin Anuari
+              Ali Hariz Bin Anuari , CTFL
             </h3>
             <p className="text-text-secondary-light dark:text-text-secondary-dark text-sm">
               Software Engineering Student at Universiti Teknologi Malaysia.

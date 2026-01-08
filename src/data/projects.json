@@ -94,7 +94,11 @@
         "RESTful API design with async processing and error handling"
       ],
       "links": {},
-      "images": [],
+      "images": [
+        "/assets/images/projects/ml-classifier/desktop-ui.png",
+        "/assets/images/projects/ml-classifier/pipeline-diagram.png",
+        "/assets/images/projects/ml-classifier/results.png"
+      ],
       "tags": [
         "Machine Learning",
         "Full-Stack",
