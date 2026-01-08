@@ -45,48 +45,55 @@
     },
     {
       "id": "proj-2",
-      "title": "Customer Feedback AI Classification System",
-      "subtitle": "MAHB Industrial Training",
+      "title": "StarDesk ML Complaint Classifier",
+      "subtitle": "Full-Stack ML Application",
       "category": "Machine Learning",
       "type": "Enterprise",
       "status": "Completed",
       "featured": true,
       "startDate": "2025-10",
       "endDate": "2025-12",
-      "shortDescription": "Hybrid AI classifier for multilingual customer feedback categorization",
-      "description": "Developed a sophisticated hybrid AI classification system combining DistilBERT, similarity-based methods, and keyword matching for customer feedback categorization across 268 categories with multilingual support (English, Chinese, Japanese, Arabic).",
+      "shortDescription": "Cross-platform desktop application with ML backend for automated complaint processing and categorization",
+      "description": "Built a production-ready intelligent complaint processing system combining a Python FastAPI ML backend with a cross-platform C# .NET desktop application. The system automatically categorizes customer complaints, extracts key information, and generates concise summaries using transformer-based models, processing airline customer feedback with 95%+ automation rate.",
       "technologies": [
         "Python",
-        "DistilBERT",
-        "BART",
-        "SpaCy",
+        "FastAPI",
+        "C# .NET 8.0",
+        "Avalonia UI",
+        "BERT",
+        "T5",
         "Hugging Face Transformers",
-        "scikit-learn",
-        "Google Colab",
+        "EPPlus",
+        "REST API",
         "NLP"
       ],
       "achievements": [
-        "Achieved 67x confidence improvement (0.87% → 58.03%) addressing severe class imbalance",
-        "Built multilingual entity extraction system using SpaCy NER for 4+ languages",
-        "Implemented BART-based complaint summarization with 40.4% compression rate",
-        "Created integrated 3-step pipeline: classification → summarization → entity extraction"
+        "Automated 95%+ of manual complaint categorization, reducing processing time from hours to minutes",
+        "Built cross-platform desktop app (Windows/Linux/macOS) with zero-installation distribution (103 MB self-contained)",
+        "Implemented hierarchical classification with confidence scoring across 2-level taxonomy",
+        "Created integrated ML pipeline: BERT classification → T5 summarization → NER entity extraction",
+        "Developed robust batch processing with retry logic, atomic writes, and real-time progress tracking"
       ],
       "responsibilities": [
-        "ML model development and optimization",
-        "Multilingual NLP implementation",
-        "Pipeline architecture design",
-        "Validation and quality assurance"
+        "Full-stack development (Python FastAPI backend + C# .NET desktop frontend)",
+        "ML model integration (BERT, T5, NER) with Hugging Face Transformers",
+        "Cross-platform application architecture using MVVM pattern",
+        "Direct Excel file manipulation without Office dependencies (EPPlus)",
+        "RESTful API design with async processing and error handling"
       ],
       "links": {},
       "images": [],
       "tags": [
         "Machine Learning",
-        "NLP",
+        "Full-Stack",
         "Python",
-        "DistilBERT",
-        "BART",
-        "Multilingual",
-        "Classification"
+        "C#",
+        ".NET",
+        "FastAPI",
+        "BERT",
+        "T5",
+        "NLP",
+        "Cross-Platform"
       ]
     },
     {
