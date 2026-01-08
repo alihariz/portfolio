@@ -52,6 +52,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
                 <h2 id="modal-title">{project.title}</h2>
                 <FiExternalLink className="h-5 w-5" />
               </a>
+            ) : project.links.github ? (
+              <a
+                href={project.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2 hover:text-primary-light dark:hover:text-primary-dark transition-colors focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2 rounded"
+                aria-label={`View source code of ${project.title} on GitHub`}
+              >
+                <h2 id="modal-title">{project.title}</h2>
+                <FiGithub className="h-5 w-5" />
+              </a>
             ) : (
               <h2 id="modal-title" className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
                 {project.title}

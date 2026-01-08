@@ -291,7 +291,9 @@
         "Team coordination",
         "Development"
       ],
-      "links": {},
+      "links": {
+        "github": "https://github.com/ALI-HARIZ-PERSONAL/DESaP-ts"
+      },
       "images": [],
       "tags": [
         "Team Lead",
@@ -327,7 +329,9 @@
         "Database design",
         "ORM implementation"
       ],
-      "links": {},
+      "links": {
+        "github": "https://github.com/alihariz/Full-Stack-Architects"
+      },
       "images": [],
       "tags": [
         "Spring",
