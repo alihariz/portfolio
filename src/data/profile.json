@@ -2,13 +2,13 @@
   "personal": {
     "name": "Ali Hariz Bin Anuari",
     "title": "Software Engineering Student",
-    "subtitle": "Full-Stack Developer | Machine Learning Enthusiast",
+    "subtitle": "Full-Stack Developer & ML Engineer",
     "email": "thisalihariz08@gmail.com",
     "alternateEmail": "alihariz@graduate.utm.my",
     "phone": "+6011-39020840",
     "location": "Johor, Malaysia",
     "profileImage": "/assets/images/profile.jpg",
-    "summary": "Final-year Computer Science (Software Engineering) student at Universiti Teknologi Malaysia with hands-on industrial experience at Malaysia Airports Holdings Berhad. Skilled in full-stack development, system migration, machine learning, and data analytics. Proven ability to deliver complex projects including legacy system modernization (VB.NET to Google Apps Script), AI model development for customer feedback classification, and enterprise application development. Experienced in Google Workspace ecosystem, Python ML frameworks, and modern web technologies. ISTQB CTFL v4.0 certified. Seeking opportunities to apply technical expertise in innovative, tech-driven environments.",
+    "summary": "I'm a final-year Software Engineering student at UTM who discovered that the best solutions come from understanding both the technical stack and the problem you're solving. During my 6-month internship at Malaysia Airports Holdings Berhad, I learned this firsthand—migrating a decade-old VB.NET system to Google Apps Script while ensuring zero disruption for the Finance team. I focus on full-stack development and machine learning, not because they're trendy, but because they let me build complete solutions that people actually use. Whether it's automating complaint processing with NLP or deploying a finance app with Chart.js analytics, I care about systems that work reliably in production.",
     "availableForWork": true,
     "graduationDate": "2026-07"
   },

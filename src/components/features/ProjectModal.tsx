@@ -94,15 +94,61 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
             <Badge>{project.category}</Badge>
           </div>
 
-          {/* Description */}
-          <div>
-            <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
-              Description
-            </h3>
-            <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
-              {project.description}
-            </p>
-          </div>
+          {/* Problem-Solution-Outcome (Case Study Format) */}
+          {(project.problem || project.description) && (
+            <div className="space-y-4">
+              {project.problem && (
+                <div>
+                  <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center gap-2">
+                    <span className="text-red-500">●</span> Problem
+                  </h3>
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed pl-5">
+                    {project.problem}
+                  </p>
+                </div>
+              )}
+              {project.solution && (
+                <div>
+                  <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center gap-2">
+                    <span className="text-blue-500">●</span> Solution
+                  </h3>
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed pl-5">
+                    {project.solution}
+                  </p>
+                </div>
+              )}
+              {project.myRole && (
+                <div>
+                  <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center gap-2">
+                    <span className="text-purple-500">●</span> My Role
+                  </h3>
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed pl-5">
+                    {project.myRole}
+                  </p>
+                </div>
+              )}
+              {project.outcome && (
+                <div>
+                  <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2 flex items-center gap-2">
+                    <span className="text-green-500">●</span> Outcome
+                  </h3>
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed pl-5">
+                    {project.outcome}
+                  </p>
+                </div>
+              )}
+              {!project.problem && project.description && (
+                <div>
+                  <h3 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-3">
+                    Description
+                  </h3>
+                  <p className="text-text-secondary-light dark:text-text-secondary-dark leading-relaxed">
+                    {project.description}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Achievements */}
           {project.achievements.length > 0 && (

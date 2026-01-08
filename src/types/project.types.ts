@@ -17,6 +17,10 @@ export interface Project {
   endDate: string;
   shortDescription: string;
   description: string;
+  problem?: string;
+  solution?: string;
+  myRole?: string;
+  outcome?: string;
   technologies: string[];
   achievements: string[];
   responsibilities: string[];

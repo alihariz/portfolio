@@ -23,7 +23,7 @@ export const Hero: React.FC = () => {
           </p>
 
           {/* Name */}
-          <h1 id="hero-title" className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
+          <h1 id="hero-title" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 leading-tight">
             {personal.name}
           </h1>
 
@@ -37,8 +37,7 @@ export const Hero: React.FC = () => {
 
           {/* Value Proposition */}
           <p className="max-w-3xl mx-auto text-lg text-text-secondary-light dark:text-text-secondary-dark mb-12 leading-relaxed">
-            Building production-ready web applications with React, Vue.js, and Spring Boot •
-            Solving real-world problems with machine learning and NLP
+            I build systems that solve real problems—from migrating legacy enterprise applications to automating workflows with machine learning.
           </p>
 
           {/* CTA Buttons */}
@@ -58,7 +57,7 @@ export const Hero: React.FC = () => {
               className="w-full sm:w-auto transform hover:scale-105"
             >
               <FiMail className="inline mr-2" />
-              Get In Touch
+              Contact Me
             </Button>
           </div>
 

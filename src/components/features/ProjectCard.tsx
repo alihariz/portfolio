@@ -26,7 +26,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
   };
 
   return (
-    <Card hover className={project.featured ? 'border-primary-light dark:border-primary-dark' : ''}>
+    <Card
+      hover
+      className={project.featured
+        ? 'border-2 border-primary-light dark:border-primary-dark shadow-lg shadow-primary-light/20 dark:shadow-primary-dark/20'
+        : 'border border-border-light dark:border-border-dark'
+      }
+    >
       <article
         onClick={onClick}
         className="cursor-pointer focus-within:ring-2 focus-within:ring-primary-light dark:focus-within:ring-primary-dark rounded-lg outline-none"
@@ -105,12 +111,14 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
               Technologies:
             </span>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {project.technologies.slice(0, 5).map((tech, index) => (
-              <Badge key={index}>{tech}</Badge>
+          <div className="flex flex-wrap gap-2 min-h-[2rem]">
+            {project.technologies.slice(0, 4).map((tech, index) => (
+              <Badge key={index} className="text-xs">{tech}</Badge>
             ))}
-            {project.technologies.length > 5 && (
-              <Badge>+{project.technologies.length - 5} more</Badge>
+            {project.technologies.length > 4 && (
+              <Badge className="text-xs bg-text-secondary-light/10 dark:bg-text-secondary-dark/10">
+                +{project.technologies.length - 4}
+              </Badge>
             )}
           </div>
         </div>
@@ -123,7 +131,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="flex-1 py-3 px-4 rounded-lg bg-primary-light dark:bg-primary-dark text-white font-semibold hover:opacity-90 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2"
+              className="flex-1 py-3 px-4 rounded-lg bg-primary-light dark:bg-primary-dark text-white font-semibold hover:opacity-90 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2 shadow-md hover:shadow-lg"
               aria-label={`View live demo of ${project.title}`}
             >
               <FiExternalLink className="h-4 w-4" />
@@ -136,11 +144,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className={`${(project.links.demo || project.links.live) ? 'flex-1' : 'w-full'} py-3 px-4 rounded-lg border-2 border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark font-semibold hover:border-primary-light dark:hover:border-primary-dark hover:bg-primary-light/5 dark:hover:bg-primary-dark/5 transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2`}
+              className={`${(project.links.demo || project.links.live) ? 'flex-1' : 'w-full'} py-3 px-4 rounded-lg bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-text-primary-light dark:text-text-primary-dark font-medium hover:border-primary-light dark:hover:border-primary-dark hover:text-primary-light dark:hover:text-primary-dark transition-all duration-200 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2`}
               aria-label={`View source code of ${project.title} on GitHub`}
             >
               <FiGithub className="h-4 w-4" />
-              GitHub
+              Source
             </a>
           )}
         </div>

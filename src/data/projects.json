@@ -12,6 +12,10 @@
       "endDate": "2025-11",
       "shortDescription": "Migrated legacy VB.NET finance letter generator to modern Google Apps Script platform",
       "description": "Led the complete migration of a legacy VB.NET finance letter generator system to a modern Google Apps Script platform, serving the Finance Department operations. Developed a full-stack solution with responsive web interface and backend API, implementing Google OAuth authentication and role-based access control.",
+      "problem": "The Finance Department relied on a decade-old VB.NET desktop application that only worked on specific machines and lacked maintainability. No one understood the original codebase, and the team needed a modern, accessible solution.",
+      "solution": "I led the complete migration to Google Apps Script, rebuilding the system as a web-based platform with Google OAuth authentication and role-based access. The challenge was achieving 95% visual similarity with the legacy PDFs while using modern HTML-to-PDF conversion.",
+      "myRole": "Full-stack development: analyzed the legacy system, built the frontend and backend, implemented authentication, and created 5000+ words of technical documentation.",
+      "outcome": "Zero disruption to Finance operations. The system now runs in any browser with proper access controls, and the team has comprehensive setup guides for future maintenance.",
       "technologies": [
         "Google Apps Script",
         "JavaScript",
@@ -55,6 +59,10 @@
       "endDate": "2025-12",
       "shortDescription": "Cross-platform desktop application with ML backend for automated complaint processing and categorization",
       "description": "Built a production-ready intelligent complaint processing system combining a Python FastAPI ML backend with a cross-platform C# .NET desktop application. The system automatically categorizes customer complaints, extracts key information, and generates concise summaries using transformer-based models, processing airline customer feedback with 95%+ automation rate.",
+      "problem": "MAHB's customer service team manually categorized thousands of airline complaints, taking hours to process and classify feedback that could inform operational improvements.",
+      "solution": "I built a cross-platform desktop application with an ML backend that automates the entire pipeline: BERT classifies complaints into hierarchical categories, T5 generates summaries, and NER extracts key entities. The C# .NET frontend handles batch Excel processing without requiring Office installations.",
+      "myRole": "End-to-end development: trained and integrated transformer models (BERT, T5), built the FastAPI backend, developed the Avalonia UI desktop app, and implemented robust error handling for production use.",
+      "outcome": "95%+ automation rate, reducing processing time from hours to minutes. The 103 MB self-contained executable runs on Windows, Linux, and macOS without installation headaches.",
       "technologies": [
         "Python",
         "FastAPI",
@@ -189,6 +197,10 @@
       "endDate": "2024-12",
       "shortDescription": "Responsive personal finance web app with full DevOps workflow",
       "description": "Built a responsive personal finance web application using Vue.js frontend and PHP Slim Framework backend, with complete ownership of the DevOps workflow including deployment on DigitalOcean and Netlify.",
+      "problem": "Needed to demonstrate full-stack capabilities from development to production deployment, including server configuration, security setup, and modern frontend frameworks—all skills relevant to real-world web development roles.",
+      "solution": "Built a complete personal finance application with Vue.js for the frontend and PHP Slim Framework for the backend API. Implemented JWT authentication, real-time transaction management, and Chart.js analytics. Deployed frontend to Netlify and backend to DigitalOcean with proper HTTPS configuration.",
+      "myRole": "Solo full-stack development: designed and built the entire application, configured production servers (Apache, MySQL, SSL certificates), and wrote comprehensive deployment documentation.",
+      "outcome": "Production-ready application with secure authentication, live analytics dashboards, and complete DevOps documentation that others can follow for their own deployments.",
       "technologies": [
         "Vue.js",
         "PHP Slim",
@@ -239,6 +251,10 @@
       "endDate": "2026-06",
       "shortDescription": "Image recognition system for road hazard detection and mapping",
       "description": "Currently developing a system for final year project that uses image recognition models to identify and classify different types of road hazards from user-submitted images, with geo-location tracking on a map.",
+      "problem": "Road hazards like potholes, cracks, and debris are often reported too late or not at all, leading to accidents and inefficient maintenance scheduling. Manual inspection is time-consuming and doesn't scale.",
+      "solution": "Building an image recognition system that allows users to submit photos of road hazards. The ML model classifies the hazard type (pothole, crack, debris, etc.) and maps incidents geographically, enabling authorities to prioritize repairs based on real-time, crowdsourced data.",
+      "myRole": "Solo development for Final Year Project: designing the system architecture, training computer vision models for hazard classification, integrating geolocation APIs, and building the user submission interface.",
+      "outcome": "In progress—proposal approved and system architecture designed. Expected to deliver a working prototype by June 2026 that demonstrates practical application of ML for public infrastructure maintenance.",
       "technologies": [
         "Image Recognition",
         "Machine Learning",

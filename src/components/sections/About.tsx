@@ -8,24 +8,24 @@ export const About: React.FC = () => {
 
   const highlights = [
     {
+      icon: FiBriefcase,
+      title: 'Industrial Training',
+      description: '6-month internship at Malaysia Airports (MAHB), delivering production systems',
+    },
+    {
       icon: FiCode,
-      title: 'Full-Stack Developer',
-      description: 'Experienced in Vue.js, React, PHP, Spring, and modern web technologies',
+      title: 'Full-Stack Projects',
+      description: 'Built 9+ applications from Vue.js frontends to Spring Boot backends',
     },
     {
       icon: FiDatabase,
-      title: 'Machine Learning',
-      description: 'Skilled in NLP, DistilBERT, BART, SpaCy for AI-powered solutions',
-    },
-    {
-      icon: FiBriefcase,
-      title: 'Industrial Experience',
-      description: 'IT intern at Malaysia Airports Holdings Berhad (MAHB)',
+      title: 'ML & Automation',
+      description: 'Applied BERT and T5 models to automate complaint classification',
     },
     {
       icon: FiAward,
       title: 'ISTQB Certified',
-      description: 'Certified Tester Foundation Level (CTFL) v4.0 with 80% score',
+      description: 'Certified Tester Foundation Level v4.0 (80% score)',
     },
   ];
 
@@ -41,7 +41,7 @@ export const About: React.FC = () => {
         </div>
 
         {/* About Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
           {/* Profile Summary */}
           <div className="space-y-6">
             <h3 className="text-2xl font-semibold text-text-primary-light dark:text-text-primary-dark">
