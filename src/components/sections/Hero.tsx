@@ -37,7 +37,7 @@ export const Hero: React.FC = () => {
 
           {/* Value Proposition */}
           <p className="max-w-3xl mx-auto text-lg text-text-secondary-light dark:text-text-secondary-dark mb-12 leading-relaxed">
-            I build systems that solve real problems—from migrating legacy enterprise applications to automating workflows with machine learning.
+            I build things that solve real problems—from moving old enterprise apps to modern platforms, to automating boring work with ML.
           </p>
 
           {/* CTA Buttons */}

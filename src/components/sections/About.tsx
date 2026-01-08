@@ -10,22 +10,22 @@ export const About: React.FC = () => {
     {
       icon: FiBriefcase,
       title: 'Industrial Training',
-      description: '6-month internship at Malaysia Airports (MAHB), delivering production systems',
+      description: '6 months at Malaysia Airports building systems people actually use in production',
     },
     {
       icon: FiCode,
-      title: 'Full-Stack Projects',
-      description: 'Built 9+ applications from Vue.js frontends to Spring Boot backends',
+      title: 'Full-Stack Work',
+      description: 'Built 9+ apps covering everything from Vue.js to Spring Boot',
     },
     {
       icon: FiDatabase,
       title: 'ML & Automation',
-      description: 'Applied BERT and T5 models to automate complaint classification',
+      description: 'Used BERT and T5 to automate sorting thousands of complaints',
     },
     {
       icon: FiAward,
       title: 'ISTQB Certified',
-      description: 'Certified Tester Foundation Level v4.0 (80% score)',
+      description: 'Foundation Level tester certification (scored 80%)',
     },
   ];
 
@@ -123,7 +123,7 @@ export const About: React.FC = () => {
           </div>
           <div className="text-center border-t border-border-light/20 dark:border-border-dark/20 pt-6">
             <p className="text-text-secondary-light dark:text-text-secondary-dark mb-4">
-              Graduating July 2026 • Open to opportunities in software development
+              Graduating July 2026 • Looking for software dev opportunities
             </p>
             <a
               href="#projects"

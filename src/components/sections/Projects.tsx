@@ -30,7 +30,7 @@ export const Projects: React.FC = () => {
           </h2>
           <div className="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto rounded-full mb-4" />
           <p className="text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto">
-            A showcase of my work spanning full-stack development, machine learning, system migration, and more.
+            Things I've built—from full-stack apps and ML projects to system migrations and everything in between.
           </p>
         </div>
 

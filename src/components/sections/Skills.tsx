@@ -16,7 +16,7 @@ export const Skills: React.FC = () => {
           </h2>
           <div className="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto rounded-full mb-4" />
           <p className="text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto">
-            A comprehensive overview of my technical skills, frameworks, and tools acquired through academic projects and industrial training.
+            Tools and frameworks I've picked up from school projects, my internship, and building stuff on my own.
           </p>
         </div>
 
