@@ -41,9 +41,22 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         {/* Header */}
         <div className="sticky top-0 bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark p-6 flex items-start justify-between">
           <div className="flex-1">
-            <h2 id="modal-title" className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
-              {project.title}
-            </h2>
+            {(project.links.demo || project.links.live) ? (
+              <a
+                href={project.links.demo || project.links.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2 hover:text-primary-light dark:hover:text-primary-dark transition-colors focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark focus:ring-offset-2 rounded"
+                aria-label={`Visit live demo of ${project.title}`}
+              >
+                <h2 id="modal-title">{project.title}</h2>
+                <FiExternalLink className="h-5 w-5" />
+              </a>
+            ) : (
+              <h2 id="modal-title" className="text-2xl font-bold text-text-primary-light dark:text-text-primary-dark mb-2">
+                {project.title}
+              </h2>
+            )}
             <p className="text-text-secondary-light dark:text-text-secondary-dark">{project.subtitle}</p>
           </div>
           <button

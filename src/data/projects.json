@@ -214,7 +214,9 @@
         "Server configuration",
         "Documentation"
       ],
-      "links": {},
+      "links": {
+        "live": "https://dapper-puffpuff-31a71e.netlify.app/"
+      },
       "images": [],
       "tags": [
         "Vue.js",
