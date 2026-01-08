@@ -432,7 +432,9 @@
       "links": {
         "github": "https://github.com/Dart-Master/utmsport"
       },
-      "images": [],
+      "images": [
+        "/assets/images/projects/utmsport-mobileapp/landing-page.png"
+      ],
       "tags": [
         "Flutter",
         "Dart",
