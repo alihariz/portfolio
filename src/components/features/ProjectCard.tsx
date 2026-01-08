@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FiCalendar, FiTag, FiExternalLink, FiGithub } from 'react-icons/fi';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
@@ -8,6 +8,92 @@ interface ProjectCardProps {
   project: Project;
   onClick?: () => void;
 }
+
+interface ImageCarouselProps {
+  images: string[];
+  alt: string;
+  interval?: number;
+}
+
+const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, alt, interval = 3000 }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const nextImage = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  useEffect(() => {
+    if (images.length <= 1 || isHovered) return;
+
+    const timer = setInterval(nextImage, interval);
+    return () => clearInterval(timer);
+  }, [images.length, interval, isHovered, nextImage]);
+
+  if (images.length === 0) return null;
+
+  return (
+    <div 
+      className="relative w-full h-48 overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Images container with vertical scroll animation */}
+      <div 
+        className="absolute inset-0 transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateY(-${currentIndex * 100}%)` }}
+      >
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`${alt} - Image ${index + 1}`}
+            className="w-full h-48 object-cover"
+            loading={index === 0 ? 'eager' : 'lazy'}
+          />
+        ))}
+      </div>
+
+      {/* Dots indicator */}
+      {images.length > 1 && (
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(index);
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex
+                  ? 'bg-white w-4'
+                  : 'bg-white/50 hover:bg-white/75'
+              }`}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Image counter badge */}
+      {images.length > 1 && (
+        <div className="absolute top-2 right-2 px-2 py-1 rounded-md bg-black/50 text-white text-xs font-medium z-10">
+          {currentIndex + 1} / {images.length}
+        </div>
+      )}
+
+      {/* Hover overlay with pause indicator */}
+      {images.length > 1 && isHovered && (
+        <div className="absolute inset-0 bg-black/10 flex items-center justify-center pointer-events-none">
+          <div className="bg-black/50 text-white px-3 py-1.5 rounded-full text-xs font-medium flex items-center gap-1.5">
+            <span className="w-2 h-2 bg-white rounded-sm" />
+            <span className="w-2 h-2 bg-white rounded-sm" />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
   const formatDate = (dateString: string) => {
@@ -49,11 +135,10 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
         {/* Project Image */}
         {project.images && project.images.length > 0 ? (
           <div className="mb-4 -mx-6 -mt-6 overflow-hidden rounded-t-lg">
-            <img
-              src={project.images[0]}
+            <ImageCarousel 
+              images={project.images} 
               alt={project.title}
-              className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
-              loading="lazy"
+              interval={4000}
             />
           </div>
         ) : (
