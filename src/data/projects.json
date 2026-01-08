@@ -38,7 +38,11 @@
         "Technical documentation and user guides"
       ],
       "links": {},
-      "images": [],
+      "images": [
+        "/assets/images/projects/finance-generator/interface.png",
+        "/assets/images/projects/finance-generator/comparison.png",
+        "/assets/images/projects/finance-generator/dashboard.png"
+      ],
       "tags": [
         "Full-Stack",
         "System Migration",
