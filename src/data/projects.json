@@ -98,7 +98,7 @@
     },
     {
       "id": "proj-3",
-      "title": "Hardware Asset Migration Project",
+      "title": "StarDesk Hardware Asset Migration Project",
       "subtitle": "MAHB Industrial Training",
       "category": "Data Engineering",
       "type": "Enterprise",
@@ -106,31 +106,39 @@
       "featured": false,
       "startDate": "2025-11",
       "endDate": "2025-12",
-      "shortDescription": "Migrated 20,923 company hardware assets to production system",
-      "description": "Successfully migrated 20,923 company hardware assets from Google Sheets to production helpdesk system with comprehensive data cleaning and validation procedures.",
+      "shortDescription": "Migrated 20,923 hardware assets from Google Sheets to production StarDesk system",
+      "description": "Led large-scale migration of 20,923 hardware asset records from Google Sheets to the production StarDesk/Freshservice helpdesk system at MAHB. Managed complete data preparation, cleaning, field mapping, testing, and production deployment to provide IT department with comprehensive asset tracking capabilities.",
       "technologies": [
-        "Python",
+        "StarDesk/Freshservice",
         "Google Sheets",
         "CSV Processing",
-        "Data Validation"
+        "Data Validation",
+        "Asset Management Systems"
       ],
       "achievements": [
-        "Performed extensive data cleaning and CSV formatting",
-        "Troubleshot complex serialization and import issues",
-        "Implemented data verification procedures ensuring 100% accuracy post-migration"
+        "Successfully imported all 20,923 hardware asset records into live production system with zero data loss",
+        "Cleaned and standardized data (removed trailing spaces, standardized date formats)",
+        "Mapped complex data fields between Google Sheets and StarDesk with special character handling",
+        "Performed comprehensive testing in development environment before production deployment",
+        "Verified data integrity through spot checks ensuring 100% accuracy post-migration"
       ],
       "responsibilities": [
-        "Data extraction and transformation",
-        "Data cleaning and validation",
-        "Production deployment troubleshooting"
+        "Data preparation and cleaning from Google Sheets source",
+        "System field mapping between platforms (Google Sheets → StarDesk)",
+        "CSV formatting and validation with proper header requirements",
+        "Testing and error resolution in development environment",
+        "Production deployment and import monitoring"
       ],
       "links": {},
       "images": [],
       "tags": [
         "Data Migration",
-        "Python",
+        "ETL",
+        "Asset Management",
+        "StarDesk",
+        "Freshservice",
         "Data Cleaning",
-        "ETL"
+        "Production Deployment"
       ]
     },
     {
