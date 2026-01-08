@@ -373,12 +373,57 @@
         "UML",
         "Enterprise Architect"
       ]
+    },
+    {
+      "id": "proj-10",
+      "title": "UTMSport - Sports Court Booking System",
+      "subtitle": "Academic Project - Mobile App Development",
+      "category": "Mobile Development",
+      "type": "Academic",
+      "status": "Completed",
+      "featured": false,
+      "startDate": "2024-02",
+      "endDate": "2024-05",
+      "shortDescription": "Flutter mobile app for managing sports court bookings at UTM",
+      "description": "Built a cross-platform mobile application for managing sports court bookings at Universiti Teknologi Malaysia (UTM). The system provides role-based access for students, event organizers, and administrators to book, track, and manage sports facility usage through a centralized mobile platform, addressing issues of double bookings and poor coordination.",
+      "technologies": [
+        "Flutter",
+        "Dart",
+        "Mobile Development",
+        "VS Code"
+      ],
+      "achievements": [
+        "Implemented court booking system with availability tracking",
+        "Built role-based access for students, event organizers, and administrators",
+        "Created booking tracking for current, upcoming, and past reservations",
+        "Designed mobile-first responsive UI using Flutter widgets",
+        "Developed centralized facility management preventing scheduling conflicts"
+      ],
+      "responsibilities": [
+        "Cross-platform mobile app development using Flutter",
+        "Role-based user flow implementation",
+        "Booking system architecture and state management",
+        "UI/UX design for mobile-first experience"
+      ],
+      "links": {
+        "github": "https://github.com/Dart-Master/utmsport"
+      },
+      "images": [],
+      "tags": [
+        "Flutter",
+        "Dart",
+        "Mobile Development",
+        "Cross-Platform",
+        "Booking System",
+        "Role-Based Access"
+      ]
     }
   ],
   "categories": [
     "All",
     "Full-Stack Development",
     "Machine Learning",
+    "Mobile Development",
     "Data Engineering",
     "Software Design",
     "Technical Documentation"
