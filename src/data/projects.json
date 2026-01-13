@@ -114,7 +114,7 @@
     },
     {
       "id": "proj-3",
-      "title": "StarDesk Hardware Asset Migration Project",
+      "title": "Freshservice Hardware Asset Migration Project",
       "subtitle": "MAHB Industrial Training",
       "category": "Data Engineering",
       "type": "Enterprise",
@@ -122,10 +122,10 @@
       "featured": false,
       "startDate": "2025-11",
       "endDate": "2025-12",
-      "shortDescription": "Migrated 20,923 hardware assets from Google Sheets to production StarDesk system",
-      "description": "Led large-scale migration of 20,923 hardware asset records from Google Sheets to the production StarDesk/Freshservice helpdesk system at MAHB. Managed complete data preparation, cleaning, field mapping, testing, and production deployment to provide IT department with comprehensive asset tracking capabilities.",
+      "shortDescription": "Migrated 20,923 hardware assets from Google Sheets to production freshservice system",
+      "description": "Led large-scale migration of 20,923 hardware asset records from Google Sheets to the production Freshservice helpdesk system at MAHB. Managed complete data preparation, cleaning, field mapping, testing, and production deployment to provide IT department with comprehensive asset tracking capabilities.",
       "technologies": [
-        "StarDesk/Freshservice",
+        "Freshservice",
         "Google Sheets",
         "CSV Processing",
         "Data Validation",
