@@ -1,12 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiAward, FiCalendar } from 'react-icons/fi';
 import { Card } from '../ui/Card';
 import { Badge } from '../ui/Badge';
+import { Modal } from '../ui/Modal';
 import certificatesData from '../../data/certificates.json';
 
+interface Certificate {
+  id: string;
+  name: string;
+  issuer: string;
+  issueDate: string;
+  expiryDate: string | null;
+  credentialId: string;
+  credentialUrl: string;
+  score?: string;
+  description: string;
+  skills: string[];
+  featured: boolean;
+  imagePath: string | null;
+}
+
 export const Certificates: React.FC = () => {
+  const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  };
+
+  const handleCertClick = (cert: Certificate) => {
+    if (cert.imagePath) {
+      setSelectedCert(cert);
+    }
   };
 
   return (
@@ -23,7 +47,12 @@ export const Certificates: React.FC = () => {
         {/* Certificates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {certificatesData.certificates.map((cert) => (
-            <Card key={cert.id} hover className={cert.featured ? 'border-primary-light dark:border-primary-dark' : ''}>
+            <Card
+              key={cert.id}
+              hover
+              className={`${cert.featured ? 'border-primary-light dark:border-primary-dark' : ''} ${cert.imagePath ? 'cursor-pointer' : ''}`}
+              onClick={() => handleCertClick(cert as Certificate)}
+            >
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <div className="p-3 rounded-full bg-primary-light/10 dark:bg-primary-dark/10">
@@ -53,6 +82,13 @@ export const Certificates: React.FC = () => {
                     {cert.description}
                   </p>
 
+                  {cert.imagePath && (
+                    <p className="text-xs text-primary-light dark:text-primary-dark font-medium mb-3 flex items-center gap-1">
+                      <FiAward className="h-3 w-3" />
+                      Click to view certificate
+                    </p>
+                  )}
+
                   {cert.skills.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {cert.skills.map((skill, index) => (
@@ -68,6 +104,23 @@ export const Certificates: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Certificate Image Modal */}
+      <Modal
+        isOpen={selectedCert !== null}
+        onClose={() => setSelectedCert(null)}
+        title={selectedCert?.name}
+      >
+        {selectedCert?.imagePath && (
+          <div className="p-4">
+            <img
+              src={selectedCert.imagePath}
+              alt={selectedCert.name}
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+        )}
+      </Modal>
     </section>
   );
 };

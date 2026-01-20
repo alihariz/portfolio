@@ -17,7 +17,8 @@
         "Test Management",
         "Static Testing"
       ],
-      "featured": true
+      "featured": true,
+      "imagePath": "/assets/images/certifications/ISTQB/CTFL.jpeg"
     },
     {
       "id": "cert-2",
@@ -34,7 +35,8 @@
         "Communication",
         "Professional Writing"
       ],
-      "featured": false
+      "featured": false,
+      "imagePath": null
     },
     {
       "id": "cert-3",
@@ -46,7 +48,8 @@
       "credentialUrl": "",
       "description": "International secondary education qualification from Cambridge.",
       "skills": [],
-      "featured": false
+      "featured": false,
+      "imagePath": null
     },
     {
       "id": "cert-4",
@@ -58,7 +61,8 @@
       "credentialUrl": "",
       "description": "Cambridge lower secondary achievement certification.",
       "skills": [],
-      "featured": false
+      "featured": false,
+      "imagePath": null
     }
   ]
 }
