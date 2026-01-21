@@ -15,8 +15,8 @@ export const Footer: React.FC = () => {
               Ali Hariz Bin Anuari , CTFL
             </h3>
             <p className="text-text-secondary-light dark:text-text-secondary-dark text-sm">
-              Software Engineering Student at Universiti Teknologi Malaysia.
-              Passionate about full-stack development and machine learning.
+              Software Engineering student at Universiti Teknologi Malaysia.
+              Focused on full‑stack delivery and applied machine learning.
             </p>
           </div>
 

@@ -7,7 +7,7 @@ const skillsData = skillsDataRaw as SkillsData;
 
 export const Skills: React.FC = () => {
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-background-light dark:bg-background-dark">
+    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -16,7 +16,7 @@ export const Skills: React.FC = () => {
           </h2>
           <div className="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto rounded-full mb-4" />
           <p className="text-text-secondary-light dark:text-text-secondary-dark max-w-2xl mx-auto">
-            Tools and frameworks I've picked up from school projects, my internship, and building stuff on my own.
+            Tools and frameworks used across coursework, internship work, and independent projects.
           </p>
         </div>
 

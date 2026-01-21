@@ -14,7 +14,14 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8" aria-labelledby="hero-title">
+    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8 overflow-hidden" aria-labelledby="hero-title">
+      {/* Decorative glows */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-primary-light/10 dark:bg-primary-dark/10 blur-3xl" />
+        <div className="absolute top-16 -right-24 h-[28rem] w-[28rem] rounded-full bg-secondary-light/10 dark:bg-secondary-dark/10 blur-3xl" />
+        <div className="absolute -bottom-28 left-1/3 h-[32rem] w-[32rem] rounded-full bg-primary-light/5 dark:bg-primary-dark/5 blur-3xl" />
+      </div>
+
       <div className="max-w-7xl mx-auto w-full">
         <div className="text-center animate-fade-in">
           {/* Greeting */}
@@ -23,7 +30,7 @@ export const Hero: React.FC = () => {
           </p>
 
           {/* Name */}
-          <h1 id="hero-title" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4 leading-tight">
+          <h1 id="hero-title" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight bg-gradient-to-r from-primary-light to-secondary-light dark:from-primary-dark dark:to-secondary-dark bg-clip-text text-transparent">
             {personal.name}
           </h1>
 
@@ -37,8 +44,20 @@ export const Hero: React.FC = () => {
 
           {/* Value Proposition */}
           <p className="max-w-3xl mx-auto text-lg text-text-secondary-light dark:text-text-secondary-dark mb-12 leading-relaxed">
-            I build things that solve real problems—from moving old enterprise apps to modern platforms, to automating boring work with ML.
+            I build software that solves operational problems—from modernizing legacy systems to automating repetitive workflows with applied ML.
           </p>
+
+          {/* Highlights */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-10">
+            {['Full‑stack delivery', 'Applied ML', 'System migrations', 'Technical documentation'].map((item) => (
+              <span
+                key={item}
+                className="px-4 py-2 rounded-full text-sm font-medium bg-surface-light/70 dark:bg-surface-dark/60 border border-border-light/70 dark:border-border-dark/70 text-text-primary-light dark:text-text-primary-dark"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
@@ -57,7 +76,7 @@ export const Hero: React.FC = () => {
               className="w-full sm:w-auto transform hover:scale-105"
             >
               <FiMail className="inline mr-2" />
-              Contact Me
+              Contact
             </Button>
           </div>
 

@@ -6,11 +6,11 @@
     "email": "thisalihariz08@gmail.com",
     "alternateEmail": "alihariz@graduate.utm.my",
     "phone": "+6011-39020840",
-    "location": "Johor, Malaysia",
+    "location": "Negeri Sembilan, Malaysia",
     "profileImage": "/assets/images/profile.jpg",
-    "summary": "I'm in my final year studying Software Engineering at UTM. During my 6-month internship at Malaysia Airports, I got to work on real systems that actual teams depend on—like migrating a 10-year-old VB.NET app to Google Apps Script without breaking anything for Finance. That's when it clicked for me: good code isn't just about picking the right framework, it's about understanding what problem you're actually solving. I work with full-stack development and machine learning because they let me build things end-to-end. Whether it's using NLP to sort through thousands of complaints or setting up a finance tracker with live charts, I'm interested in stuff that actually ships and works when people use it.",
+    "summary": "Final-year Software Engineering student at UTM with hands-on experience delivering production systems during a 6-month internship at Malaysia Airports. I’ve worked on projects like migrating a 10-year-old VB.NET finance tool to Google Apps Script with minimal disruption, and applying NLP to classify and summarize large volumes of customer feedback. I focus on full-stack development and applied machine learning because they let me deliver end-to-end solutions—from problem definition and implementation to documentation and handover.",
     "availableForWork": true,
-    "graduationDate": "2026-07"
+    "graduationDate": "2026-10"
   },
   "social": {
     "linkedin": "https://www.linkedin.com/in/ali-hariz-anuari-46549a246/",

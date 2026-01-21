@@ -12,7 +12,7 @@ export const Leadership: React.FC = () => {
   };
 
   return (
-    <section id="leadership" className="py-20 px-4 sm:px-6 lg:px-8 bg-background-light dark:bg-background-dark">
+    <section id="leadership" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-16">

@@ -10,11 +10,12 @@ import { Skills } from './components/sections/Skills'
 import { Certificates } from './components/sections/Certificates'
 import { Leadership } from './components/sections/Leadership'
 import { Contact } from './components/sections/Contact'
+import { BackToTop } from './components/ui/BackToTop'
 
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
+      <div className="app-shell min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
         <Header />
         <main id="main-content" role="main">
           <Hero />
@@ -28,6 +29,7 @@ function App() {
           <Contact />
         </main>
         <Footer />
+        <BackToTop />
       </div>
     </ThemeProvider>
   )

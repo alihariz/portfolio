@@ -7,7 +7,62 @@
     @apply border-border-light dark:border-border-dark;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply font-sans antialiased;
+  }
+}
+
+@layer components {
+  .app-shell {
+    position: relative;
+    isolation: isolate;
+    overflow-x: hidden;
+  }
+
+  .app-shell::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    /* Animated subtle texture + color glow */
+    background-image:
+      radial-gradient(1000px 600px at 10% 10%, rgba(59, 130, 246, 0.08), transparent 60%),
+      radial-gradient(800px 500px at 90% 25%, rgba(139, 92, 246, 0.06), transparent 55%),
+      radial-gradient(900px 600px at 40% 110%, rgba(59, 130, 246, 0.05), transparent 60%);
+
+    animation: backgroundFloat 30s ease-in-out infinite;
+  }
+
+  .dark .app-shell::before {
+    background-image:
+      radial-gradient(1000px 600px at 10% 10%, rgba(96, 165, 250, 0.10), transparent 60%),
+      radial-gradient(900px 520px at 90% 25%, rgba(167, 139, 250, 0.08), transparent 55%),
+      radial-gradient(1100px 700px at 40% 110%, rgba(96, 165, 250, 0.06), transparent 60%);
+
+    animation: backgroundFloat 30s ease-in-out infinite;
+  }
+
+  /* Floating background animation */
+  @keyframes backgroundFloat {
+    0%, 100% {
+      background-position: 0% 0%, 100% 0%, 50% 100%;
+    }
+    33% {
+      background-position: 10% 10%, 90% 10%, 40% 90%;
+    }
+    66% {
+      background-position: 5% 15%, 95% 5%, 60% 95%;
+    }
+  }
+
+  .app-shell > * {
+    position: relative;
+    z-index: 1;
   }
 }

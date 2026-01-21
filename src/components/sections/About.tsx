@@ -10,17 +10,17 @@ export const About: React.FC = () => {
     {
       icon: FiBriefcase,
       title: 'Industrial Training',
-      description: '6 months at Malaysia Airports building systems people actually use in production',
+      description: '6 months at Malaysia Airports delivering production systems for internal teams',
     },
     {
       icon: FiCode,
       title: 'Full-Stack Work',
-      description: 'Built 9+ apps covering everything from Vue.js to Spring Boot',
+      description: 'Built 9+ projects across web, backend, and deployment',
     },
     {
       icon: FiDatabase,
       title: 'ML & Automation',
-      description: 'Used BERT and T5 to automate sorting thousands of complaints',
+      description: 'Applied transformer models to classify and summarize large feedback datasets',
     },
     {
       icon: FiAward,
