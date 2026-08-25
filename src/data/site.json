@@ -1,0 +1,1352 @@
+{
+  "schemaVersion": 2,
+  "meta": {
+    "title": "Ali Hariz Anuari",
+    "description": "Software engineer in Malaysia. Road-hazard detection with computer vision, a decade-old finance tool rebuilt for the browser, and a homelab that runs it all.",
+    "domain": "aliharizanuari.org"
+  },
+  "profile": {
+    "name": "Ali Hariz Bin Anuari",
+    "shortName": "Ali Hariz",
+    "role": "Software engineer",
+    "location": "Negeri Sembilan, Malaysia",
+    "email": "thisalihariz08@gmail.com",
+    "portrait": "/assets/images/profile.jpg",
+    "availability": "Graduating October 2026 · Negeri Sembilan, Malaysia",
+    "headline": "Software engineer · Malaysia",
+    "intro": "I like systems that people already depend on. A decade-old finance tool nobody wanted to touch, a queue of thousands of unread complaints, a road network too big to inspect by hand — I take those apart and rebuild them so they run in a browser, explain themselves, and keep working after I've gone. Most of what's here runs on a small computer in my house.",
+    "links": {
+      "github": "https://github.com/alihariz",
+      "linkedin": "https://www.linkedin.com/in/ali-hariz-anuari-46549a246/",
+      "resume": "/assets/resume/RESUME_ALI HARIZ.pdf"
+    }
+  },
+  "sections": [
+    {
+      "id": "proof",
+      "type": "proof",
+      "title": "",
+      "visible": true,
+      "items": [
+        {
+          "value": "20,923",
+          "label": "asset records migrated with zero data loss"
+        },
+        {
+          "value": "95%+",
+          "label": "of complaint triage automated"
+        },
+        {
+          "value": "11",
+          "label": "projects shipped across six disciplines"
+        },
+        {
+          "value": "1",
+          "label": "small computer running all of this"
+        }
+      ],
+      "navLabel": ""
+    },
+    {
+      "id": "experience",
+      "type": "experience",
+      "title": "Where I have worked",
+      "visible": true,
+      "items": [
+        {
+          "id": "exp-1",
+          "company": "Malaysia Airports Holdings Berhad (MAHB)",
+          "position": "Industrial Training - IT Division",
+          "department": "Data & Delivery Department (Digital Development Operations)",
+          "location": "Sepang, Malaysia",
+          "startDate": "2025-09",
+          "endDate": "2026-02",
+          "current": true,
+          "type": "Internship",
+          "accomplishments": [
+            {
+              "title": "Finance Letter Generator Migration",
+              "description": "Led migration of legacy finance letter generator from VB.NET to Google Apps Script, serving Finance Department operations",
+              "impact": "Modernized legacy system for improved maintainability and achieved 95% visual similarity with legacy system",
+              "technologies": [
+                "Google Apps Script",
+                "VB.NET",
+                "JavaScript",
+                "HTML5",
+                "CSS3",
+                "Google OAuth"
+              ]
+            },
+            {
+              "title": "AI Classification System Development",
+              "description": "Developed hybrid AI classification system for customer feedback categorization across 268 categories with multilingual support (English, Chinese, Japanese, Arabic)",
+              "impact": "67x confidence improvement (0.87% → 58.03%) addressing severe class imbalance",
+              "technologies": [
+                "Python",
+                "DistilBERT",
+                "BART",
+                "SpaCy",
+                "NLP",
+                "Hugging Face Transformers"
+              ]
+            },
+            {
+              "title": "Hardware Asset Migration",
+              "description": "Successfully migrated 20,923 hardware assets to production helpdesk system with comprehensive data cleaning and validation",
+              "impact": "100% accuracy post-migration with extensive data cleaning and CSV formatting",
+              "technologies": [
+                "Python",
+                "Google Sheets",
+                "CSV Processing",
+                "Data Validation"
+              ]
+            },
+            {
+              "title": "Technical Documentation",
+              "description": "Created technical documentation for legacy ASP.NET MVC systems and provided UI/UX consulting for internal projects",
+              "impact": "Improved system maintainability and knowledge transfer for legacy applications",
+              "technologies": [
+                "ASP.NET MVC 5",
+                "Technical Writing",
+                "SQL Server"
+              ]
+            },
+            {
+              "title": "Cross-functional Collaboration",
+              "description": "Collaborated with cross-functional teams including Finance, IT Operations, and senior management",
+              "impact": "Enhanced team communication and project delivery across departments",
+              "technologies": []
+            },
+            {
+              "title": "Corporate Event Photography",
+              "description": "Served as official photographer for SAP S/4HANA Appreciation Day corporate event",
+              "impact": "Professional event coverage and documentation",
+              "technologies": []
+            }
+          ],
+          "skills": [
+            "Google Apps Script",
+            "Python",
+            "Machine Learning",
+            "System Migration",
+            "Data Analytics",
+            "Technical Documentation",
+            "UI/UX Consulting"
+          ]
+        }
+      ],
+      "navLabel": "Work"
+    },
+    {
+      "id": "projects",
+      "type": "projects",
+      "title": "Things I have built",
+      "visible": true,
+      "lead": "Grouped by discipline. Each row opens with the one I would show you first.",
+      "items": [
+        {
+          "id": "proj-1",
+          "title": "Finance Letter Generator System Migration",
+          "subtitle": "MAHB Industrial Training",
+          "category": "Full-Stack Development",
+          "type": "Enterprise",
+          "status": "Completed",
+          "featured": true,
+          "startDate": "2025-09",
+          "endDate": "2025-11",
+          "shortDescription": "Migrated legacy VB.NET finance letter generator to modern Google Apps Script platform",
+          "description": "Led the complete migration of a legacy VB.NET finance letter generator system to a modern Google Apps Script platform, serving the Finance Department operations. Developed a full-stack solution with responsive web interface and backend API, implementing Google OAuth authentication and role-based access control.",
+          "problem": "Finance relied on a legacy VB.NET application with limited device compatibility and minimal maintainability. Access was constrained, and the risk of knowledge loss made ongoing support difficult.",
+          "solution": "Rebuilt the system on Google Apps Script as a web-based application with Google OAuth and role-based access control. Recreated the letter templates and HTML-to-PDF output to closely match the legacy documents (95% visual similarity).",
+          "myRole": "Owned the end-to-end delivery: analyzed the legacy workflow, implemented the frontend and backend/API, set up authentication/authorization, and produced handover documentation (5,000+ words) and a 65+ page setup guide.",
+          "outcome": "The migration was completed without disrupting Finance operations. The system is now accessible from any browser and is supported by clear documentation for future maintenance.",
+          "technologies": [
+            "Google Apps Script",
+            "JavaScript",
+            "HTML5",
+            "CSS3",
+            "Google Sheets API",
+            "Google OAuth",
+            "VB.NET"
+          ],
+          "achievements": [
+            "Achieved 95% visual similarity with legacy system through pixel-perfect HTML-to-PDF template optimization",
+            "Implemented base64 image embedding and session management",
+            "Created 5000+ word technical documentation and 65+ page setup guide",
+            "Deployed role-based access control (Admin/Viewer)"
+          ],
+          "responsibilities": [
+            "Legacy system analysis and migration planning",
+            "Full-stack development (frontend + backend + API)",
+            "Authentication and authorization implementation",
+            "Technical documentation and user guides"
+          ],
+          "links": {},
+          "images": [
+            "/assets/images/projects/finance-generator/interface.png",
+            "/assets/images/projects/finance-generator/comparison.png",
+            "/assets/images/projects/finance-generator/dashboard.png"
+          ],
+          "tags": [
+            "Full-Stack",
+            "System Migration",
+            "Google Apps Script",
+            "Enterprise",
+            "OAuth"
+          ],
+          "metrics": [
+            {
+              "value": "95%",
+              "label": "visual match to legacy output"
+            },
+            {
+              "value": "65+",
+              "label": "page setup guide handed over"
+            },
+            {
+              "value": "0",
+              "label": "disruption to Finance operations"
+            }
+          ]
+        },
+        {
+          "id": "proj-2",
+          "title": "StarDesk ML Complaint Classifier",
+          "subtitle": "Full-Stack ML Application",
+          "category": "Machine Learning",
+          "type": "Enterprise",
+          "status": "Completed",
+          "featured": true,
+          "startDate": "2025-10",
+          "endDate": "2025-12",
+          "shortDescription": "Cross-platform desktop application with ML backend for automated complaint processing and categorization",
+          "description": "Built a production-ready intelligent complaint processing system combining a Python FastAPI ML backend with a cross-platform C# .NET desktop application. The system automatically categorizes customer complaints, extracts key information, and generates concise summaries using transformer-based models, processing airline customer feedback with 95%+ automation rate.",
+          "problem": "Customer service teams were spending significant time manually reading and categorizing a large volume of airline complaints, limiting how quickly issues could be triaged and addressed.",
+          "solution": "Delivered a cross-platform desktop application backed by a Python FastAPI service. Used BERT for classification, T5 for summarization, and NER for key-entity extraction, with a C#/.NET frontend capable of processing Excel files without Office dependencies.",
+          "myRole": "Led end-to-end implementation across ML integration, backend API development, and desktop app delivery (Avalonia UI). Invested heavily in reliability: validation, error handling, and robust batch processing suitable for production use.",
+          "outcome": "Reduced processing time from hours to minutes and packaged the solution as a self-contained cross-platform build (~103 MB) for Windows, Linux, and macOS.",
+          "technologies": [
+            "Python",
+            "FastAPI",
+            "C# .NET 8.0",
+            "Avalonia UI",
+            "BERT",
+            "T5",
+            "Hugging Face Transformers",
+            "EPPlus",
+            "REST API",
+            "NLP"
+          ],
+          "achievements": [
+            "Automated 95%+ of manual complaint categorization, reducing processing time from hours to minutes",
+            "Built cross-platform desktop app (Windows/Linux/macOS) with zero-installation distribution (103 MB self-contained)",
+            "Implemented hierarchical classification with confidence scoring across 2-level taxonomy",
+            "Created integrated ML pipeline: BERT classification → T5 summarization → NER entity extraction",
+            "Developed robust batch processing with retry logic, atomic writes, and real-time progress tracking"
+          ],
+          "responsibilities": [
+            "Full-stack development (Python FastAPI backend + C# .NET desktop frontend)",
+            "ML model integration (BERT, T5, NER) with Hugging Face Transformers",
+            "Cross-platform application architecture using MVVM pattern",
+            "Direct Excel file manipulation without Office dependencies (EPPlus)",
+            "RESTful API design with async processing and error handling"
+          ],
+          "links": {},
+          "images": [
+            "/assets/images/projects/ml-classifier/desktop-ui.png",
+            "/assets/images/projects/ml-classifier/pipeline-diagram.png",
+            "/assets/images/projects/ml-classifier/results.png"
+          ],
+          "tags": [
+            "Machine Learning",
+            "Full-Stack",
+            "Python",
+            "C#",
+            ".NET",
+            "FastAPI",
+            "BERT",
+            "T5",
+            "NLP",
+            "Cross-Platform"
+          ],
+          "metrics": [
+            {
+              "value": "95%+",
+              "label": "of categorisation automated"
+            },
+            {
+              "value": "268",
+              "label": "categories, 4 languages"
+            },
+            {
+              "value": "67×",
+              "label": "confidence gain on imbalance"
+            }
+          ]
+        },
+        {
+          "id": "proj-3",
+          "title": "Freshservice Hardware Asset Migration Project",
+          "subtitle": "MAHB Industrial Training",
+          "category": "Data Engineering",
+          "type": "Enterprise",
+          "status": "Completed",
+          "featured": false,
+          "startDate": "2025-11",
+          "endDate": "2025-12",
+          "shortDescription": "Migrated 20,923 hardware assets from Google Sheets to production freshservice system",
+          "description": "Led large-scale migration of 20,923 hardware asset records from Google Sheets to the production Freshservice helpdesk system at MAHB. Managed complete data preparation, cleaning, field mapping, testing, and production deployment to provide IT department with comprehensive asset tracking capabilities.",
+          "technologies": [
+            "Freshservice",
+            "Google Sheets",
+            "CSV Processing",
+            "Data Validation",
+            "Asset Management Systems"
+          ],
+          "achievements": [
+            "Successfully imported all 20,923 hardware asset records into live production system with zero data loss",
+            "Cleaned and standardized data (removed trailing spaces, standardized date formats)",
+            "Mapped complex data fields between Google Sheets and StarDesk with special character handling",
+            "Performed comprehensive testing in development environment before production deployment",
+            "Verified data integrity through spot checks ensuring 100% accuracy post-migration"
+          ],
+          "responsibilities": [
+            "Data preparation and cleaning from Google Sheets source",
+            "System field mapping between platforms (Google Sheets → StarDesk)",
+            "CSV formatting and validation with proper header requirements",
+            "Testing and error resolution in development environment",
+            "Production deployment and import monitoring"
+          ],
+          "links": {},
+          "images": [],
+          "tags": [
+            "Data Migration",
+            "ETL",
+            "Asset Management",
+            "StarDesk",
+            "Freshservice",
+            "Data Cleaning",
+            "Production Deployment"
+          ],
+          "metrics": [
+            {
+              "value": "20,923",
+              "label": "asset records migrated"
+            },
+            {
+              "value": "100%",
+              "label": "spot-check accuracy"
+            },
+            {
+              "value": "0",
+              "label": "data loss"
+            }
+          ]
+        },
+        {
+          "id": "proj-4",
+          "title": "Eraman Survey & Audit System Documentation",
+          "subtitle": "MAHB Industrial Training",
+          "category": "Technical Documentation",
+          "type": "Enterprise",
+          "status": "Completed",
+          "featured": false,
+          "startDate": "2025-11",
+          "endDate": "2025-12",
+          "shortDescription": "Comprehensive documentation for legacy ASP.NET MVC application",
+          "description": "Created comprehensive software documentation for legacy ASP.NET MVC 5 application, analyzing complex database schema and system architecture.",
+          "technologies": [
+            "ASP.NET MVC 5",
+            "SQL Server",
+            "Technical Writing"
+          ],
+          "achievements": [
+            "Analyzed 6,841-line database schema and 18 controllers",
+            "Documented system architecture, security mechanisms, and API specifications",
+            "Provided UI/UX consulting for internal projects"
+          ],
+          "responsibilities": [
+            "Legacy code analysis",
+            "Technical documentation writing",
+            "UI/UX consulting"
+          ],
+          "links": {},
+          "images": [],
+          "tags": [
+            "Documentation",
+            "ASP.NET",
+            "SQL Server",
+            "Legacy Systems"
+          ],
+          "metrics": [
+            {
+              "value": "6,841",
+              "label": "lines of schema read"
+            },
+            {
+              "value": "18",
+              "label": "controllers documented"
+            }
+          ]
+        },
+        {
+          "id": "proj-5",
+          "title": "Finance Manager Web Application",
+          "subtitle": "Academic Project",
+          "category": "Full-Stack Development",
+          "type": "Academic",
+          "status": "Completed",
+          "featured": true,
+          "startDate": "2024-09",
+          "endDate": "2024-12",
+          "shortDescription": "Responsive personal finance web app with full DevOps workflow",
+          "description": "Built a responsive personal finance web application using Vue.js frontend and PHP Slim Framework backend, with complete ownership of the DevOps workflow including deployment on DigitalOcean and Netlify.",
+          "problem": "Needed an end-to-end project that demonstrated full ownership: product scope, implementation, and real deployment with basic security practices.",
+          "solution": "Built a personal finance tracker with a Vue.js frontend and PHP Slim backend, including JWT authentication, transaction management, and analytics dashboards. Deployed the frontend on Netlify and the backend on DigitalOcean with HTTPS configured.",
+          "myRole": "Owned the full lifecycle: design, development, deployment, server configuration (Apache/MySQL), and documentation of the deployment process.",
+          "outcome": "Delivered a live, secure application and a repeatable deployment runbook that can be reused for similar projects.",
+          "technologies": [
+            "Vue.js",
+            "PHP Slim",
+            "MySQL",
+            "Chart.js",
+            "DigitalOcean",
+            "Netlify",
+            "Apache",
+            "Certbot",
+            "DuckDNS",
+            "Git"
+          ],
+          "achievements": [
+            "Implemented JWT-based authentication",
+            "Built real-time transaction management",
+            "Created interactive analytics dashboards using Chart.js",
+            "Configured secure HTTPS setup using DuckDNS + Certbot",
+            "Authored detailed fullstack deployment guide"
+          ],
+          "responsibilities": [
+            "Full-stack development",
+            "DevOps and deployment",
+            "Server configuration",
+            "Documentation"
+          ],
+          "links": {
+            "live": "https://dapper-puffpuff-31a71e.netlify.app/"
+          },
+          "images": [],
+          "tags": [
+            "Vue.js",
+            "PHP",
+            "Full-Stack",
+            "DevOps",
+            "MySQL",
+            "Chart.js"
+          ]
+        },
+        {
+          "id": "proj-6",
+          "title": "HARDA — Hazard Assessment Road Detection",
+          "subtitle": "Final Year Project",
+          "category": "Machine Learning",
+          "type": "Academic",
+          "status": "Completed",
+          "featured": true,
+          "startDate": "2025-09",
+          "endDate": "2026-08",
+          "shortDescription": "Road hazards photographed by the public, classified by a fine-tuned YOLOv8 model, geotagged from image EXIF and plotted on a live map — with an admin workflow for verification, crew assignment and resolution tracking.",
+          "description": "A three-tier system that automates road hazard reporting in Malaysia. A member of the public photographs a hazard from the web app or the mobile app; the backend runs YOLOv8 inference, extracts GPS from the image EXIF data (falling back to device location), and files the report. Local authority admins verify submissions, assign them to regional field crews, and track them through to resolution, with an after-photo closing the loop. Built as a Flask REST API over PostgreSQL, a React web client, and a React Native app that serves both public reporters and field crew from the same codebase.",
+          "problem": "Road hazards are under-reported and manual inspection does not scale across a national road network. Existing reporting tools also lose their history once a hazard is settled, so authorities cannot see what was fixed, when, or by whom — a gap identified with an ex-Roadcare site supervisor during requirements gathering.",
+          "solution": "YOLOv8 fine-tuned on a road-damage dataset classifies hazards above a 0.70 confidence threshold, with all detections above the threshold returned so one photograph can carry several hazards. EXIF GPS geotags each report, and a resolved-hazard archive with before and after photographs preserves the history that comparable systems discard.",
+          "myRole": "Sole developer across the whole system: requirements and stakeholder interviews, database design (9 tables), the Flask API, the YOLO inference service, the React dashboard, the cross-platform mobile app, and the deployment. Now self-hosted on my own hardware behind a Cloudflare Tunnel rather than a cloud provider.",
+          "outcome": "Delivered and running in production on self-hosted infrastructure at harda.aliharizanuari.org. Twelve use cases across three clients — web, Android and iOS — served by one API. Rate limiting and English/Malay localisation, both non-functional requirements the design document called for, were implemented and verified.",
+          "technologies": [
+            "Flask",
+            "PostgreSQL",
+            "YOLOv8",
+            "Ultralytics",
+            "React",
+            "React Native",
+            "Expo",
+            "Docker"
+          ],
+          "achievements": [
+            "Fine-tuned YOLOv8 on road-damage data with multi-hazard detection above a 0.70 confidence threshold",
+            "Designed a 9-table schema supporting admin verification, regional crew assignment and a resolved-hazard audit archive",
+            "Shipped 3 clients — React web, Android and iOS — against a single Flask REST API",
+            "Implemented EXIF GPS extraction with device-location fallback for photographs missing geotags",
+            "Bilingual interface in English and Malay across both web and mobile",
+            "Self-hosted end to end: Docker Compose, Caddy and a Cloudflare Tunnel, with no cloud provider"
+          ],
+          "responsibilities": [
+            "System design",
+            "ML model fine-tuning and evaluation",
+            "Full-stack implementation",
+            "Mobile development",
+            "Deployment and operations"
+          ],
+          "links": {
+            "live": "https://harda.aliharizanuari.org",
+            "android": "https://harda.aliharizanuari.org/get",
+            "github": "https://github.com/alihariz/harda"
+          },
+          "images": [
+            "/assets/images/projects/harda/architecture.png",
+            "/assets/images/projects/harda/use-cases.png"
+          ],
+          "tags": [
+            "Machine Learning",
+            "Computer Vision",
+            "YOLOv8",
+            "Full-Stack",
+            "Mobile",
+            "Self-hosted",
+            "FYP"
+          ],
+          "metrics": [
+            {
+              "value": "3",
+              "label": "clients on one API"
+            },
+            {
+              "value": "9",
+              "label": "table schema"
+            },
+            {
+              "value": "12",
+              "label": "use cases delivered"
+            }
+          ],
+          "priority": 0
+        },
+        {
+          "id": "proj-7",
+          "title": "Dengue Surveillance App",
+          "subtitle": "Academic Project - Project Lead",
+          "category": "Full-Stack Development",
+          "type": "Academic",
+          "status": "Completed",
+          "featured": false,
+          "startDate": "2024-02",
+          "endDate": "2024-05",
+          "shortDescription": "System to report and analyze dengue cases by severity",
+          "description": "Led a team of 4 developers to create a system for reporting and analyzing dengue cases in the area, with classification according to severity. Used JIRA for project management and GitHub for version control.",
+          "technologies": [
+            "JIRA",
+            "GitHub",
+            "Agile"
+          ],
+          "achievements": [
+            "Led team of 4 developers",
+            "Delivered project on time",
+            "Implemented severity classification"
+          ],
+          "responsibilities": [
+            "Project leadership",
+            "Team coordination",
+            "Development"
+          ],
+          "links": {
+            "github": "https://github.com/ALI-HARIZ-PERSONAL/DESaP-ts"
+          },
+          "images": [],
+          "tags": [
+            "Team Lead",
+            "Agile",
+            "JIRA",
+            "Healthcare"
+          ]
+        },
+        {
+          "id": "proj-8",
+          "title": "Low Carbon Management System",
+          "subtitle": "Academic Project - Developer",
+          "category": "Full-Stack Development",
+          "type": "Academic",
+          "status": "Completed",
+          "featured": false,
+          "startDate": "2023-09",
+          "endDate": "2023-12",
+          "shortDescription": "Carbon footprint tracking system for organizations",
+          "description": "Developed a system to manage carbon footprint within organizations by tracking carbon emissions produced. Built using Spring framework and connected to phpMyAdmin database using Hibernate ORM.",
+          "technologies": [
+            "Spring Framework",
+            "Hibernate ORM",
+            "phpMyAdmin",
+            "Java"
+          ],
+          "achievements": [
+            "Implemented carbon tracking functionality",
+            "Database integration with Hibernate ORM"
+          ],
+          "responsibilities": [
+            "Backend development",
+            "Database design",
+            "ORM implementation"
+          ],
+          "links": {
+            "github": "https://github.com/alihariz/Full-Stack-Architects"
+          },
+          "images": [],
+          "tags": [
+            "Spring",
+            "Java",
+            "Hibernate",
+            "Database"
+          ]
+        },
+        {
+          "id": "proj-9",
+          "title": "UTM Bus Tracking System",
+          "subtitle": "Academic Project - Software Designer",
+          "category": "Software Design",
+          "type": "Academic",
+          "status": "Completed",
+          "featured": false,
+          "startDate": "2023-02",
+          "endDate": "2023-05",
+          "shortDescription": "System architecture design for campus bus tracking",
+          "description": "Designed the architecture for a system to track buses within the UTM campus using Enterprise Architect to construct various diagrams needed to construct the system.",
+          "technologies": [
+            "Enterprise Architect",
+            "UML",
+            "System Design"
+          ],
+          "achievements": [
+            "Created comprehensive system architecture",
+            "Designed UML diagrams"
+          ],
+          "responsibilities": [
+            "System architecture design",
+            "UML diagram creation",
+            "Documentation"
+          ],
+          "links": {},
+          "images": [],
+          "tags": [
+            "System Design",
+            "UML",
+            "Enterprise Architect"
+          ]
+        },
+        {
+          "id": "proj-10",
+          "title": "UTMSport - Sports Court Booking System",
+          "subtitle": "Academic Project - Mobile App Development",
+          "category": "Mobile Development",
+          "type": "Academic",
+          "status": "Completed",
+          "featured": false,
+          "startDate": "2024-02",
+          "endDate": "2024-05",
+          "shortDescription": "Flutter mobile app for managing sports court bookings at UTM",
+          "description": "Built a cross-platform mobile application for managing sports court bookings at Universiti Teknologi Malaysia (UTM). The system provides role-based access for students, event organizers, and administrators to book, track, and manage sports facility usage through a centralized mobile platform, addressing issues of double bookings and poor coordination.",
+          "technologies": [
+            "Flutter",
+            "Dart",
+            "Mobile Development",
+            "VS Code"
+          ],
+          "achievements": [
+            "Implemented court booking system with availability tracking",
+            "Built role-based access for students, event organizers, and administrators",
+            "Created booking tracking for current, upcoming, and past reservations",
+            "Designed mobile-first responsive UI using Flutter widgets",
+            "Developed centralized facility management preventing scheduling conflicts"
+          ],
+          "responsibilities": [
+            "Cross-platform mobile app development using Flutter",
+            "Role-based user flow implementation",
+            "Booking system architecture and state management",
+            "UI/UX design for mobile-first experience"
+          ],
+          "links": {
+            "github": "https://github.com/Dart-Master/utmsport"
+          },
+          "images": [
+            "/assets/images/projects/utmsport-mobileapp/landing-page.png"
+          ],
+          "tags": [
+            "Flutter",
+            "Dart",
+            "Mobile Development",
+            "Cross-Platform",
+            "Booking System",
+            "Role-Based Access"
+          ]
+        },
+        {
+          "id": "proj-11",
+          "title": "Breathe Easy: Respiratory System Explorer",
+          "subtitle": "Interactive Educational Web Application",
+          "category": "Full-Stack Development",
+          "type": "Personal",
+          "status": "Completed",
+          "featured": false,
+          "startDate": "2025-01",
+          "endDate": "2025-01",
+          "shortDescription": "Interactive educational website for learning about the human respiratory system with animations, quizzes, and 3D models",
+          "description": "Developed an interactive educational web application designed to teach biology students about the human respiratory system. The website features interactive anatomy diagrams, breathing animations and simulations, knowledge quizzes, embedded 3D models, and comprehensive disease information—all built with modern vanilla JavaScript using ES6 modules.",
+          "problem": "Biology students often struggle to visualize and understand the complex mechanics of the respiratory system through static textbook diagrams. There was a need for an engaging, interactive learning tool that could make respiratory anatomy and physiology more accessible.",
+          "solution": "Built a comprehensive educational platform with multiple interactive features: clickable anatomy diagrams that display detailed information about each respiratory organ, animated breathing simulations showing the inhalation/exhalation process, embedded 3D Sketchfab models for spatial understanding, and gamified quizzes to test knowledge retention.",
+          "myRole": "Full-stack developer responsible for the entire application architecture. Designed the modular JavaScript structure with separate classes for navigation, anatomy diagrams, breathing animations, and quiz functionality. Implemented responsive CSS with custom properties and created smooth animations for enhanced user engagement.",
+          "outcome": "Created a fully functional educational resource that provides an immersive learning experience. The modular codebase makes it easy to extend with additional content, and the responsive design ensures accessibility across all devices.",
+          "technologies": [
+            "HTML5",
+            "CSS3",
+            "JavaScript (ES6+)",
+            "jQuery",
+            "Sketchfab API",
+            "Font Awesome",
+            "Responsive Design"
+          ],
+          "achievements": [
+            "Built modular JavaScript architecture with 6+ reusable class modules (Navigation, AnatomyDiagram, BreathingAnimation, BreathingSimulation, Quiz, Utils)",
+            "Implemented interactive image map with clickable anatomy regions displaying detailed organ information",
+            "Created dynamic breathing simulation with real-time oxygen level tracking and animated visuals",
+            "Developed comprehensive quiz system with randomized questions, scoring, and answer review functionality",
+            "Integrated 3D Sketchfab models for immersive anatomical exploration",
+            "Designed responsive layout with CSS custom properties and smooth scroll navigation"
+          ],
+          "responsibilities": [
+            "Full-stack development (HTML/CSS/JavaScript)",
+            "Modular JavaScript architecture design using ES6 classes and modules",
+            "Interactive UI/UX implementation with animations and transitions",
+            "Educational content structuring and presentation",
+            "Cross-browser compatibility and responsive design"
+          ],
+          "links": {
+            "demo": "https://g2physio.github.io/",
+            "github": "https://github.com/G2Physio/G2Physio.github.io"
+          },
+          "images": [],
+          "tags": [
+            "Web Development",
+            "JavaScript",
+            "ES6 Modules",
+            "Interactive",
+            "Educational",
+            "Animation",
+            "Responsive Design",
+            "Biology"
+          ]
+        }
+      ],
+      "categoryOrder": [
+        "Full-Stack Development",
+        "Machine Learning",
+        "Mobile Development",
+        "Data Engineering",
+        "Software Design",
+        "Technical Documentation"
+      ],
+      "navLabel": "Projects"
+    },
+    {
+      "id": "education",
+      "type": "education",
+      "title": "Where I trained",
+      "visible": true,
+      "items": [
+        {
+          "id": "edu-1",
+          "institution": "Universiti Teknologi Malaysia",
+          "degree": "Bachelor of Computer Science (Software Engineering) with Honours",
+          "location": "Johor Bahru, Malaysia",
+          "startDate": "2022-10",
+          "endDate": "2026-07",
+          "current": true,
+          "gpa": "3.43",
+          "maxGpa": "4.00",
+          "highlights": [
+            "Software Engineering specialization",
+            "Full-stack development focus",
+            "Machine learning projects"
+          ],
+          "relevantCourses": [
+            "Software Engineering",
+            "Data Structures & Algorithms",
+            "Database Systems",
+            "Web Development",
+            "Machine Learning"
+          ]
+        },
+        {
+          "id": "edu-2",
+          "institution": "Kolej Mara Kuala Nerang",
+          "degree": "Foundation of Engineering & Technology",
+          "location": "Kedah, Malaysia",
+          "startDate": "2021-07",
+          "endDate": "2022-07",
+          "current": false,
+          "gpa": "4.00",
+          "maxGpa": "4.00",
+          "highlights": [
+            "Perfect GPA",
+            "MUET Band 4.0"
+          ],
+          "certifications": [
+            "MUET Band 4.0 (Professional English Proficiency)"
+          ]
+        },
+        {
+          "id": "edu-3",
+          "institution": "Maktab Rendah Sains MARA (MRSM)",
+          "degree": "Secondary Education",
+          "location": "Malaysia",
+          "startDate": "2016-01",
+          "endDate": "2021-03",
+          "current": false,
+          "achievements": "SPM Grade: 1A+, 6A, 2B",
+          "certifications": [
+            "Sijil Pelajaran Malaysia (SPM)",
+            "Cambridge International General Certificate of Secondary Education (IGCSE)",
+            "Cambridge Lower Secondary Checkpoint"
+          ]
+        }
+      ],
+      "navLabel": "Education"
+    },
+    {
+      "id": "certificates",
+      "type": "certificates",
+      "title": "Assessed on",
+      "visible": true,
+      "items": [
+        {
+          "id": "cert-1",
+          "name": "ISTQB Certified Tester Foundation Level (CTFL) v4.0",
+          "issuer": "International Software Testing Qualifications Board",
+          "issueDate": "2025-12",
+          "expiryDate": null,
+          "credentialId": "",
+          "credentialUrl": "",
+          "score": "80%",
+          "description": "International Software Testing Qualification covering testing fundamentals, SDLC testing, static testing, test design techniques, and test management.",
+          "skills": [
+            "Software Testing",
+            "SDLC",
+            "Test Design",
+            "Test Management",
+            "Static Testing"
+          ],
+          "featured": true,
+          "imagePath": "/assets/images/certifications/ISTQB/CTFL.jpeg",
+          "shortName": "ISTQB Certified Tester, Foundation Level v4.0"
+        },
+        {
+          "id": "cert-2",
+          "name": "MUET (Malaysian University English Test) - Band 4.0",
+          "issuer": "Malaysian Examinations Council",
+          "issueDate": "2022-03",
+          "expiryDate": null,
+          "credentialId": "",
+          "credentialUrl": "",
+          "score": "Band 4.0",
+          "description": "Professional English proficiency certification demonstrating competent English language skills.",
+          "skills": [
+            "English Proficiency",
+            "Communication",
+            "Professional Writing"
+          ],
+          "featured": false,
+          "imagePath": null,
+          "shortName": "MUET Band 4.0"
+        },
+        {
+          "id": "cert-3",
+          "name": "Cambridge International General Certificate of Secondary Education (IGCSE)",
+          "issuer": "Cambridge Assessment International Education",
+          "issueDate": "2021-03",
+          "expiryDate": null,
+          "credentialId": "",
+          "credentialUrl": "",
+          "description": "International secondary education qualification from Cambridge.",
+          "skills": [],
+          "featured": false,
+          "imagePath": null,
+          "shortName": "Cambridge IGCSE"
+        },
+        {
+          "id": "cert-4",
+          "name": "Cambridge Lower Secondary Checkpoint",
+          "issuer": "Cambridge Assessment International Education",
+          "issueDate": "2019-03",
+          "expiryDate": null,
+          "credentialId": "",
+          "credentialUrl": "",
+          "description": "Cambridge lower secondary achievement certification.",
+          "skills": [],
+          "featured": false,
+          "imagePath": null
+        }
+      ],
+      "navLabel": "Certificates"
+    },
+    {
+      "id": "skills",
+      "type": "skills",
+      "title": "What I work with",
+      "visible": true,
+      "items": [
+        {
+          "id": "cat-1",
+          "category": "Programming Languages",
+          "icon": "code",
+          "skills": [
+            {
+              "name": "JavaScript",
+              "level": "Advanced",
+              "percentage": 90,
+              "yearsOfExperience": 3
+            },
+            {
+              "name": "Python",
+              "level": "Advanced",
+              "percentage": 90,
+              "yearsOfExperience": 3
+            },
+            {
+              "name": "HTML5",
+              "level": "Advanced",
+              "percentage": 95,
+              "yearsOfExperience": 3
+            },
+            {
+              "name": "CSS3",
+              "level": "Advanced",
+              "percentage": 90,
+              "yearsOfExperience": 3
+            },
+            {
+              "name": "TypeScript",
+              "level": "Intermediate",
+              "percentage": 70,
+              "yearsOfExperience": 1
+            },
+            {
+              "name": "Java",
+              "level": "Intermediate",
+              "percentage": 70,
+              "yearsOfExperience": 2
+            },
+            {
+              "name": "C++",
+              "level": "Intermediate",
+              "percentage": 65,
+              "yearsOfExperience": 2
+            },
+            {
+              "name": "C#",
+              "level": "Beginner",
+              "percentage": 40,
+              "yearsOfExperience": 1
+            },
+            {
+              "name": "Dart",
+              "level": "Beginner",
+              "percentage": 35,
+              "yearsOfExperience": 0.5
+            }
+          ]
+        },
+        {
+          "id": "cat-2",
+          "category": "Web Development",
+          "icon": "globe",
+          "skills": [
+            {
+              "name": "Vue.js",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "React",
+              "level": "Intermediate",
+              "percentage": 70
+            },
+            {
+              "name": "PHP Slim Framework",
+              "level": "Intermediate",
+              "percentage": 75
+            },
+            {
+              "name": "Spring Framework",
+              "level": "Intermediate",
+              "percentage": 65
+            },
+            {
+              "name": "Tailwind CSS",
+              "level": "Advanced",
+              "percentage": 80
+            },
+            {
+              "name": "ASP.NET MVC",
+              "level": "Beginner",
+              "percentage": 50
+            }
+          ]
+        },
+        {
+          "id": "cat-3",
+          "category": "Machine Learning & AI",
+          "icon": "brain",
+          "skills": [
+            {
+              "name": "DistilBERT",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "BART",
+              "level": "Advanced",
+              "percentage": 80
+            },
+            {
+              "name": "SpaCy NER",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "Hugging Face Transformers",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "scikit-learn",
+              "level": "Intermediate",
+              "percentage": 75
+            },
+            {
+              "name": "NLP",
+              "level": "Advanced",
+              "percentage": 85
+            }
+          ]
+        },
+        {
+          "id": "cat-4",
+          "category": "Google Ecosystem",
+          "icon": "cloud",
+          "skills": [
+            {
+              "name": "Google Apps Script",
+              "level": "Advanced",
+              "percentage": 90
+            },
+            {
+              "name": "Google Workspace APIs",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "Google Sheets API",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "Google OAuth",
+              "level": "Advanced",
+              "percentage": 80
+            },
+            {
+              "name": "Google Colab",
+              "level": "Advanced",
+              "percentage": 85
+            }
+          ]
+        },
+        {
+          "id": "cat-5",
+          "category": "Database & Backend",
+          "icon": "database",
+          "skills": [
+            {
+              "name": "MySQL",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "SQL Server",
+              "level": "Intermediate",
+              "percentage": 70
+            },
+            {
+              "name": "Hibernate ORM",
+              "level": "Intermediate",
+              "percentage": 65
+            },
+            {
+              "name": "RESTful APIs",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "JWT Authentication",
+              "level": "Advanced",
+              "percentage": 80
+            }
+          ]
+        },
+        {
+          "id": "cat-6",
+          "category": "DevOps & Tools",
+          "icon": "tools",
+          "skills": [
+            {
+              "name": "Git/GitHub",
+              "level": "Advanced",
+              "percentage": 90
+            },
+            {
+              "name": "DigitalOcean",
+              "level": "Intermediate",
+              "percentage": 75
+            },
+            {
+              "name": "Netlify",
+              "level": "Intermediate",
+              "percentage": 75
+            },
+            {
+              "name": "Apache",
+              "level": "Intermediate",
+              "percentage": 70
+            },
+            {
+              "name": "VS Code",
+              "level": "Advanced",
+              "percentage": 95
+            },
+            {
+              "name": "JIRA",
+              "level": "Intermediate",
+              "percentage": 70
+            }
+          ]
+        },
+        {
+          "id": "cat-7",
+          "category": "Design & Documentation",
+          "icon": "design",
+          "skills": [
+            {
+              "name": "UI/UX Design",
+              "level": "Intermediate",
+              "percentage": 75
+            },
+            {
+              "name": "Canva",
+              "level": "Expert",
+              "percentage": 95
+            },
+            {
+              "name": "Enterprise Architect",
+              "level": "Intermediate",
+              "percentage": 65
+            },
+            {
+              "name": "Technical Writing",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "Microsoft Office Suite",
+              "level": "Expert",
+              "percentage": 95
+            }
+          ]
+        },
+        {
+          "id": "cat-8",
+          "category": "Development Practices",
+          "icon": "practices",
+          "skills": [
+            {
+              "name": "Full-Stack Development",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "System Migration",
+              "level": "Advanced",
+              "percentage": 85
+            },
+            {
+              "name": "Agile Methodology",
+              "level": "Intermediate",
+              "percentage": 75
+            },
+            {
+              "name": "Code Review",
+              "level": "Intermediate",
+              "percentage": 70
+            },
+            {
+              "name": "Testing (ISTQB CTFL)",
+              "level": "Intermediate",
+              "percentage": 75
+            }
+          ]
+        }
+      ],
+      "navLabel": "Skills"
+    },
+    {
+      "id": "leadership",
+      "type": "leadership",
+      "title": "Elsewhere on campus",
+      "visible": true,
+      "items": [
+        {
+          "id": "lead-1",
+          "title": "Event Crew",
+          "organization": "Glow Night Run",
+          "role": "Event Crew Member",
+          "startDate": "2024-03",
+          "endDate": "2024-03",
+          "current": false,
+          "description": "Supported event operations for Glow Night Run, coordinating with external parties and managing on-site station setup.",
+          "responsibilities": [
+            "External stakeholder communication",
+            "Event station setup and management",
+            "Team coordination"
+          ],
+          "achievements": [
+            "Successfully coordinated with external parties",
+            "Ensured smooth event execution"
+          ],
+          "skills": [
+            "Event Management",
+            "Communication",
+            "Teamwork"
+          ]
+        },
+        {
+          "id": "lead-2",
+          "title": "Head of Mastery and Demonstration Department",
+          "organization": "Persatuan Seni Silat Cekak UTM",
+          "role": "Department Head",
+          "startDate": "2023-09",
+          "endDate": "2024-06",
+          "current": false,
+          "description": "Led the Mastery and Demonstration Department, training members according to Seni Silat Cekak Pusaka Hanafi syllabus and organizing martial arts demonstrations within the campus.",
+          "responsibilities": [
+            "Training program coordination",
+            "Demonstration organization and execution",
+            "Department leadership and management"
+          ],
+          "achievements": [
+            "Completed the silat lessons",
+            "Successfully demonstrated martial arts display within the campus",
+            "Managed department activities and training"
+          ],
+          "skills": [
+            "Leadership",
+            "Training & Development",
+            "Performance Management",
+            "Martial Arts"
+          ]
+        },
+        {
+          "id": "lead-3",
+          "title": "Programming Clinic Mentor",
+          "organization": "Universiti Teknologi Malaysia",
+          "role": "Mentor",
+          "startDate": "2023-09",
+          "endDate": "2025-06",
+          "current": false,
+          "description": "Served as a mentor in the annual programming clinic, helping first-year students build fundamentals through guided exercises and code reviews.",
+          "responsibilities": [
+            "Teaching programming fundamentals",
+            "One-on-one mentoring sessions",
+            "Code review and guidance"
+          ],
+          "achievements": [
+            "Mentored multiple cohorts of students",
+            "Improved students' programming skills",
+            "Contributed to academic community"
+          ],
+          "skills": [
+            "Mentoring",
+            "Teaching",
+            "Programming",
+            "Communication"
+          ]
+        },
+        {
+          "id": "lead-4",
+          "title": "Academic Visit to Vietnam",
+          "organization": "UTM International Programs",
+          "role": "Participant",
+          "startDate": "2024-06",
+          "endDate": "2024-06",
+          "current": false,
+          "description": "Participated in academic visit to Ho Chi Minh City University of Technology (HCMUT) and VNG Corporation, attending lectures on AI and Cybersecurity.",
+          "responsibilities": [
+            "Academic exchange participation",
+            "Industry visit engagement",
+            "Knowledge sharing"
+          ],
+          "achievements": [
+            "Attended lectures on Artificial Intelligence and Cybersecurity at HCMUT",
+            "Industrial visit to VNG Corporation",
+            "International academic exposure"
+          ],
+          "skills": [
+            "Cross-cultural Communication",
+            "Industry Awareness",
+            "Academic Exchange"
+          ]
+        },
+        {
+          "id": "lead-5",
+          "title": "UTMKL PPG Visit",
+          "organization": "UTM Academic Programs",
+          "role": "Participant",
+          "startDate": "2024-11",
+          "endDate": "2024-11",
+          "current": false,
+          "description": "Attended a seminar by the PPG IT Council (UTMKL) on applied AI/ML initiatives, including the ChatPPG chatbot.",
+          "responsibilities": [
+            "Seminar participation",
+            "Learning about AI/ML industry applications"
+          ],
+          "achievements": [
+            "Gained insights into industry AI/ML practices",
+            "Learned about ChatPPG development"
+          ],
+          "skills": [
+            "Industry Knowledge",
+            "AI/ML Awareness",
+            "Continuous Learning"
+          ]
+        }
+      ],
+      "navLabel": "Involvement"
+    },
+    {
+      "id": "homelab",
+      "type": "prose",
+      "title": "The homelab",
+      "visible": true,
+      "body": "An HP EliteDesk 800 G2 Mini in Negeri Sembilan running everything on this domain: Docker Compose behind Caddy, exposed through a Cloudflare Tunnel with no ports open on the router, reached privately over Tailscale. It hosts this site, HARDA, Nextcloud, uptime monitoring and a Minecraft server, and backs itself up nightly.",
+      "navLabel": "Homelab"
+    },
+    {
+      "id": "writing",
+      "type": "prose",
+      "title": "Writing",
+      "visible": false,
+      "body": "",
+      "navLabel": "Writing"
+    },
+    {
+      "id": "contact",
+      "type": "contact",
+      "title": "Get in touch",
+      "visible": true,
+      "lead": "Happy to talk about any of this — the projects, how the homelab is put together, or something you're working on yourself.",
+      "navLabel": "Contact"
+    }
+  ]
+}

@@ -10,7 +10,10 @@
     "profileImage": "/assets/images/profile.jpg",
     "summary": "Final-year Software Engineering student at UTM with hands-on experience delivering production systems during a 6-month internship at Malaysia Airports. I’ve worked on projects like migrating a 10-year-old VB.NET finance tool to Google Apps Script with minimal disruption, and applying NLP to classify and summarize large volumes of customer feedback. I focus on full-stack development and applied machine learning because they let me deliver end-to-end solutions—from problem definition and implementation to documentation and handover.",
     "availableForWork": true,
-    "graduationDate": "2026-10"
+    "graduationDate": "2026-10",
+    "headline": "Full-stack & machine-learning engineer",
+    "intro": "I take systems people already depend on — a decade-old finance tool, a queue of thousands of complaints — and rebuild them so they run in a browser, explain themselves, and outlast me.",
+    "availability": "Graduating October 2026 · open to roles across Malaysia"
   },
   "social": {
     "linkedin": "https://www.linkedin.com/in/ali-hariz-anuari-46549a246/",
@@ -23,5 +26,23 @@
     "title": "Academic Advisor",
     "phone": "+6019-7712410",
     "email": "wnasir@utm.my"
-  }
+  },
+  "proof": [
+    {
+      "value": "20,923",
+      "label": "hardware assets migrated to production, zero data loss"
+    },
+    {
+      "value": "95%+",
+      "label": "of complaint categorisation automated"
+    },
+    {
+      "value": "268",
+      "label": "complaint categories across four languages"
+    },
+    {
+      "value": "6 months",
+      "label": "shipping inside Malaysia Airports IT"
+    }
+  ]
 }
