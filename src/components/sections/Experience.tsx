@@ -1,102 +1,76 @@
-import React from 'react';
-import { Card } from '../ui/Card';
-import experienceData from '../../data/experience.json';
+import { formatRange } from '../../lib/content'
+import type { Section } from '../../lib/site'
+import { SectionHeader, Tag } from '../ui/primitives'
 
-export const Experience: React.FC = () => {
-  const formatDate = (startDate: string, endDate: string, current: boolean) => {
-    const start = new Date(startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-    const end = current ? 'Present' : new Date(endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-    return `${start} - ${end}`;
-  };
+interface Accomplishment {
+  title: string
+  description: string
+  impact?: string
+  technologies?: string[]
+}
 
+/**
+ * One role, several distinct deliverables. Rather than a timeline — which
+ * implies a sequence there isn't much of — the role sits left and its
+ * accomplishments stack as cards on the right, so what was actually built
+ * gets the width.
+ */
+interface Role {
+  id: string
+  company: string
+  position: string
+  department?: string
+  location?: string
+  startDate?: string
+  endDate?: string
+  accomplishments?: Accomplishment[]
+}
+
+export function Experience({ section, index }: { section: Section; index: string }) {
+  const roles = (section.items ?? []) as Role[]
   return (
-    <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-text-primary-light dark:text-text-primary-dark mb-4">
-            Experience
-          </h2>
-          <div className="w-20 h-1 bg-primary-light dark:bg-primary-dark mx-auto rounded-full" />
-        </div>
+    <section className="shell py-16">
+      <SectionHeader id={section.id} index={index} label="Experience" title={section.title} lead={section.lead} />
 
-        {/* Experience Timeline */}
-        <div className="space-y-0">
-          {experienceData.experience.map((exp) => (
-            <div key={exp.id} className="relative pl-8 pb-12 last:pb-0">
-              {/* Timeline Line */}
-              <div className="absolute left-0 top-0 bottom-0 w-px bg-border-light dark:bg-border-dark" />
+      {roles.map((role) => {
+        const accomplishments = (role.accomplishments ?? []) as Accomplishment[]
+        const primary = accomplishments.slice(0, 3)
+        const extra = accomplishments.slice(3)
 
-              {/* Timeline Dot */}
-              <div className="absolute left-0 top-1 -translate-x-1/2 w-4 h-4 rounded-full bg-primary-light dark:bg-primary-dark border-4 border-background-light dark:border-background-dark" />
+        return (
+          <div key={role.id} className="grid gap-8 lg:grid-cols-[280px_1fr] lg:gap-16">
+            <div>
+              <h3 className="text-h3 sm:text-h3-lg">{role.position.replace(/\s*-\s*/, ', ')}</h3>
+              <p className="mt-2 text-body font-semibold">{role.company.replace(/\s*\(.*\)$/, '')}</p>
+              <p className="mt-2 text-small text-muted">{role.department}</p>
+              <p className="mt-1 text-small text-muted">
+                {role.location} · {formatRange(role.startDate, role.endDate, false)}
+              </p>
 
-              {/* Content */}
-              <div className="space-y-4">
-                {/* Main Experience Card */}
-                <Card>
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4">
-                    <div>
-                      <h3 className="text-xl font-semibold text-text-primary-light dark:text-text-primary-dark mb-1">
-                        {exp.position}
-                      </h3>
-                      <p className="text-md text-text-secondary-light dark:text-text-secondary-dark mb-2">
-                        {exp.department}
-                      </p>
-                      <p className="text-md font-medium text-text-primary-light dark:text-text-primary-dark">
-                        {exp.company}
-                      </p>
-                      <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark">
-                        {exp.location}
-                      </p>
-                    </div>
-                    <div className="mt-2 sm:mt-0 sm:text-right">
-                      <p className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark whitespace-nowrap">
-                        {formatDate(exp.startDate, exp.endDate, exp.current)}
-                      </p>
-                      {exp.current && (
-                        <span className="inline-block mt-2 px-3 py-1 rounded-full text-sm font-medium bg-primary-light/10 dark:bg-primary-dark/10 text-primary-light dark:text-primary-dark">
-                          Current
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-
-                {/* Accomplishments */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ml-0">
-                  {exp.accomplishments.map((accomplishment, index) => (
-                    <Card key={index} hover>
-                      <h4 className="text-lg font-semibold text-text-primary-light dark:text-text-primary-dark mb-2">
-                        {accomplishment.title}
-                      </h4>
-                      <p className="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3 leading-relaxed">
-                        {accomplishment.description}
-                      </p>
-                      {accomplishment.impact && (
-                        <p className="text-sm font-medium text-primary-light dark:text-primary-dark mb-3">
-                          Impact: {accomplishment.impact}
-                        </p>
-                      )}
-                      {accomplishment.technologies.length > 0 && (
-                        <div className="flex flex-wrap gap-1">
-                          {accomplishment.technologies.map((tech, techIndex) => (
-                            <span
-                              key={techIndex}
-                              className="px-2 py-1 text-xs rounded bg-surface-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark border border-border-light dark:border-border-dark"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </Card>
-                  ))}
-                </div>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {[...new Set(primary.flatMap((a) => a.technologies ?? []))].slice(0, 4).map((t) => (
+                  <Tag key={t}>{t}</Tag>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+
+            <div className="space-y-4">
+              {primary.map((a) => (
+                <article key={a.title} className="rounded-lg bg-surface p-6">
+                  <h4 className="text-h3 leading-tight">{a.title}</h4>
+                  <p className="mt-2 text-body text-muted">{a.impact || a.description}</p>
+                </article>
+              ))}
+
+              {extra.length > 0 && (
+                <p className="rounded-lg border border-divider p-6 text-small text-muted">
+                  Also: {extra.map((a) => a.title).join(' · ')}.
+                </p>
+              )}
+            </div>
+          </div>
+        )
+      })}
     </section>
-  );
-};
+  )
+}

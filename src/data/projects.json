@@ -49,6 +49,20 @@
         "Google Apps Script",
         "Enterprise",
         "OAuth"
+      ],
+      "metrics": [
+        {
+          "value": "95%",
+          "label": "visual match to legacy output"
+        },
+        {
+          "value": "65+",
+          "label": "page setup guide handed over"
+        },
+        {
+          "value": "0",
+          "label": "disruption to Finance operations"
+        }
       ]
     },
     {
@@ -110,6 +124,20 @@
         "T5",
         "NLP",
         "Cross-Platform"
+      ],
+      "metrics": [
+        {
+          "value": "95%+",
+          "label": "of categorisation automated"
+        },
+        {
+          "value": "268",
+          "label": "categories, 4 languages"
+        },
+        {
+          "value": "67×",
+          "label": "confidence gain on imbalance"
+        }
       ]
     },
     {
@@ -155,6 +183,20 @@
         "Freshservice",
         "Data Cleaning",
         "Production Deployment"
+      ],
+      "metrics": [
+        {
+          "value": "20,923",
+          "label": "asset records migrated"
+        },
+        {
+          "value": "100%",
+          "label": "spot-check accuracy"
+        },
+        {
+          "value": "0",
+          "label": "data loss"
+        }
       ]
     },
     {
@@ -191,6 +233,16 @@
         "ASP.NET",
         "SQL Server",
         "Legacy Systems"
+      ],
+      "metrics": [
+        {
+          "value": "6,841",
+          "label": "lines of schema read"
+        },
+        {
+          "value": "18",
+          "label": "controllers documented"
+        }
       ]
     },
     {
@@ -249,44 +301,78 @@
     },
     {
       "id": "proj-6",
-      "title": "HARDA - Hazard Assessment Road Detection Application",
-      "subtitle": "Final Year Project (In-Progress)",
+      "title": "HARDA — Hazard Assessment Road Detection",
+      "subtitle": "Final Year Project",
       "category": "Machine Learning",
       "type": "Academic",
-      "status": "In Progress",
+      "status": "Completed",
       "featured": true,
       "startDate": "2025-09",
-      "endDate": "2026-06",
-      "shortDescription": "Image recognition system for road hazard detection and mapping",
-      "description": "Currently developing a system for final year project that uses image recognition models to identify and classify different types of road hazards from user-submitted images, with geo-location tracking on a map.",
-      "problem": "Road hazards such as potholes are often under-reported, and manual inspection does not scale across large road networks. This delays prioritization and response.",
-      "solution": "Developing a submission workflow where users upload a photo and location. A computer-vision model classifies the hazard type and visual severity, then displays reports on a map to support triage and prioritization.",
-      "myRole": "Sole developer for the final-year project: system design, model training and evaluation, mapping integration, and implementation of the user submission interface.",
-      "outcome": "In progress. Proposal approved and architecture defined; targeting a working prototype by June 2026.",
+      "endDate": "2026-08",
+      "shortDescription": "Road hazards photographed by the public, classified by a fine-tuned YOLOv8 model, geotagged from image EXIF and plotted on a live map — with an admin workflow for verification, crew assignment and resolution tracking.",
+      "description": "A three-tier system that automates road hazard reporting in Malaysia. A member of the public photographs a hazard from the web app or the mobile app; the backend runs YOLOv8 inference, extracts GPS from the image EXIF data (falling back to device location), and files the report. Local authority admins verify submissions, assign them to regional field crews, and track them through to resolution, with an after-photo closing the loop. Built as a Flask REST API over PostgreSQL, a React web client, and a React Native app that serves both public reporters and field crew from the same codebase.",
+      "problem": "Road hazards are under-reported and manual inspection does not scale across a national road network. Existing reporting tools also lose their history once a hazard is settled, so authorities cannot see what was fixed, when, or by whom — a gap identified with an ex-Roadcare site supervisor during requirements gathering.",
+      "solution": "YOLOv8 fine-tuned on a road-damage dataset classifies hazards above a 0.70 confidence threshold, with all detections above the threshold returned so one photograph can carry several hazards. EXIF GPS geotags each report, and a resolved-hazard archive with before and after photographs preserves the history that comparable systems discard.",
+      "myRole": "Sole developer across the whole system: requirements and stakeholder interviews, database design (9 tables), the Flask API, the YOLO inference service, the React dashboard, the cross-platform mobile app, and the deployment. Now self-hosted on my own hardware behind a Cloudflare Tunnel rather than a cloud provider.",
+      "outcome": "Delivered and running in production on self-hosted infrastructure at harda.aliharizanuari.org. Twelve use cases across three clients — web, Android and iOS — served by one API. Rate limiting and English/Malay localisation, both non-functional requirements the design document called for, were implemented and verified.",
       "technologies": [
-        "Image Recognition",
-        "Machine Learning",
-        "Computer Vision",
-        "Geolocation API"
+        "Flask",
+        "PostgreSQL",
+        "YOLOv8",
+        "Ultralytics",
+        "React",
+        "React Native",
+        "Expo",
+        "Docker"
       ],
       "achievements": [
-        "Completed proposal stage",
-        "Designed system architecture"
+        "Fine-tuned YOLOv8 on road-damage data with multi-hazard detection above a 0.70 confidence threshold",
+        "Designed a 9-table schema supporting admin verification, regional crew assignment and a resolved-hazard audit archive",
+        "Shipped 3 clients — React web, Android and iOS — against a single Flask REST API",
+        "Implemented EXIF GPS extraction with device-location fallback for photographs missing geotags",
+        "Bilingual interface in English and Malay across both web and mobile",
+        "Self-hosted end to end: Docker Compose, Caddy and a Cloudflare Tunnel, with no cloud provider"
       ],
       "responsibilities": [
-        "ML model development",
-        "Image classification",
-        "Geographic mapping integration"
+        "System design",
+        "ML model fine-tuning and evaluation",
+        "Full-stack implementation",
+        "Mobile development",
+        "Deployment and operations"
       ],
-      "links": {},
-      "images": [],
+      "links": {
+        "live": "https://harda.aliharizanuari.org",
+        "android": "https://harda.aliharizanuari.org/get",
+        "github": "https://github.com/alihariz/harda"
+      },
+      "images": [
+        "/assets/images/projects/harda/architecture.png",
+        "/assets/images/projects/harda/use-cases.png"
+      ],
       "tags": [
         "Machine Learning",
         "Computer Vision",
-        "Image Recognition",
-        "FYP",
-        "In Progress"
-      ]
+        "YOLOv8",
+        "Full-Stack",
+        "Mobile",
+        "Self-hosted",
+        "FYP"
+      ],
+      "metrics": [
+        {
+          "value": "3",
+          "label": "clients on one API"
+        },
+        {
+          "value": "9",
+          "label": "table schema"
+        },
+        {
+          "value": "12",
+          "label": "use cases delivered"
+        }
+      ],
+      "priority": 0
     },
     {
       "id": "proj-7",

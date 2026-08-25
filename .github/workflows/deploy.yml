@@ -1,0 +1,118 @@
+# CI/CD for aliharizanuari.org
+#
+# Two jobs, deliberately split:
+#
+#   ci      runs on GitHub's hosted runners. It never touches the homelab, so
+#           it is safe to run for pull requests, including from forks.
+#   deploy  runs on the self-hosted runner on alielitedesk. It does NOT build.
+#           It downloads the artifact `ci` already produced and installs it.
+#
+# Why the split matters: a self-hosted runner executes whatever the workflow
+# says on your actual machine. Because `deploy` only ever runs for a push to
+# the default branch — which requires write access to this repo — untrusted
+# code from a fork PR can never reach the box. Keep the `if:` below intact.
+
+name: CI / Deploy
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+# A second push while a deploy is in flight cancels the older run rather than
+# racing it into the same directory.
+concurrency:
+  group: portfolio-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  # ── CI: everything that can fail without touching production ──────────────
+  ci:
+    name: Typecheck, validate, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint --if-present
+
+      # Catches the failure mode App.tsx cannot: renderSection() returns null
+      # for an unknown section type, so a typo silently drops a whole section
+      # instead of erroring. See scripts/validate-site-json.mjs.
+      - name: Validate site.json
+        run: node scripts/validate-site-json.mjs src/data/site.json
+
+      - name: Build
+        env:
+          VITE_BUILD_SHA: ${{ github.sha }}
+          VITE_BUILD_REF: ${{ github.ref_name }}
+        run: npm run build
+
+      # Stamps the build so you can tell what is actually live, and so the
+      # post-deploy smoke test has something unambiguous to assert on.
+      - name: Stamp version.json
+        run: |
+          node -e '
+            const fs = require("fs");
+            fs.writeFileSync("dist/version.json", JSON.stringify({
+              sha: process.env.GITHUB_SHA,
+              ref: process.env.GITHUB_REF_NAME,
+              run: process.env.GITHUB_RUN_NUMBER,
+              builtAt: new Date().toISOString(),
+            }, null, 2) + "\n");
+          '
+          cat dist/version.json
+
+      - name: Guard against an empty build
+        run: |
+          test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
+          echo "dist contains $(find dist -type f | wc -l) files"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ github.sha }}
+          path: dist/
+          retention-days: 14
+          if-no-files-found: error
+
+  # ── CD: runs on alielitedesk ──────────────────────────────────────────────
+  deploy:
+    name: Deploy to homelab
+    needs: ci
+    # Pushes to the default branch only. Never pull requests, never forks.
+    if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+    runs-on: [self-hosted, homelab]
+    environment:
+      name: production
+      url: https://aliharizanuari.org
+    steps:
+      # Only the deploy scripts, not the whole tree with its 1.5 MB of images.
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist-${{ github.sha }}
+          path: dist
+
+      - name: Install
+        env:
+          GITHUB_SHA: ${{ github.sha }}
+        run: bash scripts/deploy-portfolio.sh dist

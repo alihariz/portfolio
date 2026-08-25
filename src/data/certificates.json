@@ -18,7 +18,8 @@
         "Static Testing"
       ],
       "featured": true,
-      "imagePath": "/assets/images/certifications/ISTQB/CTFL.jpeg"
+      "imagePath": "/assets/images/certifications/ISTQB/CTFL.jpeg",
+      "shortName": "ISTQB Certified Tester, Foundation Level v4.0"
     },
     {
       "id": "cert-2",
@@ -36,7 +37,8 @@
         "Professional Writing"
       ],
       "featured": false,
-      "imagePath": null
+      "imagePath": null,
+      "shortName": "MUET Band 4.0"
     },
     {
       "id": "cert-3",
@@ -49,7 +51,8 @@
       "description": "International secondary education qualification from Cambridge.",
       "skills": [],
       "featured": false,
-      "imagePath": null
+      "imagePath": null,
+      "shortName": "Cambridge IGCSE"
     },
     {
       "id": "cert-4",
