@@ -73,7 +73,7 @@ container keeps running until step 7.
 ```bash
 sudo tailscale serve --bg --https=8443 http://127.0.0.1:8095
 tailscale serve status                     # note the https://….ts.net:8443 address
-tailscale whois $(tailscale ip -4 ali-acer) | grep -i login   # note your login name
+tailscale whois --json $(tailscale ip -4 ali-acer) | grep -m1 LoginName   # note your login name
 ```
 
 **1. Get the code and keep a way back**

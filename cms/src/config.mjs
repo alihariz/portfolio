@@ -26,7 +26,7 @@ export function loadConfig(env = process.env) {
   }
 
   const owner = (env.CMS_OWNER_LOGIN || '').trim().toLowerCase()
-  if (!owner) problems.push('CMS_OWNER_LOGIN is not set. Use the login `tailscale whois <your laptop tailnet IP>` prints, e.g. alihariz@github')
+  if (!owner) problems.push('CMS_OWNER_LOGIN is not set. Use the LoginName from `tailscale whois --json <your laptop tailnet IP>`, e.g. alihariz@github')
 
   const contentDir = path.resolve(env.CONTENT_DIR || '/content')
   const backupDir = path.resolve(env.BACKUP_DIR || '/backups')
