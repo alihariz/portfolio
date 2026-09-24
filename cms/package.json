@@ -1,9 +1,17 @@
 {
   "name": "portfolio-cms",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "dependencies": { "express": "^4.21.2", "multer": "^1.4.5-lts.1" }
+  "engines": { "node": ">=22.22" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test --test-force-exit test/*.test.mjs"
+  },
+  "dependencies": {
+    "express": "4.22.3",
+    "multer": "2.4.0",
+    "sharp": "0.35.4"
+  }
 }
