@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site editor — aliharizanuari.org</title>
+<style>
+  :root{
+    --bg:#14161a; --panel:#1c1f25; --panel2:#23272f; --line:#2f343d;
+    --ink:#e8eaed; --muted:#9aa3af; --accent:#c67139; --accent2:#7a8a5e; --danger:#c0554a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;
+    padding:12px 18px;background:var(--panel);border-bottom:1px solid var(--line)}
+  header h1{font-size:15px;margin:0;font-weight:700}
+  .grow{flex:1}
+  button,select,input,textarea{font:inherit;color:inherit}
+  button{background:var(--panel2);border:1px solid var(--line);border-radius:7px;
+    padding:7px 13px;cursor:pointer}
+  button:hover{border-color:var(--accent)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#14161a;font-weight:600}
+  button.danger:hover{border-color:var(--danger);color:var(--danger)}
+  button.icon{padding:4px 9px}
+  select,input[type=text],input[type=number],textarea{background:var(--bg);
+    border:1px solid var(--line);border-radius:7px;padding:8px 11px;width:100%}
+  textarea{min-height:74px;resize:vertical;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  main{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 57px)}
+  aside{border-right:1px solid var(--line);padding:14px;background:var(--panel)}
+  .sec{display:flex;align-items:center;gap:6px;padding:7px 9px;border-radius:7px;cursor:pointer;
+    border:1px solid transparent}
+  .sec:hover{background:var(--panel2)}
+  .sec.on{background:var(--panel2);border-color:var(--accent)}
+  .sec .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sec.off .nm{opacity:.42;text-decoration:line-through}
+  .ty{font-size:11px;color:var(--muted)}
+  section.pane{padding:20px 24px;overflow:auto}
+  h2{font-size:17px;margin:0 0 4px}
+  .hint{color:var(--muted);font-size:12px;margin:0 0 16px}
+  .field{margin-bottom:13px}
+  .field>label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+  .row{display:flex;gap:9px;align-items:center}
+  fieldset{border:1px solid var(--line);border-radius:9px;padding:13px;margin:0 0 13px}
+  legend{font-size:12px;color:var(--muted);padding:0 6px}
+  details.item{border:1px solid var(--line);border-radius:9px;margin-bottom:9px;background:var(--panel)}
+  details.item>summary{padding:10px 13px;cursor:pointer;display:flex;align-items:center;gap:9px}
+  details.item>summary::-webkit-details-marker{display:none}
+  details.item>summary .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  details.item>div{padding:0 13px 13px}
+  .tag{font-size:11px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:2px 9px;color:var(--muted)}
+  .toast{position:fixed;right:18px;bottom:18px;background:var(--panel2);
+    border:1px solid var(--accent);border-radius:9px;padding:11px 15px;z-index:50}
+  .toast.err{border-color:var(--danger)}
+  .media{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
+  .media figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:7px}
+  .media img{width:100%;height:74px;object-fit:contain;background:#0d0f12;border-radius:5px}
+  .media figcaption{font-size:10px;color:var(--muted);word-break:break-all;margin-top:5px}
+  .warn{background:#2a2118;border:1px solid #5c4a22;border-radius:9px;padding:11px 14px;
+    font-size:12px;color:#e0cba8;margin-bottom:16px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Site editor</h1>
+  <span class="ty" id="status">loading…</span>
+  <span class="grow"></span>
+  <label class="ty" for="variant">variant</label>
+  <select id="variant" style="width:auto"></select>
+  <button id="newVariant">Duplicate…</button>
+  <button id="publish" title="Copy this variant over the live document">Publish</button>
+  <button id="media">Images</button>
+  <button id="save" class="primary">Save</button>
+</header>
+
+<main>
+  <aside>
+    <div class="row" style="margin-bottom:10px">
+      <strong style="font-size:12px;color:var(--muted)">SECTIONS</strong>
+      <span class="grow"></span>
+      <span class="ty" id="count"></span>
+    </div>
+    <div id="sections"></div>
+    <p class="hint" style="margin-top:14px">
+      Drag isn't wired — use ↑ ↓ to reorder. The eye hides a section from the
+      public site without deleting anything.
+    </p>
+  </aside>
+
+  <section class="pane" id="pane"></section>
+</main>
+
+<script>
+/* ────────────────────────────────────────────────────────────────────────
+   A generic editor. Rather than hand-writing a form for each of the seven
+   section types, fields are derived from the shape of the data — so adding a
+   key to a project in the JSON makes an input appear here with no code
+   change, and a new section type needs nothing at all.
+   ──────────────────────────────────────────────────────────────────────── */
+
+let doc = null            // the document being edited
+let selected = 'profile'  // 'profile' | section id
+let dirty = false
+
+const $ = (s) => document.querySelector(s)
+const el = (tag, props = {}, kids = []) => {
+  const n = Object.assign(document.createElement(tag), props)
+  for (const k of [].concat(kids)) n.append(k)
+  return n
+}
+
+function toast(msg, isError) {
+  const t = el('div', { className: 'toast' + (isError ? ' err' : ''), textContent: msg })
+  document.body.append(t)
+  setTimeout(() => t.remove(), isError ? 6000 : 2200)
+}
+
+function setDirty(v) {
+  dirty = v
+  $('#status').textContent = v ? 'unsaved changes' : 'saved'
+}
+
+window.addEventListener('beforeunload', (e) => { if (dirty) e.preventDefault() })
+
+/* ── Field rendering ──────────────────────────────────────────────────── */
+
+const LONG = 90
+const label = (k) => k.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, (c) => c.toUpperCase())
+
+function field(obj, key, onChange) {
+  const val = obj[key]
+
+  if (typeof val === 'boolean') {
+    const cb = el('input', { type: 'checkbox', checked: val, style: 'width:auto' })
+    cb.onchange = () => { obj[key] = cb.checked; onChange() }
+    return el('div', { className: 'field' }, [el('label', { textContent: label(key) }), cb])
+  }
+
+  if (typeof val === 'number') {
+    const inp = el('input', { type: 'number', value: String(val) })
+    inp.oninput = () => { obj[key] = Number(inp.value); onChange() }
+    return el('div', { className: 'field' }, [el('label', { textContent: label(key) }), inp])
+  }
+
+  if (Array.isArray(val)) {
+    // Arrays of plain strings edit far better as one-per-line text than as a
+    // pile of inputs; arrays of objects get a nested list.
+    if (val.every((v) => typeof v === 'string')) {
+      const ta = el('textarea', { value: val.join('\n') })
+      ta.oninput = () => { obj[key] = ta.value.split('\n').map((s) => s.trim()).filter(Boolean); onChange() }
+      return el('div', { className: 'field' }, [
+        el('label', { textContent: label(key) + ' — one per line' }), ta,
+      ])
+    }
+    return objectList(val, label(key), onChange)
+  }
+
+  if (val && typeof val === 'object') {
+    const fs = el('fieldset', {}, [el('legend', { textContent: label(key) })])
+    for (const k of Object.keys(val)) fs.append(field(val, k, onChange))
+    return fs
+  }
+
+  const str = val == null ? '' : String(val)
+  const node = str.length > LONG || str.includes('\n')
+    ? el('textarea', { value: str })
+    : el('input', { type: 'text', value: str })
+  node.oninput = () => { obj[key] = node.value; onChange() }
+  return el('div', { className: 'field' }, [el('label', { textContent: label(key) }), node])
+}
+
+function titleOf(item, i) {
+  return item.title || item.name || item.position || item.degree || item.category || item.value || `Item ${i + 1}`
+}
+
+function objectList(arr, heading, onChange) {
+  const wrap = el('fieldset', {}, [el('legend', { textContent: `${heading} (${arr.length})` })])
+
+  arr.forEach((item, i) => {
+    const body = el('div')
+    for (const k of Object.keys(item)) body.append(field(item, k, onChange))
+
+    const up = el('button', { className: 'icon', title: 'Move up', textContent: '↑' })
+    const dn = el('button', { className: 'icon', title: 'Move down', textContent: '↓' })
+    const rm = el('button', { className: 'icon danger', title: 'Delete', textContent: '✕' })
+    up.onclick = (e) => { e.preventDefault(); if (i > 0) { [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; onChange(true) } }
+    dn.onclick = (e) => { e.preventDefault(); if (i < arr.length - 1) { [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]]; onChange(true) } }
+    rm.onclick = (e) => {
+      e.preventDefault()
+      if (confirm(`Delete "${titleOf(item, i)}"? This cannot be undone until you reload without saving.`)) {
+        arr.splice(i, 1); onChange(true)
+      }
+    }
+
+    wrap.append(el('details', { className: 'item' }, [
+      el('summary', {}, [
+        el('span', { className: 'ty', textContent: String(i + 1).padStart(2, '0') }),
+        el('span', { className: 't', textContent: titleOf(item, i) }),
+        up, dn, rm,
+      ]),
+      body,
+    ]))
+  })
+
+  const add = el('button', { textContent: `+ Add ${heading.toLowerCase().replace(/\s*\(\d+\)$/, '')}` })
+  add.onclick = (e) => {
+    e.preventDefault()
+    // Clone the shape of the last entry so the new one has the same fields,
+    // blanked — much friendlier than an empty object with no inputs.
+    const template = arr[arr.length - 1] || {}
+    const blank = JSON.parse(JSON.stringify(template))
+    const wipe = (o) => {
+      for (const k of Object.keys(o)) {
+        const v = o[k]
+        if (typeof v === 'string') o[k] = ''
+        else if (typeof v === 'boolean') o[k] = false
+        else if (typeof v === 'number') o[k] = 0
+        else if (Array.isArray(v)) o[k] = []
+        else if (v && typeof v === 'object') wipe(v)
+      }
+    }
+    wipe(blank)
+    if ('id' in blank) blank.id = 'new-' + Math.random().toString(36).slice(2, 8)
+    arr.push(blank)
+    onChange(true)
+  }
+  wrap.append(add)
+  return wrap
+}
+
+/* ── Panes ────────────────────────────────────────────────────────────── */
+
+function renderSidebar() {
+  const host = $('#sections')
+  host.textContent = ''
+  $('#count').textContent = doc.sections.length + ' total'
+
+  const profileRow = el('div', {
+    className: 'sec' + (selected === 'profile' ? ' on' : ''),
+  }, [el('span', { className: 'nm', textContent: 'Profile & meta' })])
+  profileRow.onclick = () => { selected = 'profile'; render() }
+  host.append(profileRow)
+  host.append(el('div', { style: 'height:10px' }))
+
+  doc.sections.forEach((s, i) => {
+    const eye = el('button', { className: 'icon', title: s.visible ? 'Visible — click to hide' : 'Hidden — click to show', textContent: s.visible ? '👁' : '—' })
+    const up = el('button', { className: 'icon', title: 'Move up', textContent: '↑' })
+    const dn = el('button', { className: 'icon', title: 'Move down', textContent: '↓' })
+    eye.onclick = (e) => { e.stopPropagation(); s.visible = !s.visible; setDirty(true); render() }
+    up.onclick = (e) => { e.stopPropagation(); if (i > 0) { [doc.sections[i - 1], doc.sections[i]] = [doc.sections[i], doc.sections[i - 1]]; setDirty(true); render() } }
+    dn.onclick = (e) => { e.stopPropagation(); if (i < doc.sections.length - 1) { [doc.sections[i + 1], doc.sections[i]] = [doc.sections[i], doc.sections[i + 1]]; setDirty(true); render() } }
+
+    const row = el('div', {
+      className: 'sec' + (selected === s.id ? ' on' : '') + (s.visible ? '' : ' off'),
+    }, [
+      el('span', { className: 'nm', textContent: s.title || s.id }),
+      el('span', { className: 'ty', textContent: s.type }),
+      eye, up, dn,
+    ])
+    row.onclick = () => { selected = s.id; render() }
+    host.append(row)
+  })
+}
+
+function renderPane() {
+  const pane = $('#pane')
+  pane.textContent = ''
+  const change = (rerender) => { setDirty(true); if (rerender) render() }
+
+  if (selected === 'profile') {
+    pane.append(el('h2', { textContent: 'Profile & page metadata' }))
+    pane.append(el('p', { className: 'hint', textContent: 'Name, headline, intro, links, and the page title and description used by search engines and link previews.' }))
+    const fs1 = el('fieldset', {}, [el('legend', { textContent: 'Profile' })])
+    for (const k of Object.keys(doc.profile)) fs1.append(field(doc.profile, k, change))
+    const fs2 = el('fieldset', {}, [el('legend', { textContent: 'Meta' })])
+    for (const k of Object.keys(doc.meta)) fs2.append(field(doc.meta, k, change))
+    pane.append(fs1, fs2)
+    return
+  }
+
+  const s = doc.sections.find((x) => x.id === selected)
+  if (!s) { pane.append(el('p', { className: 'hint', textContent: 'Select a section.' })); return }
+
+  pane.append(el('h2', { textContent: s.title || s.id }))
+  pane.append(el('p', { className: 'hint', textContent: `type: ${s.type} · id: ${s.id} · ${s.visible ? 'visible' : 'hidden'}` }))
+
+  if (!s.visible) {
+    pane.append(el('div', { className: 'warn', textContent: 'This section is hidden — it will not appear on the public site, and its link is removed from the nav.' }))
+  }
+
+  for (const k of ['title', 'lead', 'body']) {
+    if (k in s) pane.append(field(s, k, change))
+  }
+  if (Array.isArray(s.categoryOrder)) pane.append(field(s, 'categoryOrder', change))
+  if (Array.isArray(s.items)) pane.append(objectList(s.items, 'Items', change))
+}
+
+function render() { renderSidebar(); renderPane() }
+
+/* ── Server ───────────────────────────────────────────────────────────── */
+
+const api = async (url, opts) => {
+  const r = await fetch(url, opts)
+  if (!r.ok) {
+    let msg = r.statusText
+    try { const j = await r.json(); msg = j.details ? j.details.join('; ') : j.error || msg } catch {}
+    throw new Error(msg)
+  }
+  return r.status === 204 ? null : r.json()
+}
+
+const currentVariant = () => $('#variant').value || 'default'
+
+async function loadVariants(keep) {
+  const { variants } = await api('/api/variants')
+  const sel = $('#variant')
+  sel.textContent = ''
+  for (const v of variants) sel.append(el('option', { value: v, textContent: v }))
+  if (keep && variants.includes(keep)) sel.value = keep
+}
+
+async function load() {
+  const v = currentVariant()
+  doc = await api('/api/content?variant=' + encodeURIComponent(v))
+  selected = 'profile'
+  setDirty(false)
+  render()
+}
+
+$('#save').onclick = async () => {
+  try {
+    await api('/api/content?variant=' + encodeURIComponent(currentVariant()), {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(doc),
+    })
+    setDirty(false)
+    toast('Saved — live on the site in a few seconds')
+  } catch (e) { toast('Save failed: ' + e.message, true) }
+}
+
+$('#variant').onchange = async () => {
+  if (dirty && !confirm('You have unsaved changes. Switch anyway?')) return
+  await load()
+}
+
+$('#newVariant').onclick = async () => {
+  const name = prompt('New variant name (letters, numbers, hyphens):')
+  if (!name) return
+  try {
+    await api(`/api/variants/${encodeURIComponent(name)}/from/${encodeURIComponent(currentVariant())}`, { method: 'POST' })
+    await loadVariants(name)
+    await load()
+    toast(`Created "${name}" — reachable at /?v=${name}`)
+  } catch (e) { toast(e.message, true) }
+}
+
+$('#publish').onclick = async () => {
+  const v = currentVariant()
+  if (v === 'default') return toast('This already is the live document')
+  if (!confirm(`Copy "${v}" over the live site? The current live version is backed up first.`)) return
+  try {
+    await api(`/api/variants/default/from/${encodeURIComponent(v)}`, { method: 'POST' })
+    toast(`"${v}" is now live`)
+  } catch (e) { toast(e.message, true) }
+}
+
+/* ── Media ────────────────────────────────────────────────────────────── */
+
+$('#media').onclick = async () => {
+  const pane = $('#pane')
+  selected = null
+  pane.textContent = ''
+  pane.append(el('h2', { textContent: 'Images' }))
+  pane.append(el('p', { className: 'hint', textContent: 'Uploaded here, served at /media/<name>. Paste that path into a project’s images list or the profile portrait.' }))
+
+  const input = el('input', { type: 'file', multiple: true, accept: 'image/*', style: 'width:auto' })
+  input.onchange = async () => {
+    if (!input.files.length) return
+    const fd = new FormData()
+    for (const f of input.files) fd.append('files', f)
+    try {
+      const { files } = await api('/api/media', { method: 'POST', body: fd })
+      toast(`Uploaded ${files.length} file${files.length === 1 ? '' : 's'}`)
+      $('#media').click()
+    } catch (e) { toast(e.message, true) }
+  }
+  pane.append(input)
+
+  const grid = el('div', { className: 'media', style: 'margin-top:16px' })
+  const { files } = await api('/api/media')
+  for (const f of files) {
+    const copy = el('button', { className: 'icon', textContent: 'Copy path', style: 'margin-top:5px;width:100%' })
+    copy.onclick = () => { navigator.clipboard.writeText(f.url); toast('Copied ' + f.url) }
+    grid.append(el('figure', {}, [
+      el('img', { src: f.url, alt: f.name, loading: 'lazy' }),
+      el('figcaption', { textContent: `${f.name} · ${Math.round(f.size / 1024)} KB` }),
+      copy,
+    ]))
+  }
+  pane.append(grid)
+}
+
+/* ── Boot ─────────────────────────────────────────────────────────────── */
+
+;(async () => {
+  try {
+    await loadVariants()
+    await load()
+  } catch (e) {
+    $('#status').textContent = 'failed to load'
+    toast('Could not load content: ' + e.message, true)
+  }
+})()
+</script>
+</body>
+</html>
