@@ -1,0 +1,26 @@
+# Replaces the two blocks inside the aliharizanuari.org site in
+# /home/ali/homelab/caddy/Caddyfile that serve /content/* and /media/*.
+
+	# Only the documents themselves are public. The editor's temp files
+	# (.staging/), and anything else that ever lands in the folder, are not.
+	handle_path /content/* {
+		@notdoc not path_regexp ^/site(\.[a-z0-9-]+)?\.json$
+		respond @notdoc 404
+		root * /srv/site-content
+		header Cache-Control "no-store"
+		header Access-Control-Allow-Origin "*"
+		file_server
+	}
+
+	# Uploaded images only. Names are content hashes, so a URL never changes
+	# meaning and can be cached for good; the CSP makes sure that even a file
+	# that somehow got here could never run as a page.
+	handle_path /media/* {
+		@notimage not path_regexp \.(webp|avif|png|jpe?g)$
+		respond @notimage 404
+		root * /srv/site-content/media
+		header Cache-Control "public, max-age=31536000, immutable"
+		header Content-Security-Policy "default-src 'none'; sandbox"
+		header X-Content-Type-Options nosniff
+		file_server
+	}

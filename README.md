@@ -33,10 +33,11 @@ that — it reads the valid type list out of `App.tsx` so it cannot drift.
 and SEO never wait on the network — then fetches `/content/site.json` and swaps
 it in if the schema matches. If that endpoint is down, the bundled copy stands.
 
-That endpoint is written by a small editor running on the homelab
-(`alielitedesk:8095`, reachable over Tailscale only, no route on the tunnel).
-**So text and image changes need no build and no deploy** — save in the editor
-and reload. Only code and styling go through CI.
+That endpoint is written by the editor in [`cms/`](cms/README.md), running on
+the homelab behind Tailscale Serve (loopback-bound, owner-only, no route on the
+tunnel). It validates every document with the same rules as CI before writing
+it, so **text and image changes need no build and no deploy** — save in the
+editor and reload. Only code and styling go through CI.
 
 `?v=<name>` loads `/content/site.<name>.json` for per-audience variants.
 

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site editor — aliharizanuari.org</title>
+<style>
+  :root{
+    --bg:#14161a; --panel:#1c1f25; --panel2:#23272f; --line:#2f343d;
+    --ink:#e8eaed; --muted:#9aa3af; --accent:#c67139; --accent2:#7a8a5e; --danger:#c0554a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:14px/1.5 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  header{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;
+    padding:12px 18px;background:var(--panel);border-bottom:1px solid var(--line)}
+  header h1{font-size:15px;margin:0;font-weight:700}
+  .grow{flex:1}
+  button,select,input,textarea{font:inherit;color:inherit}
+  button{background:var(--panel2);border:1px solid var(--line);border-radius:7px;
+    padding:7px 13px;cursor:pointer}
+  button:hover{border-color:var(--accent)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#14161a;font-weight:600}
+  button.danger:hover{border-color:var(--danger);color:var(--danger)}
+  button.icon{padding:4px 9px}
+  select,input[type=text],input[type=number],textarea{background:var(--bg);
+    border:1px solid var(--line);border-radius:7px;padding:8px 11px;width:100%}
+  textarea{min-height:74px;resize:vertical;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
+  main{display:grid;grid-template-columns:290px 1fr;min-height:calc(100vh - 57px)}
+  aside{border-right:1px solid var(--line);padding:14px;background:var(--panel)}
+  .sec{display:flex;align-items:center;gap:6px;padding:7px 9px;border-radius:7px;cursor:pointer;
+    border:1px solid transparent}
+  .sec:hover{background:var(--panel2)}
+  .sec.on{background:var(--panel2);border-color:var(--accent)}
+  .sec .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .sec.off .nm{opacity:.42;text-decoration:line-through}
+  .ty{font-size:11px;color:var(--muted)}
+  section.pane{padding:20px 24px;overflow:auto}
+  h2{font-size:17px;margin:0 0 4px}
+  .hint{color:var(--muted);font-size:12px;margin:0 0 16px}
+  .field{margin-bottom:13px}
+  .field>label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+  .row{display:flex;gap:9px;align-items:center}
+  fieldset{border:1px solid var(--line);border-radius:9px;padding:13px;margin:0 0 13px}
+  legend{font-size:12px;color:var(--muted);padding:0 6px}
+  details.item{border:1px solid var(--line);border-radius:9px;margin-bottom:9px;background:var(--panel)}
+  details.item>summary{padding:10px 13px;cursor:pointer;display:flex;align-items:center;gap:9px}
+  details.item>summary::-webkit-details-marker{display:none}
+  details.item>summary .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  details.item>div{padding:0 13px 13px}
+  .tag{font-size:11px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:2px 9px;color:var(--muted)}
+  .toast{position:fixed;right:18px;bottom:18px;background:var(--panel2);
+    border:1px solid var(--accent);border-radius:9px;padding:11px 15px;z-index:50}
+  .toast.err{border-color:var(--danger)}
+  .media{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:9px}
+  .media figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:7px}
+  .media img{width:100%;height:74px;object-fit:contain;background:#0d0f12;border-radius:5px}
+  .media figcaption{font-size:10px;color:var(--muted);word-break:break-all;margin-top:5px}
+  .warn{background:#2a2118;border:1px solid #5c4a22;border-radius:9px;padding:11px 14px;
+    font-size:12px;color:#e0cba8;margin-bottom:16px}
+  button.sec{width:100%;background:none;text-align:left;font:inherit}
+  .sec .linklike{background:none;border:0;padding:0;text-align:left;cursor:pointer;color:inherit}
+  button:focus-visible,.issues li:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .issues{background:#2a1a18;border:1px solid var(--danger);border-radius:9px;padding:11px 14px;margin-bottom:16px}
+  .issues ul{margin:8px 0 4px;padding-left:18px}
+  .issues li{margin:3px 0;font-size:12px;font-family:ui-monospace,Menlo,Consolas,monospace;cursor:pointer}
+  .issues li.warn{color:#e0cba8}
+  .issues button.primary{margin-top:8px}
+  ul.history{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+  ul.history li{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:9px 12px}
+  @media (max-width:760px){
+    header{flex-wrap:wrap}
+    main{grid-template-columns:1fr}
+    aside{border-right:0;border-bottom:1px solid var(--line)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Site editor</h1>
+  <span class="ty" id="status">loading…</span>
+  <span class="grow"></span>
+  <label class="ty" for="variant">document</label>
+  <select id="variant" style="width:auto"></select>
+  <button id="newVariant">Duplicate…</button>
+  <button id="publish" title="Copy this variant over the live document">Publish</button>
+  <button id="history" title="Earlier versions of this document">History</button>
+  <button id="media">Images</button>
+  <button id="save" class="primary">Save</button>
+</header>
+
+<main>
+  <aside>
+    <div class="row" style="margin-bottom:10px">
+      <strong style="font-size:12px;color:var(--muted)">SECTIONS</strong>
+      <span class="grow"></span>
+      <span class="ty" id="count"></span>
+    </div>
+    <div id="sections"></div>
+    <p class="hint" style="margin-top:14px">
+      Use ↑ ↓ to reorder. The eye hides a section from the public site without
+      deleting anything. Nothing is live until you press Save.
+    </p>
+  </aside>
+
+  <section class="pane">
+    <div id="issues" class="issues" hidden role="alert"></div>
+    <div id="pane"></div>
+  </section>
+</main>
+
+<script type="module" src="/editor.mjs"></script>
+</body>
+</html>
