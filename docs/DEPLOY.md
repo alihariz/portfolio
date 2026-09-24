@@ -11,12 +11,16 @@ How a commit becomes the live site, and what to do when it goes wrong.
         │     npm ci
         │     tsc --noEmit
         │     eslint
-        │     validate-site-json.mjs      <- section types, schemaVersion, shape
+        │     validate-site-json.mjs      <- the CMS's own validator, plus App.tsx drift
+        │     npm test                    <- renders ~2,800 mutated documents
         │     vite build
         │     stamp dist/version.json
         │     upload artifact
         │
-        └─ job: deploy ────────────────── self-hosted runner on alielitedesk
+        ├─ job: cms ───────────────────── GitHub-hosted runner
+        │     cms: npm ci && npm test     <- guard, uploads, write path
+        │
+        └─ job: deploy (needs ci + cms) ─ self-hosted runner on alielitedesk
               download artifact           <- never rebuilds; installs what CI tested
               rsync -> caddy/releases/<sha>
               rsync --delete -> caddy/landing
