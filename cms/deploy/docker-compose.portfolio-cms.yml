@@ -1,0 +1,43 @@
+# The portfolio-cms service for /home/ali/homelab/docker-compose.yml.
+#
+# Replace the existing `portfolio-cms:` block with the one below, and add the
+# `cms` network to the file's top-level `networks:`. README.md, "Deploying",
+# walks through it; nothing here is applied automatically.
+
+services:
+  portfolio-cms:
+    build:
+      # A clone of github.com/alihariz/portfolio on the box.
+      context: /home/ali/src/portfolio/cms
+      args:
+        # `docker pull node:24-alpine` prints the digest. Pin it here like the
+        # other images in this file.
+        NODE_IMAGE: node:24-alpine@sha256:REPLACE_WITH_DIGEST
+    image: portfolio-cms:local
+    container_name: portfolio-cms
+    restart: unless-stopped
+    init: true
+    # Loopback only. The one way in from another device is Tailscale Serve
+    # (tailscale serve --bg --https=8443 http://127.0.0.1:8095).
+    ports:
+      - "127.0.0.1:8095:8095"
+    # Off the shared `default` network, so cloudflared and the other
+    # containers cannot reach it by name. Caddy reads the content from the
+    # bind mount, not from this container.
+    networks: [cms]
+    volumes:
+      - ./portfolio-content:/content  # published by Caddy at /content and /media
+      - ./portfolio-backups:/backups  # never published
+    environment:
+      CMS_ORIGIN: ${CMS_ORIGIN}            # https://alielitedesk.<tailnet>.ts.net:8443
+      CMS_OWNER_LOGIN: ${CMS_OWNER_LOGIN}  # e.g. alihariz@github — see `tailscale whois`
+    user: "1000:1000"
+    read_only: true
+    tmpfs: ["/tmp:size=64m"]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    mem_limit: 384m
+    pids_limit: 128
+
+networks:
+  cms: {}
