@@ -64,7 +64,9 @@ def checks():
     s, h, body = curl("/")
     expect("/ is 200", s == "200", s)
     expect("HSTS on /", "strict-transport-security" in h)
-    expect("CSP (report-only) on /", "content-security-policy-report-only" in h)
+    csp = h.get("content-security-policy") or h.get("content-security-policy-report-only") or ""
+    mode = "enforced" if "content-security-policy" in h else "report-only"
+    expect(f"CSP on / ({mode})", "script-src 'self' 'sha256-" in csp)
     expect("Permissions-Policy on /", "permissions-policy" in h)
     expect("no Server header", "server" not in h, h.get("server", ""))
     expect("page is prerendered", 'id="site-data"' in body, "deploy this build first")
@@ -73,6 +75,9 @@ def checks():
     expect("/no-such-page is 404", s == "404", s)
     expect("404 keeps the headers", "x-content-type-options" in h and "strict-transport-security" in h)
     expect("404 is the site's page", "Not found" in body, "404.html arrives with the deploy of this build")
+    s, h, body = curl("/media/0000000000000000.webp")
+    media_csp = h.get("content-security-policy", "")
+    expect("a missing /media image gets the site's 404, not the image sandbox", s == "404" and "sandbox" not in media_csp, f"{s} {media_csp}")
 
     s, h, _ = curl("/content/site.json")
     expect("/content/site.json is 200, no-cache", s == "200" and h.get("cache-control") == "no-cache", f"{s} {h.get('cache-control')}")
