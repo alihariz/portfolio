@@ -108,7 +108,12 @@ export function ProjectDrawer({ project, onClose }: { project: Project | null; o
         )}
 
         {project.images[0] && (
-          <Washed src={project.images[0]} alt={`${project.title} interface`} className="mt-6 aspect-[16/10] w-full" />
+          <Washed
+            src={project.images[0]}
+            alt={`${project.title} interface`}
+            sizes="(min-width: 640px) 556px, calc(100vw - 48px)"
+            className="mt-6 aspect-[16/10] w-full"
+          />
         )}
 
         {project.problem && (

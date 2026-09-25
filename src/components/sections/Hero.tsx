@@ -1,23 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Profile } from '../../lib/site'
-import { Button } from '../ui/primitives'
+import { portraitChain } from '../../lib/images'
+import { Button, Picture } from '../ui/primitives'
 
 /**
- * Portrait, with a three-step source chain and a link out to LinkedIn.
+ * Portrait, with a source chain and a link out to LinkedIn.
  *
- * LinkedIn cannot be the image source: the profile picture only comes from the
- * OpenID Connect userinfo endpoint with a user access token, so there is no
- * anonymous URL, and the media.licdn.com URLs it returns are signed and
- * rotate. GitHub serves a permanent public avatar at github.com/<user>.png,
- * which makes a good fallback — change it there and this updates with no
- * deploy.
+ * The chain is the portrait set in the editor, then the GitHub avatar, then
+ * initials (see portraitChain). LinkedIn cannot be the image source: the
+ * profile picture only comes from the OpenID Connect userinfo endpoint with a
+ * user access token, so there is no anonymous URL, and the media.licdn.com
+ * URLs it returns are signed and rotate.
+ *
+ * On desktop this is the largest thing above the fold, so it is fetched at
+ * high priority rather than queued behind scripts and fonts.
  */
-function Portrait({ src, name, github, linkedin }: { src?: string; name: string; github?: string; linkedin?: string }) {
-  const ghUser = github?.replace(/\/+$/, '').split('/').pop()
-  const chain = [src, ghUser ? `https://github.com/${ghUser}.png?size=640` : undefined].filter(Boolean) as string[]
-
+function Portrait({ chain, name, linkedin }: { chain: string[]; name: string; linkedin?: string }) {
   const [step, setStep] = useState(0)
   const current = chain[step]
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  // The <img> is in the prerendered HTML, so it can fail before React is
+  // listening. A failed image is `complete` with no pixels: move on then too.
+  useEffect(() => {
+    const img = imgRef.current
+    if (img && img.complete && img.naturalWidth === 0) setStep((s) => s + 1)
+  }, [current])
 
   const initials = name
     .split(/\s+/)
@@ -30,14 +38,16 @@ function Portrait({ src, name, github, linkedin }: { src?: string; name: string;
     'flex h-[132px] w-[132px] items-center justify-center overflow-hidden rounded-pill border border-divider bg-sage-200 transition-transform duration-200 hover:scale-[1.02] dark:bg-sage-800 lg:h-[300px] lg:w-[300px]'
 
   const inner = current ? (
-    <img
+    <Picture
       key={current}
+      imgRef={imgRef}
       src={current}
       alt={`Portrait of ${name}`}
+      sizes="(min-width: 1024px) 300px, 132px"
       width={300}
       height={300}
       loading="eager"
-      decoding="async"
+      priority
       referrerPolicy="no-referrer"
       className="washed h-full w-full object-cover"
       onError={() => setStep((s) => s + 1)}
@@ -58,6 +68,7 @@ function Portrait({ src, name, github, linkedin }: { src?: string; name: string;
 }
 
 export function Hero({ profile }: { profile: Profile }) {
+  const chain = portraitChain(profile)
   return (
     <section id="top" className="shell pb-8 pt-32">
       <div className="grid items-start gap-8 lg:grid-cols-[1fr_auto] lg:gap-24">
@@ -86,12 +97,8 @@ export function Hero({ profile }: { profile: Profile }) {
         </div>
 
         <div className="order-1 lg:order-2">
-          <Portrait
-            src={profile.portrait}
-            name={profile.name}
-            github={profile.links.github}
-            linkedin={profile.links.linkedin}
-          />
+          {/* Keyed by the chain so new content starts again from its first source. */}
+          <Portrait key={chain.join(' ')} chain={chain} name={profile.name} linkedin={profile.links.linkedin} />
         </div>
       </div>
     </section>

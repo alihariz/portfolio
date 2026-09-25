@@ -1,5 +1,18 @@
+import { readFileSync } from 'node:fs'
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
+
+/**
+ * What scripts/build-images.mjs generated, for src/lib/images.ts. Empty when
+ * the images have not been built, and the site then uses the originals.
+ */
+function imageManifest(): Record<string, unknown> {
+  try {
+    return JSON.parse(readFileSync('public/assets/img/manifest.json', 'utf8'))
+  } catch {
+    return {}
+  }
+}
 
 /**
  * <link rel="preload"> for the two faces used above the fold, so the browser
@@ -30,6 +43,9 @@ function preloadFonts(prefixes: string[]): Plugin {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), preloadFonts(['caprasimo-latin-400-normal', 'figtree-latin-400-normal'])],
+  define: {
+    __IMAGES__: JSON.stringify(imageManifest()),
+  },
   build: {
     // Keep fonts as files. Inlined as data: URIs they would bloat the CSS and
     // need `font-src data:` in the Content-Security-Policy.

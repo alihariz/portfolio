@@ -96,7 +96,12 @@ export function Certificates({ section, index }: Props) {
           <article className="rounded-lg bg-surface p-6">
             <div className="grid gap-4 sm:grid-cols-[110px_1fr]">
               {featured.imagePath && (
-                <Washed src={featured.imagePath} alt={featured.name} className="aspect-[3/4] w-full self-start" />
+                <Washed
+                  src={featured.imagePath}
+                  alt={featured.name}
+                  sizes="(min-width: 640px) 110px, calc(100vw - 80px)"
+                  className="aspect-[3/4] w-full self-start"
+                />
               )}
               <div>
                 <div className="flex flex-wrap items-center gap-2">
