@@ -12,10 +12,12 @@ How a commit becomes the live site, and what to do when it goes wrong.
         │     tsc --noEmit
         │     eslint
         │     validate-site-json.mjs      <- the CMS's own validator, plus App.tsx drift
-        │     npm test                    <- renders ~2,800 mutated documents
-        │     vite build
+        │     npm test                    <- ~2,800 mutated documents, prerender +
+        │                                    hydration, CSP hash
+        │     npm run build               <- images, vite build, vite build --ssr,
+        │                                    prerender index.html + 404.html
         │     stamp dist/version.json
-        │     upload artifact
+        │     upload artifact             <- dist/ (the site) + dist-ssr/ (render kit)
         │
         ├─ job: cms ───────────────────── GitHub-hosted runner
         │     cms: npm ci && npm test     <- guard, uploads, write path
@@ -23,10 +25,24 @@ How a commit becomes the live site, and what to do when it goes wrong.
         └─ job: deploy (needs ci + cms) ─ self-hosted runner on alielitedesk
               download artifact           <- never rebuilds; installs what CI tested
               rsync -> caddy/releases/<sha>
+              rsync dist-ssr -> portfolio-render/<sha>   (outside the web root)
               rsync --delete -> caddy/landing
+              render-live.sh              <- index.html again, from the live content
               curl -H 'Host: aliharizanuari.org' 127.0.0.1
               rollback automatically if that fails
 ```
+
+**Prerendering, and why the box renders too.** CI renders `index.html` from the
+bundled `src/data/site.json`. The live content is whatever the editor last
+saved, so after installing, the deploy renders the page again from
+`portfolio-content/site.json`, using the render kit that shipped with that
+release (so the HTML names that release's asset files). The same script runs
+whenever the editor saves (`portfolio-render.path`) and every ten minutes as a
+safety net (`portfolio-render.timer`, a no-op when nothing changed). It renders
+in a throwaway `node:24-alpine` container: read-only, no network, no
+capabilities, able to write one file. A document the validator rejects is never
+rendered; if anything fails, the page CI built stays, and it still loads the
+live content in the browser.
 
 **The runner polls GitHub outbound.** Nothing is exposed, no router ports are
 opened, no SSH key lives in GitHub secrets, and the Cloudflare Tunnel config is
@@ -144,6 +160,33 @@ The smoke test hits Caddy directly so it is unaffected, but if you want
 header @version Cache-Control "no-store"
 ```
 
+### 7. Re-render the page when the editor saves
+
+Once, after the first deploy that includes prerendering (it puts
+`render-live.sh` in `/home/ali/homelab/portfolio-render/`):
+
+```bash
+sudo cp ~/src/portfolio/deploy/systemd/portfolio-render.{service,path,timer} /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now portfolio-render.path portfolio-render.timer
+```
+
+Then save anything in the editor and, within a few seconds:
+
+```bash
+journalctl -u portfolio-render -n 5     # "index.html now shows content …"
+```
+
+### 8. Headers, the 404 page and content caching
+
+```bash
+git -C ~/src/portfolio pull
+python3 ~/src/portfolio/deploy/apply-caddy-site.py
+```
+
+It validates the new site block inside the caddy container before touching
+the live Caddyfile, keeps a backup, reloads, and checks the result.
+
 ---
 
 ## Day to day
@@ -197,6 +240,27 @@ too — the node key expires and `tailscaled` sits in `NeedsLogin`.
 **Deploy fails with "not writable".** The runner service must run as the user
 that owns `caddy/landing`. Reinstall the service with `sudo ./svc.sh install ali`.
 
+**An editor save is not showing without JavaScript** (view-source still shows the
+old text):
+
+```bash
+systemctl status portfolio-render.path portfolio-render.timer   # both active
+journalctl -u portfolio-render -n 20                              # the last renders
+bash /home/ali/homelab/portfolio-render/render-live.sh            # render now
+```
+
+A render refuses a document the validator rejects and says which field; the
+editor refuses the same documents, so this only happens if `site.json` was
+edited by hand.
+
+**Search engines and AI assistants.** `public/robots.txt` allows every crawler.
+If Cloudflare's managed robots.txt is on for the zone, Cloudflare puts its own
+rules in front of this file, asking AI crawlers (GPTBot, ClaudeBot,
+Google-Extended and others) to stay away. It is in the dashboard under Security
+→ Settings, filtered by bot traffic: "block training in robots.txt". For a
+portfolio that wants to be found, choose deliberately;
+`curl -s https://aliharizanuari.org/robots.txt` shows what crawlers actually get.
+
 ## Deliberate design choices
 
 | Choice | Why |
@@ -209,3 +273,6 @@ that owns `caddy/landing`. Reinstall the service with `sudo ./svc.sh install ali
 | Preflight refuses a dist without `index.html` | An empty artifact plus `--delete` would erase the live site. This is the guard that matters most. |
 | Smoke test uses `Host:` against `127.0.0.1` | Bypasses Cloudflare, so a pass proves the box is serving the new build rather than an edge cache. |
 | Section types read out of `App.tsx` | `renderSection()` returns `null` for an unknown type, so a typo drops a section with no error. The validator cannot drift from the switch. |
+| The render kit lives in `portfolio-render/<sha>`, not in `landing/` | Anything in `landing/` is public. The kit is keyed by release so a rollback renders with the matching asset names, and it is pruned with its release. |
+| One lock (`portfolio-render/.lock`) for deploy, rollback and render | A save that lands mid-deploy would otherwise render the old release's page over the new one. |
+| CSP starts as Report-Only | Cloudflare can inject scripts (Web Analytics, email obfuscation). Watch the console for a week, then enforce. |

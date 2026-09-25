@@ -1,8 +1,10 @@
 # portfolio-cms
 
 The editor for aliharizanuari.org's content. It edits one JSON document,
-`site.json`, which Caddy publishes at `/content/site.json`; the site fetches it
-on every page load, so a save is live on the next reload with no build.
+`site.json`, which Caddy publishes at `/content/site.json`. Each save is live on
+the next reload with no build: the box re-renders the page's HTML from it
+within a few seconds (`scripts/render-live.sh`, see docs/DEPLOY.md), and the
+page also fetches it after loading.
 
 It runs on alielitedesk in Docker, reachable only through Tailscale. There is no
 login page: Tailscale is the login.
