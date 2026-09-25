@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import bundled from '../data/site.json'
 
 /**
@@ -51,7 +51,7 @@ export interface Site {
   sections: Section[]
 }
 
-const FALLBACK = bundled as unknown as Site
+export const FALLBACK = bundled as unknown as Site
 
 /**
  * Where content is fetched from.
@@ -105,13 +105,18 @@ function variantName(): string | null {
   return v && /^[a-z0-9-]{1,32}$/i.test(v) ? v : null
 }
 
-function isUsable(doc: unknown): doc is Site {
+export function isUsable(doc: unknown): doc is Site {
   if (!doc || typeof doc !== 'object') return false
   const d = doc as Partial<Site>
   return d.schemaVersion === SCHEMA_VERSION && Array.isArray(d.sections) && !!d.profile
 }
 
-export function useSite(): { site: Site; source: 'bundled' | 'live' } {
+export function useSite(): {
+  site: Site
+  source: 'bundled' | 'live'
+  /** Go back to the bundled copy. The page's root error boundary calls this. */
+  fallBack: () => void
+} {
   const [site, setSite] = useState<Site>(FALLBACK)
   const [source, setSource] = useState<'bundled' | 'live'>('bundled')
 
@@ -143,7 +148,12 @@ export function useSite(): { site: Site; source: 'bundled' | 'live' } {
     }
   }, [])
 
-  return { site, source }
+  const fallBack = useCallback(() => {
+    setSite(FALLBACK)
+    setSource('bundled')
+  }, [])
+
+  return { site, source, fallBack }
 }
 
 /** Visible sections in author order. */
