@@ -49,7 +49,7 @@ export function Education({ section, index }: Props) {
         {items.map((e) => (
           <article key={e.id} className="rounded-lg bg-surface p-6">
             <div className="flex items-start justify-between gap-4">
-              <h4 className="text-h3 leading-tight">{e.degree.replace(' with Honours', ', Hons')}</h4>
+              <h3 className="text-h3 leading-tight">{e.degree.replace(' with Honours', ', Hons')}</h3>
               <span className="shrink-0 text-small text-muted">
                 {yearOf(e.startDate)} — {yearOf(e.endDate)}
               </span>
@@ -106,7 +106,7 @@ export function Certificates({ section, index }: Props) {
                     {featured.score && ` · scored ${featured.score}`}
                   </span>
                 </div>
-                <h4 className="mt-3 text-h3 leading-tight">{display(featured)}</h4>
+                <h3 className="mt-3 text-h3 leading-tight">{display(featured)}</h3>
                 <p className="mt-2 text-body text-muted">{featured.description}</p>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { Nav } from './components/layout/Nav'
 import { Footer } from './components/layout/Footer'
@@ -8,7 +9,7 @@ import { Contact } from './components/sections/Contact'
 import { Certificates, Education, Leadership, Proof, Prose, Skills } from './components/sections/simple'
 import { Boundary } from './components/Boundary'
 import { FALLBACK, useSite, visibleSections, type Site, type Section } from './lib/site'
-import { Reveal } from './lib/motion'
+import { Reveal, markPageSettled } from './lib/motion'
 
 /**
  * The page is whatever `sections` says it is, in that order. Nothing here
@@ -90,6 +91,8 @@ function Unavailable() {
 
 function App() {
   const { site, fallBack } = useSite()
+
+  useEffect(markPageSettled, [])
 
   return (
     <ThemeProvider>
