@@ -1,0 +1,7 @@
+# Everything here is meant to be read. If Cloudflare's managed robots.txt is
+# switched on for the zone, Cloudflare adds its own rules above these (by
+# default, asking AI crawlers to stay away); see docs/DEPLOY.md.
+User-agent: *
+Allow: /
+
+Sitemap: https://aliharizanuari.org/sitemap.xml
