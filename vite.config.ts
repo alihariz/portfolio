@@ -41,17 +41,27 @@ function preloadFonts(prefixes: string[]): Plugin {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
   plugins: [react(), preloadFonts(['caprasimo-latin-400-normal', 'figtree-latin-400-normal'])],
   define: {
     __IMAGES__: JSON.stringify(imageManifest()),
+    // The server bundle carries React; build it as production React, whatever
+    // NODE_ENV is (or is not) where it runs.
+    ...(isSsrBuild ? { 'process.env.NODE_ENV': JSON.stringify('production') } : {}),
   },
   build: {
+    // public/ belongs to the website (dist/), not to the render kit (dist-ssr/).
+    copyPublicDir: !isSsrBuild,
     // Keep fonts as files. Inlined as data: URIs they would bloat the CSS and
     // need `font-src data:` in the Content-Security-Policy.
     assetsInlineLimit: (file) => (/\.woff2?$/.test(file) ? false : undefined),
   },
+  ssr: {
+    // The server bundle carries React inside it, so the box can run it with
+    // plain Node and no node_modules.
+    noExternal: true,
+  },
   server: {
     port: 3000,
   },
-})
+}))

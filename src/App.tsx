@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { Nav } from './components/layout/Nav'
 import { Footer } from './components/layout/Footer'
@@ -9,6 +9,7 @@ import { Contact } from './components/sections/Contact'
 import { Certificates, Education, Leadership, Proof, Prose, Skills } from './components/sections/simple'
 import { Boundary } from './components/Boundary'
 import { FALLBACK, useSite, visibleSections, type Site, type Section } from './lib/site'
+import { pageDescription, pageTitle } from './lib/head'
 import { Reveal, markPageSettled } from './lib/motion'
 
 /**
@@ -42,8 +43,15 @@ function renderSection(section: Section, index: string, profile: Site['profile']
   }
 }
 
-function Page({ site }: { site: Site }) {
+function Page({ site, year }: { site: Site; year?: number }) {
   const sections = visibleSections(site)
+
+  // Keep the tab title and description in step with whatever document is
+  // showing — a variant, or content newer than the prerendered HTML.
+  useEffect(() => {
+    document.title = pageTitle(site)
+    document.querySelector('meta[name="description"]')?.setAttribute('content', pageDescription(site))
+  }, [site])
 
   // The numbered kickers count only sections that carry one, so hiding a
   // section never leaves a gap in the sequence.
@@ -58,15 +66,22 @@ function Page({ site }: { site: Site }) {
           const numbered = s.type !== 'proof'
           const index = numbered ? String(++n).padStart(2, '0') : ''
           // One boundary per section: a section the page cannot draw is left
-          // out, and everything else still renders.
+          // out, and everything else still renders. Suspense is what makes that
+          // true on the server as well: renderToString ignores error
+          // boundaries, but renders a failing section inside Suspense as its
+          // (empty) fallback and leaves the browser to retry it, where the
+          // boundary catches it. Without it, one bad section would stop the box
+          // re-rendering the page at all.
           return (
             <Boundary key={s.id} where={`section "${s.id}"`} resetKey={s}>
-              <Reveal>{renderSection(s, index, site.profile)}</Reveal>
+              <Suspense fallback={null}>
+                <Reveal>{renderSection(s, index, site.profile)}</Reveal>
+              </Suspense>
             </Boundary>
           )
         })}
       </main>
-      <Footer profile={site.profile} />
+      <Footer profile={site.profile} year={year} />
     </div>
   )
 }
@@ -89,17 +104,25 @@ function Unavailable() {
   )
 }
 
-function App() {
-  const { site, fallBack } = useSite()
+export interface AppProps {
+  /** The document the HTML was prerendered from; the bundled copy if none. */
+  initialSite?: Site
+  /** The year the HTML was rendered in, so the footer hydrates without a mismatch. */
+  year?: number
+}
+
+function App({ initialSite, year }: AppProps) {
+  const { site, fallBack } = useSite(initialSite)
 
   useEffect(markPageSettled, [])
 
   return (
     <ThemeProvider>
-      {/* If the header, hero or footer cannot draw this document, fall back to
-          the bundled copy: slightly stale content instead of a white page. */}
+      {/* If the header, hero or footer cannot draw this document, step back:
+          to the document the HTML was rendered from, then to the bundled copy.
+          Slightly stale content instead of a white page. */}
       <Boundary where="page" resetKey={site} onError={site === FALLBACK ? undefined : fallBack} fallback={<Unavailable />}>
-        <Page site={site} />
+        <Page site={site} year={year} />
       </Boundary>
     </ThemeProvider>
   )
