@@ -101,7 +101,7 @@ before(async () => {
 
         const macrotask = () => new Promise((r) => setTimeout(r, 0))
 
-        export async function renderSite() {
+        export async function renderSite(marker) {
           const errors = []
           const where = []
           // What the site's own error boundaries caught and hid.
@@ -114,6 +114,11 @@ before(async () => {
             flushSync(() => root.render(<Catch onError={(e) => { errors.push(e); where.push('uncaught') }}><App /></Catch>))
             // Let the fetch resolve, the fetched document swap in, and its
             // effects (the scroll-in, CountUp, the ?project= deep link) run.
+            // The swap is a transition, which React spreads over as many turns
+            // of the event loop as the machine needs, so wait for the page to
+            // show the document (or fail) rather than for a fixed count.
+            const deadline = Date.now() + 5000
+            while (!errors.length && !host.textContent.includes(marker) && Date.now() < deadline) await macrotask()
             for (let i = 0; i < 8; i++) await macrotask()
           } catch (e) {
             errors.push(e)
@@ -165,7 +170,7 @@ async function render(doc, query = '') {
   const original = console.error
   console.error = () => {}
   try {
-    const r = await harness.renderSite()
+    const r = await harness.renderSite(marker)
     return { ...r, errors: [...r.errors, ...stray], swapped: r.text.includes(marker) }
   } finally {
     console.error = original

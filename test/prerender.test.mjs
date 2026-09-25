@@ -81,8 +81,13 @@ function load(html) {
 /**
  * Hydrate prerendered HTML with the real browser bundle, the way a visitor's
  * browser would: the inline theme script has run, then main.tsx.
+ *
+ * `until(w, reported)` is what the test is waiting for. Nothing here waits a
+ * fixed time: React yields to the event loop between pieces of work, so on a
+ * busy machine (CI, with the other test files running alongside) the same
+ * work takes many more turns. It polls for up to 10 s instead.
  */
-async function hydrate(html, { theme, reducedMotion = false, fetched } = {}) {
+async function hydrate(html, { theme, reducedMotion = false, fetched, until } = {}) {
   const logs = []
   const virtualConsole = new VirtualConsole()
   virtualConsole.on('jsdomError', (e) => logs.push(`jsdomError: ${e}`))
@@ -97,7 +102,10 @@ async function hydrate(html, { theme, reducedMotion = false, fetched } = {}) {
   }
   Object.defineProperty(globalThis, 'navigator', { value: w.navigator, configurable: true })
   const doc = fetched ?? JSON.parse(w.document.getElementById('site-data').textContent)
-  globalThis.fetch = async () => ({ ok: true, json: async () => clone(doc) })
+  let served = 0
+  globalThis.fetch = async () => ({ ok: true, json: async () => (served++, clone(doc)) })
+  const reported = []
+  w.addEventListener('site:render-error', (e) => reported.push(e.detail.where))
 
   const before = { h1: w.document.querySelector('h1'), main: w.document.querySelector('main') }
   const original = { error: console.error, warn: console.warn }
@@ -105,14 +113,16 @@ async function hydrate(html, { theme, reducedMotion = false, fetched } = {}) {
   console.warn = (...a) => logs.push(a.map(String).join(' '))
   try {
     await import(`${pathToFileURL(client).href}?run=${++imports}`)
-    // Hydration, the fetch, and the transition that swaps newer content in.
+    // At least: hydration done, the fetched document read, then whatever the
+    // test is waiting for.
+    const done = () => served > 0 && (!until || until(w, reported))
+    const deadline = Date.now() + 10_000
+    while (!done() && Date.now() < deadline) await new Promise((r) => setTimeout(r, 10))
     for (let i = 0; i < 8; i++) await macrotask()
-    await new Promise((r) => setTimeout(r, 50))
-    for (let i = 0; i < 4; i++) await macrotask()
   } finally {
     Object.assign(console, original)
   }
-  return { dom, w, logs, before }
+  return { dom, w, logs, before, reported }
 }
 
 const MISMATCH = /did not match|hydrat|server html|server rendered html|text content does not match/i
@@ -238,7 +248,8 @@ test('a section the server cannot draw is left out of the HTML, and the rest sti
   assert.ok(!load(html).window.document.getElementById('root').textContent.includes(education.title))
   assert.ok(load(html).window.document.getElementById('root').textContent.includes(projects.title))
 
-  const { w, before } = await hydrate(html, { fetched: bad })
+  const { w, before, reported } = await hydrate(html, { fetched: bad, until: (_w, r) => r.length > 0 })
+  assert.deepEqual(reported, ['section "education"'], 'the browser retried the section, and its boundary caught it')
   assert.equal(w.document.querySelector('h1'), before.h1, 'the rest of the page was adopted, not redrawn')
   assert.ok(w.document.getElementById('root').textContent.includes(projects.title))
   assert.ok(!w.document.getElementById('root').textContent.includes(education.title))
@@ -251,7 +262,8 @@ test('a newer document that cannot be drawn steps back to the prerendered one, n
   const broken = clone(embedded)
   broken.profile.name = 5
   broken.profile.headline = 'A headline only the broken document has'
-  const { w } = await hydrate(html, { fetched: broken })
+  const { w, reported } = await hydrate(html, { fetched: broken, until: (_w, r) => r.includes('page') })
+  assert.ok(reported.includes('page'), 'the newer document was tried, and the page boundary caught it')
   const text = w.document.getElementById('root').textContent
   assert.ok(text.includes('The headline the HTML was rendered with'))
   assert.ok(!text.includes('A headline only the broken document has'))
@@ -266,13 +278,14 @@ for (const [label, opts] of [
 ]) {
   test(`React adopts the prerendered HTML without redrawing it (${label})`, async () => {
     const html = await page(BASE)
-    const { w, logs, before } = await hydrate(html, opts)
+    const label = `Switch to ${opts.theme === 'dark' ? 'light' : 'dark'} theme`
+    const toggleShows = (w) => w.document.querySelector('button[aria-label^="Switch to"]')?.getAttribute('aria-label') === label
+    const { w, logs, before } = await hydrate(html, { ...opts, until: toggleShows })
     assert.deepEqual(logs.filter((l) => MISMATCH.test(l)), [], 'no hydration mismatch')
     assert.equal(w.document.querySelector('h1'), before.h1, 'the same <h1> node: hydrated, not replaced')
     assert.equal(w.document.querySelector('main'), before.main)
     assert.ok(before.h1.isConnected)
-    const toggle = w.document.querySelector('button[aria-label^="Switch to"]')
-    assert.equal(toggle.getAttribute('aria-label'), `Switch to ${opts.theme === 'dark' ? 'light' : 'dark'} theme`, 'the toggle matches the theme on screen')
+    assert.ok(toggleShows(w), 'the toggle matches the theme on screen')
     assert.equal(w.document.title, `${BASE.meta.title} — ${BASE.profile.role}`)
   })
 }
@@ -281,7 +294,8 @@ test('content saved after the page was rendered still replaces it once loaded', 
   const html = await page(BASE)
   const newer = clone(BASE)
   newer.profile.headline = 'Saved in the editor a minute ago'
-  const { w, logs } = await hydrate(html, { fetched: newer })
+  const shown = (w) => w.document.getElementById('root').textContent.includes('Saved in the editor a minute ago')
+  const { w, logs } = await hydrate(html, { fetched: newer, until: shown })
   assert.deepEqual(logs.filter((l) => MISMATCH.test(l)), [])
-  assert.ok(w.document.getElementById('root').textContent.includes('Saved in the editor a minute ago'))
+  assert.ok(shown(w), 'the newer headline replaced the prerendered one')
 })

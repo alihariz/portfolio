@@ -149,12 +149,12 @@ export function useSite(initial: Site = FALLBACK): {
       .then((r) => (r.ok ? r.json() : null))
       .then((doc) => {
         if (!isUsable(doc)) return
-        // Usually the page was prerendered from this very document. Keeping
-        // the same object then means React has nothing to redo.
-        if (!origin && JSON.stringify(doc) === JSON.stringify(initial)) {
-          setState((s) => (s.site === initial ? { site: initial, source: 'live' } : s))
-          return
-        }
+        // Usually the page was prerendered from this very document. Then do
+        // nothing at all: any state update here, even one that changes only
+        // `source`, re-renders the page, and on a slow phone that can land
+        // while React is still adopting the prerendered sections, which makes
+        // it throw them away and draw them again.
+        if (!origin && JSON.stringify(doc) === JSON.stringify(initial)) return
         // A transition, so React finishes adopting the prerendered HTML before
         // it redraws anything with the newer content.
         startTransition(() => setState({ site: absolutiseMedia(doc, origin), source: 'live' }))
