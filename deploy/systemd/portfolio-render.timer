@@ -1,0 +1,12 @@
+# Safety net for portfolio-render.path: every 10 minutes, re-render if the page
+# does not show the current site.json. Costs one sha256sum when it does.
+[Unit]
+Description=Check aliharizanuari.org shows the saved content
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=10min
+Unit=portfolio-render.service
+
+[Install]
+WantedBy=timers.target

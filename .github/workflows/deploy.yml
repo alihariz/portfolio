@@ -59,10 +59,21 @@ jobs:
 
       # Renders the real App.tsx with ~2,800 mutated documents and fails if any
       # document the validator accepts crashes the page. This is what makes it
-      # safe for the CMS to publish without a build.
-      - name: Render test
+      # safe for the CMS to publish without a build. Also: the prerendered page
+      # and its hydration (test/prerender.test.mjs), and the CSP hash
+      # (test/headers.test.mjs).
+      - name: Tests
         run: npm test
 
+      # AVIF/WebP copies of public/assets/images take ~20 s to encode; reuse
+      # them until an image or the script changes.
+      - uses: actions/cache@v4
+        with:
+          path: public/assets/img
+          key: images-${{ hashFiles('public/assets/images/**', 'scripts/build-images.mjs', 'package-lock.json') }}
+
+      # Images, typecheck, the browser bundle, the server bundle, then
+      # index.html and 404.html prerendered from the bundled content.
       - name: Build
         env:
           VITE_BUILD_SHA: ${{ github.sha }}
@@ -87,12 +98,20 @@ jobs:
       - name: Guard against an empty build
         run: |
           test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
+          grep -q 'id="site-data"' dist/index.html || { echo "::error::dist/index.html is not prerendered"; exit 1; }
+          for f in entry-server.js template.html prerender.mjs; do
+            test -f "dist-ssr/$f" || { echo "::error::dist-ssr/$f missing"; exit 1; }
+          done
           echo "dist contains $(find dist -type f | wc -l) files"
 
+      # Two folders: dist/ is the website; dist-ssr/ is the kit the box uses to
+      # re-render index.html when the editor saves, and is never served.
       - uses: actions/upload-artifact@v4
         with:
           name: dist-${{ github.sha }}
-          path: dist/
+          path: |
+            dist/
+            dist-ssr/
           retention-days: 14
           if-no-files-found: error
 
@@ -137,9 +156,11 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: dist-${{ github.sha }}
-          path: dist
+          path: artifact
 
+      # Installs the site, keeps the render kit beside it, and re-renders
+      # index.html from the content the editor last saved.
       - name: Install
         env:
           GITHUB_SHA: ${{ github.sha }}
-        run: bash scripts/deploy-portfolio.sh dist
+        run: bash scripts/deploy-portfolio.sh artifact/dist artifact/dist-ssr

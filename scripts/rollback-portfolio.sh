@@ -16,6 +16,8 @@ set -euo pipefail
 HOMELAB_DIR="${HOMELAB_DIR:-/home/ali/homelab}"
 LANDING_DIR="${LANDING_DIR:-$HOMELAB_DIR/caddy/landing}"
 RELEASES_DIR="${RELEASES_DIR:-$HOMELAB_DIR/caddy/releases}"
+RENDER_DIR="${RENDER_DIR:-$HOMELAB_DIR/portfolio-render}"
+export HOMELAB_DIR LANDING_DIR RELEASES_DIR RENDER_DIR   # for render-live.sh
 SITE_HOST="${SITE_HOST:-aliharizanuari.org}"
 CADDY_ORIGIN="${CADDY_ORIGIN:-http://127.0.0.1}"
 
@@ -98,12 +100,24 @@ esac
 [ -d "$LANDING_DIR" ]                     || fail "$LANDING_DIR does not exist"
 
 log "rolling back: ${current:-unknown} -> $target"
+# Same lock as deploys and renders, so an editor save cannot render the old
+# release's page over this one halfway through.
+mkdir -p "$RENDER_DIR"
+exec 9>"$RENDER_DIR/.lock"
+flock -w 300 9 || fail "a render or deploy has held $RENDER_DIR/.lock for 5 minutes"
 # --checksum for the same reason as in deploy-portfolio.sh: same-size,
 # same-second files are skipped by rsync's default quick-check, which would
 # leave the rollback reporting success while the bad build stays live.
 rsync -a --delete --checksum "$RELEASES_DIR/$target/" "$LANDING_DIR/"
 echo "$target" > "$RELEASES_DIR/current"
 echo "$target" >> "$RELEASES_DIR/history"
+# The release's own page, re-rendered with the live content if it shipped a
+# renderer. Releases from before prerendering did not, and need nothing.
+if [ -x "$RENDER_DIR/render-live.sh" ]; then
+  RENDER_LOCK_HELD=1 FORCE=1 bash "$RENDER_DIR/render-live.sh" \
+    || printf '\033[33mwarning:\033[0m could not re-render with the live content; serving the page as built\n' >&2
+fi
+flock -u 9
 
 code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 \
          -H "Host: $SITE_HOST" "$CADDY_ORIGIN/" 2>/dev/null) || code=000

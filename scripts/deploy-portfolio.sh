@@ -5,7 +5,12 @@
 # Run by the `deploy` job of .github/workflows/deploy.yml on the self-hosted
 # runner, and safe to run by hand:
 #
-#     bash scripts/deploy-portfolio.sh ./dist
+#     bash scripts/deploy-portfolio.sh ./dist [./dist-ssr]
+#
+# The optional second argument is the prerender kit from the same build
+# (server bundle, template, prerender.mjs). It is kept outside the web root, in
+# portfolio-render/<sha>, and used to re-render index.html from the content
+# the editor saved, now and on every later save (scripts/render-live.sh).
 #
 # Three things this handles that copying a tarball by hand does not:
 #
@@ -22,16 +27,20 @@
 set -euo pipefail
 
 SRC="${1:-dist}"
+SSR_SRC="${2:-}"
 
 HOMELAB_DIR="${HOMELAB_DIR:-/home/ali/homelab}"
 LANDING_DIR="${LANDING_DIR:-$HOMELAB_DIR/caddy/landing}"
 RELEASES_DIR="${RELEASES_DIR:-$HOMELAB_DIR/caddy/releases}"
+RENDER_DIR="${RENDER_DIR:-$HOMELAB_DIR/portfolio-render}"
+export HOMELAB_DIR LANDING_DIR RELEASES_DIR RENDER_DIR   # for render-live.sh
 KEEP="${KEEP:-10}"
 SITE_HOST="${SITE_HOST:-aliharizanuari.org}"
 CADDY_ORIGIN="${CADDY_ORIGIN:-http://127.0.0.1}"
 SHA="${GITHUB_SHA:-manual-$(date -u +%Y%m%dT%H%M%SZ)}"
 
 log()  { printf '\033[36m==>\033[0m %s\n' "$*"; }
+warn() { printf '\033[33mwarning:\033[0m %s\n' "$*" >&2; }
 fail() { printf '\033[31mERROR:\033[0m %s\n' "$*" >&2; exit 1; }
 
 # -- Preflight ---------------------------------------------------------------
@@ -52,7 +61,14 @@ file_count=$(find "$SRC" -type f | wc -l)
 command -v rsync >/dev/null || fail "rsync is not installed (sudo apt install rsync)"
 command -v curl  >/dev/null || fail "curl is not installed"
 
-mkdir -p "$RELEASES_DIR"
+if [ -n "$SSR_SRC" ]; then
+  for f in entry-server.js template.html prerender.mjs; do
+    [ -f "$SSR_SRC/$f" ] || fail "'$SSR_SRC/$f' is missing - not a prerender kit from this build"
+  done
+  grep -q 'id="site-data"' "$SRC/index.html" || fail "'$SRC/index.html' is not prerendered"
+fi
+
+mkdir -p "$RELEASES_DIR" "$RENDER_DIR"
 
 # `current` is what is live right now; `history` is the append-only list of
 # releases that have actually served traffic. A release directory exists as
@@ -71,6 +87,41 @@ rm -rf "$release"
 mkdir -p "$release"
 rsync -a --delete "$SRC/" "$release/"
 
+# The prerender kit, next to (never inside) the web root.
+if [ -n "$SSR_SRC" ]; then
+  rsync -a --delete "$SSR_SRC/" "$RENDER_DIR/$SHA/"
+fi
+
+# Hold the render lock while index.html is replaced, so a render triggered by
+# an editor save cannot write the old release's page over the new one.
+exec 9>"$RENDER_DIR/.lock"
+flock -w 300 9 || fail "a render has held $RENDER_DIR/.lock for 5 minutes"
+
+# The script that uses the kit, where the systemd units expect it. Replaced by
+# rename, under the lock: bash reads a running script as it goes, so writing
+# over it in place could hand a render half of each version.
+if [ -n "$SSR_SRC" ]; then
+  install -m 0755 "$(dirname "$0")/render-live.sh" "$RENDER_DIR/.render-live.sh.new"
+  mv -f "$RENDER_DIR/.render-live.sh.new" "$RENDER_DIR/render-live.sh"
+fi
+
+# Re-render with the live content. On failure the page CI rendered from the
+# bundled content stays, and the browser still swaps the live content in.
+render_live() {
+  [ -x "$RENDER_DIR/render-live.sh" ] || return 0
+  local content="$HOMELAB_DIR/portfolio-content/site.json" want have
+  RENDER_LOCK_HELD=1 FORCE=1 bash "$RENDER_DIR/render-live.sh" || true
+  [ -f "$content" ] && [ -f "$RENDER_DIR/$(cat "$RELEASES_DIR/current")/entry-server.js" ] || return 0
+  want="$(sha256sum "$content" | cut -c1-64)"
+  have="$(sed -n 's/.*data-content-hash="\([0-9a-f]\{64\}\)".*/\1/p' "$LANDING_DIR/index.html" | head -1)"
+  if [ "$want" != "$have" ]; then
+    # Loud, and an annotation on the GitHub run: the site works, but its HTML
+    # shows the bundled content until a render succeeds.
+    echo "::warning title=Not re-rendered::index.html shows the bundled content, not the editor's. See the render output above; on the box: bash $RENDER_DIR/render-live.sh"
+    warn "index.html was NOT re-rendered with the live content (see above)"
+  fi
+}
+
 # -- Swap it in --------------------------------------------------------------
 # --delete is safe here: Caddy serves /content/* and /media/* from a different
 # root (/srv/site-content), so caddy/landing holds nothing but build output.
@@ -84,6 +135,7 @@ rsync -a --delete "$SRC/" "$release/"
 log "installing into $LANDING_DIR"
 rsync -a --delete --checksum "$release/" "$LANDING_DIR/"
 echo "$SHA" > "$RELEASES_DIR/current"
+render_live
 
 # -- Verify through Caddy ----------------------------------------------------
 # Hits the container directly on the host, bypassing Cloudflare, so a pass
@@ -98,6 +150,13 @@ smoke() {
       live=$(curl -s --max-time 10 -H "Host: $SITE_HOST" "$CADDY_ORIGIN/version.json" 2>/dev/null \
                | sed -n 's/.*"sha"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)
       if [ -z "$want" ] || [ "$live" = "$want" ]; then
+        # A prerendered build must be served prerendered. (Not checked on the
+        # way back to a previous release, which may predate prerendering.)
+        if [ -n "$SSR_SRC" ] && [ -n "$want" ] && ! curl -s --max-time 10 -H "Host: $SITE_HOST" "$CADDY_ORIGIN/" | grep -q 'id="site-data"'; then
+          printf '    attempt %s: the page is not prerendered\n' "$attempt"
+          sleep 2
+          continue
+        fi
         log "smoke test ok - HTTP 200, serving ${live:-<no version.json>}"
         return 0
       fi
@@ -121,6 +180,7 @@ if ! smoke "$SHA"; then
     rsync -a --delete --checksum "$RELEASES_DIR/$previous/" "$LANDING_DIR/"
     echo "$previous" > "$RELEASES_DIR/current"
     echo "$previous" >> "$RELEASES_DIR/history"
+    render_live
     smoke "" || printf '\033[31m==> rollback did not verify either - check the caddy container\033[0m\n' >&2
     fail "deploy of $SHA failed verification; rolled back to $previous"
   fi
@@ -128,6 +188,7 @@ if ! smoke "$SHA"; then
 fi
 
 echo "$SHA" >> "$RELEASES_DIR/history"
+flock -u 9
 
 # -- Prune -------------------------------------------------------------------
 # Keep the newest $KEEP release directories; anything older is a rebuild away.
@@ -149,5 +210,11 @@ done
 if [ "$pruned" -gt 0 ]; then
   log "pruned $pruned old release(s), keeping $KEEP"
 fi
+# A renderer is only any use with its release.
+for dir in "$RENDER_DIR"/*/; do
+  [ -d "$dir" ] || continue
+  r="$(basename "$dir")"
+  [ -d "$RELEASES_DIR/$r" ] || rm -rf "$dir"
+done
 
 log "deployed $SHA -> https://$SITE_HOST"
