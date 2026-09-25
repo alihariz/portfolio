@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react'
+import { startTransition, useCallback, useEffect, useState } from 'react'
 import bundled from '../data/site.json'
 
 /**
  * Content loading.
  *
- * The bundled site.json renders immediately — so first paint, and anything
- * that reads the HTML without running JavaScript, sees a complete page. Then
- * we fetch /content/site.json, which the CMS writes, and swap it in if it is
- * present and the schema matches. If the CMS is down, unreachable, or has
- * never been written to, the site is simply the bundled version: no spinner,
- * no error state, no blank page.
+ * index.html arrives already rendered, from the document embedded in it as
+ * <script id="site-data">: on the box that is the content the editor last
+ * saved, re-rendered on every save. So first paint, and anything that reads the
+ * HTML without running JavaScript, sees the complete page. React hydrates from
+ * that same document, then fetches /content/site.json and swaps it in if it is
+ * newer and the schema matches. If the CMS is down, unreachable, or has never
+ * been written to, what the HTML showed stands: no spinner, no error state, no
+ * blank page. The bundled site.json is the last resort, for a page with no
+ * embedded document (local development) or one that fails to render.
  *
  * A variant can be requested with ?v=<name>, which loads /content/site.<name>.json.
  */
@@ -51,7 +54,7 @@ export interface Site {
   sections: Section[]
 }
 
-const FALLBACK = bundled as unknown as Site
+export const FALLBACK = bundled as unknown as Site
 
 /**
  * Where content is fetched from.
@@ -105,15 +108,33 @@ function variantName(): string | null {
   return v && /^[a-z0-9-]{1,32}$/i.test(v) ? v : null
 }
 
-function isUsable(doc: unknown): doc is Site {
+export function isUsable(doc: unknown): doc is Site {
   if (!doc || typeof doc !== 'object') return false
   const d = doc as Partial<Site>
   return d.schemaVersion === SCHEMA_VERSION && Array.isArray(d.sections) && !!d.profile
 }
 
-export function useSite(): { site: Site; source: 'bundled' | 'live' } {
-  const [site, setSite] = useState<Site>(FALLBACK)
-  const [source, setSource] = useState<'bundled' | 'live'>('bundled')
+export type Source = 'bundled' | 'embedded' | 'live'
+
+/**
+ * @param initial What the page was prerendered from (the JSON embedded in
+ *   index.html), so hydration starts from exactly the document the HTML was
+ *   drawn with. Falls back to the bundled copy when there is none.
+ */
+export function useSite(initial: Site = FALLBACK): {
+  site: Site
+  source: Source
+  /**
+   * Step back from a document the page could not draw: to the one the HTML was
+   * rendered from, and from that to the bundled copy. The page's root error
+   * boundary calls this.
+   */
+  fallBack: () => void
+} {
+  const [state, setState] = useState<{ site: Site; source: Source }>(() => ({
+    site: initial,
+    source: initial === FALLBACK ? 'bundled' : 'embedded',
+  }))
 
   useEffect(() => {
     const v = variantName()
@@ -127,13 +148,19 @@ export function useSite(): { site: Site; source: 'bundled' | 'live' } {
     fetch(url, { signal: ctl.signal, cache: 'no-cache' })
       .then((r) => (r.ok ? r.json() : null))
       .then((doc) => {
-        if (isUsable(doc)) {
-          setSite(absolutiseMedia(doc, origin))
-          setSource('live')
+        if (!isUsable(doc)) return
+        // Usually the page was prerendered from this very document. Keeping
+        // the same object then means React has nothing to redo.
+        if (!origin && JSON.stringify(doc) === JSON.stringify(initial)) {
+          setState((s) => (s.site === initial ? { site: initial, source: 'live' } : s))
+          return
         }
+        // A transition, so React finishes adopting the prerendered HTML before
+        // it redraws anything with the newer content.
+        startTransition(() => setState({ site: absolutiseMedia(doc, origin), source: 'live' }))
       })
       .catch(() => {
-        /* bundled copy stands */
+        /* what the page already shows stands */
       })
       .finally(() => clearTimeout(timer))
 
@@ -141,9 +168,16 @@ export function useSite(): { site: Site; source: 'bundled' | 'live' } {
       clearTimeout(timer)
       ctl.abort()
     }
-  }, [])
+  }, [initial])
 
-  return { site, source }
+  const fallBack = useCallback(() => {
+    setState((s) => {
+      if (s.site !== initial && initial !== FALLBACK) return { site: initial, source: 'embedded' }
+      return s.site === FALLBACK ? s : { site: FALLBACK, source: 'bundled' }
+    })
+  }, [initial])
+
+  return { site: state.site, source: state.source, fallBack }
 }
 
 /** Visible sections in author order. */

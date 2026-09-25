@@ -1,0 +1,11 @@
+# Starts portfolio-render.service whenever the editor writes site.json. The
+# editor writes by renaming a new file into place; systemd sees that too.
+[Unit]
+Description=Watch aliharizanuari.org content for saves
+
+[Path]
+PathChanged=/home/ali/homelab/portfolio-content/site.json
+Unit=portfolio-render.service
+
+[Install]
+WantedBy=multi-user.target

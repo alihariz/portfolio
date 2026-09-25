@@ -35,7 +35,12 @@ function FlagshipCard({ project, onOpen }: { project: Project; onOpen: () => voi
     <article className="lift rounded-lg bg-surface p-4 sm:p-6">
       <div className={`grid gap-6 ${shot ? 'sm:grid-cols-[minmax(0,240px)_1fr]' : ''}`}>
         {shot && (
-          <Washed src={shot} alt={`${project.title} interface`} className="aspect-[4/3] w-full self-start" />
+          <Washed
+            src={shot}
+            alt={`${project.title} interface`}
+            sizes="(min-width: 640px) 240px, calc(100vw - 64px)"
+            className="aspect-[4/3] w-full self-start"
+          />
         )}
 
         <div>

@@ -4,30 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Ali Hariz Anuari — Full-stack &amp; machine-learning engineer</title>
-    <meta name="description" content="Final-year Software Engineering student at UTM. Six months building production systems inside Malaysia Airports' IT division: a legacy finance tool migrated to the browser, and an NLP classifier that automates 95% of complaint triage." />
-    <meta name="author" content="Ali Hariz Bin Anuari" />
-    <link rel="canonical" href="https://aliharizanuari.org/" />
+    <!-- Between these markers, scripts/prerender.mjs writes the title,
+         description, canonical link, Open Graph and Twitter tags and the
+         schema.org data, all from the document the page is rendered from.
+         What is here is only a placeholder for `npm run dev`. -->
+    <!--head:start-->
+    <title>Ali Hariz Anuari</title>
+    <!--head:end-->
 
     <!-- Matches the Organic ground so mobile browser chrome doesn't clash. -->
     <meta name="theme-color" content="#f5ead8" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#2e2b25" media="(prefers-color-scheme: dark)" />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://aliharizanuari.org/" />
-    <meta property="og:title" content="Ali Hariz Anuari — Full-stack &amp; machine-learning engineer" />
-    <meta property="og:description" content="I take systems people already depend on and rebuild them so they run in a browser, explain themselves, and outlast me." />
-    <meta property="og:locale" content="en_MY" />
-
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Ali Hariz Anuari — Full-stack &amp; machine-learning engineer" />
-    <meta name="twitter:description" content="Six months shipping inside Malaysia Airports IT. UTM Software Engineering, graduating October 2026." />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Set the theme before first paint so a dark-mode visitor never sees a
-         flash of the cream ground. -->
+         flash of the cream ground. The Content-Security-Policy allows this one
+         inline script by its hash (deploy/Caddyfile.site); change a byte of it
+         and test/headers.test.mjs says which hash to put there instead. -->
     <script>
       (function () {
         try {
@@ -39,7 +35,12 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- The markers around #root ask Cloudflare's Email Address Obfuscation
+         (on by default) to leave the page alone. It would rewrite the mailto:
+         links in the prerendered HTML, and React would then find markup it did
+         not render and redraw the whole page in the browser. -->
+    <!--email_off--><div id="root"><!--app--></div><!--/email_off-->
+    <!--site-data-->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

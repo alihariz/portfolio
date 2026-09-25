@@ -3,10 +3,13 @@
  * renders the whole site without crashing.
  *
  * Why this exists: the CMS can save a document that React cannot draw — an
- * item missing a field a component calls .replace() or .map() on — and the
- * site has no error boundary, so one bad field blanks the entire page for every
- * visitor. cms/lib/validate-site.mjs is meant to reject exactly those documents.
- * This test checks that claim instead of trusting it:
+ * item missing a field a component calls .replace() or .map() on. The site's
+ * error boundaries now contain the damage (a bad section is left out; a bad
+ * header falls back to the bundled copy), but a visitor still loses content,
+ * so cms/lib/validate-site.mjs is meant to reject those documents outright.
+ * This test checks that claim instead of trusting it. The boundaries report
+ * every failure they hide as a `site:render-error` event, and the harness
+ * counts those as crashes, so the boundaries cannot make a bad document pass:
  *
  *   1. Take the real src/data/site.json.
  *   2. Mutate it hundreds of ways — delete a field, make it null, a number, an
@@ -54,7 +57,20 @@ before(async () => {
   const w = dom.window
   w.matchMedia = () => ({ matches: false, addEventListener() {}, removeEventListener() {}, addListener() {}, removeListener() {} })
   w.scrollTo = () => {}
-  for (const k of ['window', 'document', 'localStorage', 'requestAnimationFrame', 'cancelAnimationFrame', 'HTMLElement', 'Node', 'getComputedStyle']) {
+  // Sections start off screen in jsdom (every rect is zero), then "scroll in"
+  // on the next tick, so the fade and the count-up run for every document.
+  w.IntersectionObserver = class {
+    constructor(cb) { this.cb = cb }
+    observe(el) { setTimeout(() => this.cb([{ isIntersecting: true, target: el }]), 0) }
+    disconnect() {}
+    unobserve() {}
+  }
+  // Two frames per count-up, half way then past the end, so both branches of
+  // the animation run inside the few ticks each render waits.
+  let frame = 0
+  w.requestAnimationFrame = (cb) => setTimeout(() => cb(w.performance.now() + (++frame % 2 ? 450 : 5000)), 0)
+  w.cancelAnimationFrame = (id) => clearTimeout(id)
+  for (const k of ['window', 'document', 'localStorage', 'requestAnimationFrame', 'cancelAnimationFrame', 'HTMLElement', 'Node', 'getComputedStyle', 'IntersectionObserver', 'CustomEvent']) {
     Object.defineProperty(globalThis, k, { value: k === 'window' ? w : w[k], configurable: true, writable: true })
   }
   Object.defineProperty(globalThis, 'navigator', { value: w.navigator, configurable: true })
@@ -87,22 +103,28 @@ before(async () => {
 
         export async function renderSite() {
           const errors = []
+          const where = []
+          // What the site's own error boundaries caught and hid.
+          const onBoundary = (e) => { errors.push(e.detail.error); where.push(e.detail.where) }
+          window.addEventListener('site:render-error', onBoundary)
           const host = document.createElement('div')
           document.body.append(host)
           const root = createRoot(host)
           try {
-            flushSync(() => root.render(<Catch onError={(e) => errors.push(e)}><App /></Catch>))
+            flushSync(() => root.render(<Catch onError={(e) => { errors.push(e); where.push('uncaught') }}><App /></Catch>))
             // Let the fetch resolve, the fetched document swap in, and its
-            // effects (CountUp, the ?project= deep link) run.
-            for (let i = 0; i < 5; i++) await macrotask()
+            // effects (the scroll-in, CountUp, the ?project= deep link) run.
+            for (let i = 0; i < 8; i++) await macrotask()
           } catch (e) {
             errors.push(e)
+            where.push('uncaught')
           }
           const text = host.textContent || ''
           const drawerOpen = !!host.querySelector('[role="dialog"]')
           flushSync(() => root.unmount())
           host.remove()
-          return { errors, text, drawerOpen }
+          window.removeEventListener('site:render-error', onBoundary)
+          return { errors, where, text, drawerOpen }
         }
       `,
     },
@@ -244,6 +266,31 @@ test('control: the harness notices a crash when the validator is bypassed', asyn
   assert.ok(validateSite(bad).errors.length > 0, 'validator rejects it')
   const r = await render(bad)
   assert.ok(r.errors.length > 0, 'rendering it crashes, and the harness saw the crash')
+})
+
+test('a section that cannot be drawn is left out, and the rest of the page still renders', async () => {
+  const bad = clone(BASE)
+  bad.sections.find((s) => s.type === 'education').items[0].degree = 5
+  const r = await render(bad)
+  assert.deepEqual(r.where, ['section "education"'])
+  assert.ok(r.swapped, 'the rest of the fetched document is on the page')
+  assert.ok(r.text.includes(BASE.profile.name))
+  for (const s of BASE.sections.filter((s) => s.visible && s.type !== 'education' && s.title)) {
+    assert.ok(r.text.includes(s.title), `section "${s.id}" still renders`)
+  }
+  const education = BASE.sections.find((s) => s.type === 'education')
+  assert.ok(!r.text.includes(education.title), 'the broken section is left out rather than half drawn')
+})
+
+test('a document whose header cannot be drawn falls back to the bundled copy, not a blank page', async () => {
+  const bad = clone(BASE)
+  bad.profile.name = 5 // the hero splits the name into initials
+  bad.profile.headline = 'A headline only the broken document has'
+  const r = await render(bad)
+  assert.ok(r.where.includes('page'), `the page boundary caught it (${r.where.join(', ')})`)
+  assert.ok(!r.where.includes('uncaught'), 'nothing escaped to the outside')
+  assert.ok(!r.swapped && !r.text.includes(bad.profile.headline), 'the broken document is not shown')
+  assert.ok(r.text.includes(BASE.profile.headline), 'the bundled copy is')
 })
 
 test('control: a project opens in the drawer through ?project=', async () => {

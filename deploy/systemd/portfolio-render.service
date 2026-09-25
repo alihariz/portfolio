@@ -1,0 +1,19 @@
+# Re-renders aliharizanuari.org's index.html from the content the editor saved.
+# Started by portfolio-render.path (on every save) and portfolio-render.timer
+# (every 10 minutes, as a safety net). See scripts/render-live.sh.
+[Unit]
+Description=Re-render aliharizanuari.org from saved content
+After=docker.service
+Wants=docker.service
+# A burst of saves must not trip systemd's start limit and stop the watcher;
+# the script itself does nothing when the page is already up to date.
+StartLimitIntervalSec=0
+
+[Service]
+Type=oneshot
+User=ali
+Group=ali
+Environment=HOMELAB_DIR=/home/ali/homelab
+ExecStart=/usr/bin/bash /home/ali/homelab/portfolio-render/render-live.sh
+Nice=10
+TimeoutStartSec=300

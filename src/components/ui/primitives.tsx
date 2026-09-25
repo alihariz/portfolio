@@ -1,5 +1,6 @@
 import React from 'react'
 import { CountUp } from '../../lib/motion'
+import { avatarSrcSet, imageInfo, srcSetFor } from '../../lib/images'
 
 /* ── Tags ─────────────────────────────────────────────────────────────────
    Sage marks provenance (Enterprise vs Academic), terracotta marks weight
@@ -141,17 +142,90 @@ export function MetricBlock({ value, label }: { value: string; label: string }) 
   )
 }
 
+/* ── Pictures ─────────────────────────────────────────────────────────── */
+
+/**
+ * An <img>, plus AVIF and WebP at several widths when the build made them
+ * (see src/lib/images.ts). `sizes` says how wide it is drawn, so a phone takes
+ * the 400 px file and a retina laptop the 1200 px one, instead of everyone
+ * downloading the original PNG. Images uploaded through the editor are already
+ * WebP and render as they are.
+ */
+export function Picture({
+  src,
+  alt,
+  sizes,
+  className,
+  loading = 'lazy',
+  priority = false,
+  width,
+  height,
+  referrerPolicy,
+  onError,
+  imgRef,
+}: {
+  src: string
+  alt: string
+  sizes: string
+  className?: string
+  loading?: 'lazy' | 'eager'
+  /** The page's largest image above the fold: fetch it before anything else. */
+  priority?: boolean
+  width?: number
+  height?: number
+  referrerPolicy?: React.HTMLAttributeReferrerPolicy
+  onError?: React.ReactEventHandler<HTMLImageElement>
+  imgRef?: React.Ref<HTMLImageElement>
+}) {
+  const info = imageInfo(src)
+  const avif = srcSetFor(src, 'avif')
+  const webp = srcSetFor(src, 'webp')
+  // React 18 does not know fetchPriority; the lowercase attribute passes through.
+  const hint = priority ? ({ fetchpriority: 'high' } as Record<string, string>) : undefined
+
+  const avatar = avatarSrcSet(src)
+
+  const img = (
+    <img
+      ref={imgRef}
+      src={src}
+      srcSet={avatar || undefined}
+      sizes={avatar ? sizes : undefined}
+      alt={alt}
+      width={width ?? info?.w}
+      height={height ?? info?.h}
+      loading={loading}
+      decoding="async"
+      referrerPolicy={referrerPolicy}
+      className={className}
+      onError={onError}
+      {...hint}
+    />
+  )
+  if (!avif) return img
+  return (
+    <picture>
+      <source type="image/avif" srcSet={avif} sizes={sizes} />
+      <source type="image/webp" srcSet={webp} sizes={sizes} />
+      {img}
+    </picture>
+  )
+}
+
 /* ── Photographs sit back into the ground ─────────────────────────────── */
 
 export function Washed({
   src,
   alt,
+  sizes,
   className = '',
   loading = 'lazy',
   fit = 'contain',
 }: {
   src: string
   alt: string
+  /** How wide the image is drawn at each breakpoint, for picking a file. */
+  sizes: string
   className?: string
   loading?: 'lazy' | 'eager'
   /** Screenshots need `contain` — cropping a UI to fill a box usually lands
@@ -160,11 +234,11 @@ export function Washed({
 }) {
   return (
     <div className={`overflow-hidden rounded-md bg-neutral-200 p-2 dark:bg-neutral-800 ${className}`}>
-      <img
+      <Picture
         src={src}
         alt={alt}
+        sizes={sizes}
         loading={loading}
-        decoding="async"
         className={`washed h-full w-full rounded-sm ${fit === 'cover' ? 'object-cover' : 'object-contain'}`}
       />
     </div>

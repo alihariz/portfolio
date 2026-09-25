@@ -1,0 +1,106 @@
+# ── aliharizanuari.org — portfolio (prerendered React + CMS-written content) ─
+#
+# Replaces everything from this comment down to the HARDA section in
+# /home/ali/homelab/caddy/Caddyfile. deploy/apply-caddy-site.py does that,
+# validates, and reloads. The editor's /content and /media rules are unchanged
+# from cms/deploy/Caddyfile.snippet.
+
+# Security headers for every response, errors included: Caddy runs error
+# routes separately, so they are imported in handle_errors below as well.
+(portfolio_headers) {
+	header {
+		# HTTPS only, for a year, this hostname only (no includeSubDomains, so
+		# nothing else on the domain is committed to it). Browsers accept it only
+		# over HTTPS, which Cloudflare always is for visitors.
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy strict-origin-when-cross-origin
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+		Cross-Origin-Opener-Policy same-origin
+		# Report-Only first: the browser console lists anything this would block,
+		# and nothing is blocked. Switch the name to Content-Security-Policy once
+		# a week of browsing shows no reports. The hash is the theme script in
+		# index.html; test/headers.test.mjs fails if they ever disagree.
+		# img-src allows GitHub for the avatar fallback in the hero, used until a
+		# portrait is committed as public/assets/images/profile.jpg.
+		Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'sha256-fC6ZVW0qG/emR4qHPkw7Y/UI4fvMzw+j6/o706tzC5U='; style-src 'self'; img-src 'self' https://github.com https://avatars.githubusercontent.com; font-src 'self'; connect-src 'self'; manifest-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'"
+		-Server
+	}
+}
+
+http://aliharizanuari.org, http://www.aliharizanuari.org {
+	encode gzip
+	import portfolio_headers
+
+	# One address for search engines and link previews.
+	@www host www.aliharizanuari.org
+	redir @www https://aliharizanuari.org{uri} 301
+
+	# Only the documents themselves are public. The editor's temp files
+	# (.staging/), and anything else that ever lands in the folder, are not.
+	# no-cache (not no-store) lets browsers revalidate with the ETag Caddy
+	# sends and get a 304 when nothing changed.
+	handle_path /content/* {
+		@notdoc not path_regexp ^/site(\.[a-z0-9-]+)?\.json$
+		respond @notdoc 404
+		root * /srv/site-content
+		header Cache-Control "no-cache"
+		header Access-Control-Allow-Origin "*"
+		file_server
+	}
+
+	# Uploaded images only. Names are content hashes, so a URL never changes
+	# meaning and can be cached for good; the CSP makes sure that even a file
+	# that somehow got here could never run as a page.
+	handle_path /media/* {
+		@notimage not path_regexp \.(webp|avif|png|jpe?g)$
+		respond @notimage 404
+		root * /srv/site-content/media
+		header Cache-Control "public, max-age=31536000, immutable"
+		header Content-Security-Policy "default-src 'none'; sandbox"
+		file_server
+	}
+
+	handle {
+		root * /srv/landing
+
+		# Vite puts a content hash in these names (index-3fA9x_Qe.js,
+		# figtree-latin-400-normal-g7Dtegnw.woff2), so a name never changes meaning.
+		@fingerprinted path_regexp ^/assets/[^/]+-[A-Za-z0-9_-]{8}\.(js|css|woff2?)$
+		header @fingerprinted Cache-Control "public, max-age=31536000, immutable"
+
+		# index.html is the page, re-rendered on the box whenever the editor
+		# saves, and it names the current asset hashes: never hold it at the edge.
+		@entry path / /index.html
+		header @entry Cache-Control "no-cache, must-revalidate"
+
+		# The pipeline stamps this file with the commit that is live.
+		@version path /version.json
+		header @version Cache-Control "no-store"
+
+		# Stable names that can change on a deploy: a day.
+		@bundled path /assets/images/* /assets/img/* /assets/resume/* /og.png /favicon.ico /apple-touch-icon.png /icon-*.png /site.webmanifest /robots.txt /sitemap.xml
+		header @bundled Cache-Control "public, max-age=86400"
+
+		file_server
+	}
+
+	# A real page for addresses that do not exist, with the same headers as
+	# everything else. (Before this, Caddy's 404s were empty and lost them.)
+	handle_errors 404 {
+		import portfolio_headers
+		# A missing /media file must not carry the images' sandbox policy onto
+		# this page, which would leave it unstyled.
+		header -Content-Security-Policy
+		root * /srv/landing
+		rewrite * /404.html
+		header Cache-Control "no-cache"
+		file_server
+	}
+	handle_errors {
+		import portfolio_headers
+		respond "{err.status_code} {err.status_text}"
+	}
+}
+
